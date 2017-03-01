@@ -1,29 +1,23 @@
-# README #
+Using the automation framework
 
-This README would normally document whatever steps are necessary to get your application up and running.
+**Get Ready**
+- Open a terminal
+- Install Node v by typing `___ <put instructions here>`
+- Navigate your terminal to the folder where you wish to put the code
 
-### What is this repository for? ###
+**Get the code**
+- Clone it from BitBucket (PUT LINK HERE)
+- Type `cd <PUT FOLDER HERE>` 
+- Run `npm install`
+  - This will install Protractor _VERSION_, TypeScript _VERSION_, Cucumber _VERSION_, and other packages 
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+**Run the tests**
 
-### How do I get set up? ###
+Assuming you're still in the folder where you ran the install...
+- Type `npm run webdriver-start`
+  - This will start Selenium
+- Open a new tab in the terminal and navigate to the same folder
+- Type `npm test`
+  - This will compile the TypeScript changes and launch the tests
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Note: Initial configuration inspiration came from to https://github.com/igniteram/protractor-cucumber-typescript
