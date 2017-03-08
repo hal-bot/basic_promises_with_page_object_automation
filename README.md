@@ -1,23 +1,29 @@
-Using the automation framework
+Setup
+=====
 
-**Get Ready**
-- Open a terminal
-- Install Node v by typing `___ <put instructions here>`
-- Navigate your terminal to the folder where you wish to put the code
+```
+npm install
+```
 
-**Get the code**
-- Clone it from BitBucket (PUT LINK HERE)
-- Type `cd <PUT FOLDER HERE>` 
-- Run `npm install`
-  - This will install Protractor _VERSION_, TypeScript _VERSION_, Cucumber _VERSION_, and other packages 
+- Installs node modules
+  - Protractor node module with TypeScript support
+- Installs ambient typing dependencies.
 
-**Run the tests**
+Testing with TypeScript
+=======================
 
-Assuming you're still in the folder where you ran the install...
-- Type `npm run webdriver-start`
-  - This will start Selenium
-- Open a new tab in the terminal and navigate to the same folder
-- Type `npm test`
-  - This will compile the TypeScript changes and launch the tests
+```
+npm test
+```
 
-Note: Initial configuration inspiration came from to https://github.com/igniteram/protractor-cucumber-typescript
+- Transpiles TypeScript
+- Runs `webdriver-manager update` to download the ChromeDriver
+- Runs the test directly with ChromeDriver
+
+Note
+----
+
+Currently, Protractor typings do not include selenium-webdriver ambient
+typings. There is also an ambient typings file for Protractor on Definitely
+Typed. Although this does not match up with the current API, this ambient
+typings file can still be used to write Protractor with TypeScript.
