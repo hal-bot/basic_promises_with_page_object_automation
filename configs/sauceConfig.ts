@@ -53,13 +53,6 @@ export let config: Config = {
     //     shardTestFiles: true,
     //     maxInstances: 25
     // }, {
-    //     name: "win10-edge14-tests",
-    //     browserName: 'MicrosoftEdge',
-    //     version: '14.14393',
-    //     platform: 'Windows 10',
-    //     shardTestFiles: true,
-    //     maxInstances: 25
-    // }, {
     //     name: "iPad2-resolution-tests",
     //     browserName: 'chrome',
     //     version: '56',

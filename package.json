@@ -12,11 +12,11 @@
   "author": "Hal Deranek (Slalom)",
   "license": "MIT",
   "dependencies": {
-    "protractor": "^5.1.0",
-    "typescript": "^2.2"
+    "protractor": "^5.1.x",
+    "typescript": "^2.x"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.41",
+    "@types/jasmine": "^2.5.x",
     "@types/node": "^6.0.62"
   }
 }
