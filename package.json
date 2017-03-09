@@ -1,12 +1,11 @@
 {
-  "name": "protractor-typescript",
+  "name": "haemonetics_safetrace_tx_automation",
   "version": "0.0.1",
   "description": "Automated tests for the Haemonetics SafeTrace TX site",
   "scripts": {
-    "default-test": "npm run pretest && protractor tmp/configs/defaultConfig.js",
-    "saucelabs-test": "npm run pretest && protractor tmp/configs/sauceConfig.js",
+    "default-tests": "npm run pretest && protractor tmp/configs/defaultConfig.js",
+    "saucelabs-tests": "npm run pretest && protractor tmp/configs/sauceConfig.js",
     "pretest": "tsc",
-    "start": "cd ../testapp && npm install && npm start",
     "test": "npm run default-test"
   },
   "author": "Hal Deranek (Slalom)",

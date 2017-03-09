@@ -9,21 +9,32 @@ npm install
   - Protractor node module with TypeScript support
 - Installs ambient typing dependencies.
 
-Testing with TypeScript
+Testing on Your Machine
 =======================
 
+In your terminal, run this in one tab...
+
 ```
-npm test
+webdriver-manager start 
 ```
+... and in another tab type this:
 
-- Transpiles TypeScript
-- Runs `webdriver-manager update` to download the ChromeDriver
-- Runs the test directly with ChromeDriver
+```
+npm run default-test
+```
+This will:
+- Transpile TypeScript
+- Run the test directly with ChromeDriver on your local machine
 
-Note
-----
+Testing with SauceLabs
+=======================
+In your terminal, type this:
+                  
+```
+npm run saucelabs-test
+```
+This will:
+- Transpile TypeScript
+- Run the test in whatever has been specified in the "multiCapabilities" section of 'congifs > sauceConfig.ts'
 
-Currently, Protractor typings do not include selenium-webdriver ambient
-typings. There is also an ambient typings file for Protractor on Definitely
-Typed. Although this does not match up with the current API, this ambient
-typings file can still be used to write Protractor with TypeScript.
+For more information, go here: (TBA)
