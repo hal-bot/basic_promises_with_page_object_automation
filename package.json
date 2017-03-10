@@ -1,32 +1,21 @@
 {
-  "name": "safetrace-tx-automated-ui-tests",
+  "name": "haemonetics_safetrace_tx_automation",
   "version": "0.0.1",
-  "license": "MIT",
-  "description": "A series of automated front-end tests for the SafeTrace TX 4.0 cloud app",
-  "homepage": "http://www.haemonetics.com/en.aspx",
-  "author": "Hal Deranek (Slalom)",
+  "description": "Automated tests for the Haemonetics SafeTrace TX site",
   "scripts": {
+    "default-tests": "npm run pretest && protractor tmp/configs/defaultConfig.js",
+    "saucelabs-tests": "npm run pretest && protractor tmp/configs/sauceConfig.js",
     "pretest": "tsc",
-    "test": "protractor typeScript/config/config.js",
-    "webdriver-update": "webdriver-manager update",
-    "webdriver-start": "webdriver-manager start"
+    "test": "npm run default-test"
+  },
+  "author": "Hal Deranek (Slalom)",
+  "license": "MIT",
+  "dependencies": {
+    "protractor": "^5.1.x",
+    "typescript": "^2.x"
   },
   "devDependencies": {
-    "@types/cucumber": "~0.0.35",
-    "@types/node": "^6.0.52",
-    "@types/selenium-webdriver": "~2.53.39",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "cucumber": "^1.2.2",
-    "protractor-cucumber-framework": "^0.6.0"
-  },
-  "dependencies": {
-    "protractor": "^5.1.1",
-    "ts-node": "^2.0.0",
-    "typescript": "~2.1.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/haemoslalom/safetracetxui"
+    "@types/jasmine": "^2.5.x",
+    "@types/node": "^6.0.62"
   }
 }
