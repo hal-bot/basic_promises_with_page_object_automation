@@ -4,7 +4,8 @@ import * as env from '../environment';
 describe('slow calculator', () => {
 
     beforeEach(() => {
-        browser.get(env.url + '/ng1/calculator/');
+        // this will make the test fail
+        browser.get(env.url + '/ng1/calculatr/');
     });
 
     it('should have a title', () => {
