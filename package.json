@@ -3,15 +3,16 @@
   "version": "0.0.1",
   "description": "Automated tests for the Haemonetics SafeTrace TX site",
   "scripts": {
-    "default-tests": "npm run pretest && protractor tmp/configs/defaultConfig.js",
-    "saucelabs-tests": "npm run pretest && protractor tmp/configs/sauceConfig.js",
     "pretest": "tsc",
-    "test": "npm run default-test"
+    "default-tests": "npm run pretest && protractor-flake --max-attempts=2 -- tmp/configs/defaultConfig.js",
+    "saucelabs-tests": "npm run pretest && protractor-flake --max-attempts=2 --  tmp/configs/sauceConfig.js",
+    "test": "npm run default-tests"
   },
   "author": "Hal Deranek (Slalom)",
   "license": "MIT",
   "dependencies": {
     "protractor": "^5.1.x",
+    "protractor-flake": "^2.5.0",
     "typescript": "^2.x"
   },
   "devDependencies": {
