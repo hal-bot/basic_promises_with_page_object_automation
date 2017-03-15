@@ -16,5 +16,5 @@ describe('slow calculator', () => {
             expect(title).toEqual('Super Calculator');
         });
     });
-  
+
 });

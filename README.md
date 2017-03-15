@@ -5,9 +5,9 @@ Setup
 npm install
 ```
 
-- Installs node modules
-  - Protractor node module with TypeScript support
-- Installs ambient typing dependencies.
+- This installs the npm packages
+
+For IE testing, follow the instructions at this website: http://bit.ly/2mFDdMZ
 
 Testing on Your Machine
 =======================
@@ -17,24 +17,30 @@ In your terminal, run this in one tab...
 ```
 webdriver-manager start 
 ```
-... and in another tab type this:
+If this fails, try running 'webdriver-manager update', then try the 'start' command again
+
+In a second tab, type this:
 
 ```
-npm run default-test
+npm run default-tests
 ```
+
 This will:
 - Transpile TypeScript
-- Run the test directly with ChromeDriver on your local machine
+- Run the test directly with the browser specified in the "capabilities" section of 'congifs > defaultConfig.ts' on your local machine
+- Rerun test files where a test has failed
 
 Testing with SauceLabs
 =======================
 In your terminal, type this:
                   
 ```
-npm run saucelabs-test
+npm run saucelabs-tests
 ```
 This will:
 - Transpile TypeScript
 - Run the test in whatever has been specified in the "multiCapabilities" section of 'congifs > sauceConfig.ts'
+- Rerun test files where a test has failed
 
-For more information, go here: (TBA)
+For more information, see: https://haemoslalom.atlassian.net/wiki/pages/viewpage.action?pageId=5182205#
+
