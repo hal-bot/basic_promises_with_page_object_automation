@@ -36,6 +36,6 @@ export let config: Config = {
     },
 
     resultJsonOutputFile: 'report.json',
-    noGlobals: true,
+    noGlobals: true
 
 };

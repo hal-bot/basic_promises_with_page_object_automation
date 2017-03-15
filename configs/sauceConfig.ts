@@ -39,7 +39,7 @@ export let config: Config = {
     //     shardTestFiles: true,
     //     maxInstances: 25
     // }, {
-    //     name: "win10-ie11-tests",a
+    //     name: "win10-ie11-tests",
     //     browserName: 'internet explorer',
     //     version: '11.0',
     //     platform: 'Windows 10',
