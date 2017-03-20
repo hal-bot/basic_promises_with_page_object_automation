@@ -1,11 +1,11 @@
-import { $, $$ } from 'protractor';
+import { $, $$, ElementFinder } from 'protractor';
 import {Tab} from "./class_Tab";
 import {ColumnHeader} from "../columnHeader";
 
 class VisitTab extends Tab {
 
-    showDischargedVisits_checkbox: object;
-    createVisit_button: object;
+    showDischargedVisits_checkbox: ElementFinder;
+    createVisit_button: ElementFinder;
 
     admissionDateHeader: ColumnHeader;
     visitTypeHeader: ColumnHeader;
@@ -35,20 +35,21 @@ class VisitTab extends Tab {
     // This will clear out the current 'visits' array and then get the array rows
     setVisitsArray() {
         this.visits = [];
-        $$('').each.do(function(visit) {
-            this.visits.push(new VisitRow(visit));
-        });
+        // TODO: FINISH THE CODE HERE
+        // $$('').each.do(function(visit) {
+        //     this.visits.push(new VisitRow(visit));
+        // });
     }
 }
 
 
 class VisitRow {
-    admissionDate: object;  // (DATE??)
-    type: object;
-    mrn: object;
-    serviceProvider: object;
-    accountNumber: object; // ??
-    location: object;
+    admissionDate: ElementFinder;  // (DATE??)
+    type: ElementFinder;
+    mrn: ElementFinder;
+    serviceProvider: ElementFinder;
+    accountNumber: ElementFinder; // ??
+    location: ElementFinder;
 
     constructor(element) {
         this.admissionDate = element.$('');
@@ -59,27 +60,31 @@ class VisitRow {
         this.location = element.$('');
     };
 
-    getAdmissionDate(): string {
+    getAdmissionDate(): Promise<string> {
         return this.admissionDate.getText();
     }
 
-    getType(): string {
+    getType(): Promise<string> {
         return this.type.getText();
     }
 
-    getMRN(): number {
-        return this.mrn.getText();
+    getMRN(): Promise<number> {
+        return this.mrn.getText().then(function(value) {
+            return Number(value);
+        });
     }
 
-    getServiceProvider(): string {
+    getServiceProvider(): Promise<string> {
         return this.serviceProvider.getText();
     }
 
-    getAccountNumber(): number {
-        return this.accountNumber.getText();
+    getAccountNumber(): Promise<number> {
+        return this.accountNumber.getText().then(function(value) {
+            return Number(value);
+        });
     }
 
-    getLocation(): string {
+    getLocation(): Promise<string> {
         return this.location.getText();
     }
 

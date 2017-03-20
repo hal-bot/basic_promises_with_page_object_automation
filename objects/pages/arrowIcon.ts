@@ -13,5 +13,6 @@ export class arrowIcon {
          * Determine what denotes the arrow's direction
          * Return the direction
          */
+        return "";
     }
 }

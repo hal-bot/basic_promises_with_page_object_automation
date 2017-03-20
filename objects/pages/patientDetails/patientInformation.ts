@@ -1,5 +1,8 @@
 // Describes the section below the Patient Detail header and the tabs section
 
+import {InfoButton} from "./class_infoButton";
+import {TitleValueElement} from "../titleValueElement";
+
 class PatientInformation {
     mrNumber: TitleValueElement;
     patientID: TitleValueElement;
@@ -41,27 +44,29 @@ class PatientInformation {
 
     }
 
-    getMRNumber(): string {
-        return this.mrNumber.getText();
+    getMRNumber(): Promise<string> {
+        return this.mrNumber.getTitle();
     }
 
-    getPatientNumber(): string {
-        return this.patientID.getText();
+    getPatientNumber(): Promise<number> {
+        return this.patientID.getTitle().then(function(value) {
+            return Number(value);
+        });
     }
 
-    getLastName(): string {
-        return this.lastName.getText();
+    getLastName(): Promise<string> {
+        return this.lastName.getTitle();
     }
 
-    getFirstName(): string {
-        return this.firstName.getText();
+    getFirstName(): Promise<string> {
+        return this.firstName.getTitle();
     }
 
-    getMiddleName(): string {
-        return this.middleName.getText();
+    getMiddleName(): Promise<string> {
+        return this.middleName.getTitle();
     }
 
-    getFullName(): string {
+    getFullName(): Promise<string> {
         return this.getFirstName().then(function(firstName) {
             return this.getMiddleName().then(function(middleName) {
                 return this.getLastName().then(function(lastName) {
@@ -71,8 +76,8 @@ class PatientInformation {
         })
     }
 
-    getDateOfBirth(): string {
-        return this.dateOfBirth.getText();
+    getDateOfBirth(): Promise<string> {
+        return this.dateOfBirth.getTitle();
     }
 
 

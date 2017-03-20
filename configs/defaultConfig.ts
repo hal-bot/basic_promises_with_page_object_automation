@@ -17,6 +17,7 @@ export let config: Config = {
     ],
 
     onPrepare: () => {
+        console.log("  PREPARING TESTS");
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
     },
