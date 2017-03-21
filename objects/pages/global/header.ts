@@ -1,4 +1,4 @@
-import { ElementFinder, $, by, protractor } from 'protractor';
+import { ElementFinder, $, by, protractor, browser, element } from 'protractor';
 
 export class GlobalHeader {
 
@@ -10,9 +10,13 @@ export class GlobalHeader {
     orders: HeaderOption;
 
     constructor() {
-        this.container = $('app-header');
-        this.patients = new HeaderOption(this.container.element(by.text("Patients")));
-        this.orders = new HeaderOption(this.container.element(by.text("Orders")));
+        this.container = $('div.app-header');
+        this.patients = new HeaderOption(this.container.element(by.linkText("Patients")));
+        this.orders = new HeaderOption(this.container.element(by.linkText("Orders")));
+    }
+
+    isPresent(): Promise<boolean> {
+        return this.container.isPresent();
     }
 
     //TODO: Create 'open' and 'close' methods for
@@ -48,9 +52,12 @@ class HeaderOption {
 
     // Returns true if the option is expanded, false if not
     isExpanded(): boolean {
-
+        //TODO: add locic here
         return false;
     }
 
+    isPresent(): Promise<boolean> {
+        return this.link.isPresent();
+    }
 
 }
