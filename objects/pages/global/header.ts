@@ -9,10 +9,19 @@ export class GlobalHeader {
     patients: HeaderOption;
     orders: HeaderOption;
 
+    // icons
+    settings: ElementFinder;
+    logout: ElementFinder;
+
     constructor() {
         this.container = $('div.app-header');
+
         this.patients = new HeaderOption(this.container.element(by.linkText("Patients")));
         this.orders = new HeaderOption(this.container.element(by.linkText("Orders")));
+
+        // TODO: Update this code once these icons become enabled
+        // this.settings = this.container.element(by.linkText("Patients"));
+        // this.logout = this.container.element(by.linkText("Patients"));
     }
 
     isPresent(): Promise<boolean> {
@@ -52,7 +61,7 @@ class HeaderOption {
 
     // Returns true if the option is expanded, false if not
     isExpanded(): boolean {
-        //TODO: add locic here
+        //TODO: add logic here
         return false;
     }
 

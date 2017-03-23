@@ -1,31 +1,31 @@
 /**
- *  Description: This will test P1 tests for the header
+ *  Description: This will test P1 tests for the global footer
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-114
  */
 
 
 import { browser, $ } from 'protractor';
-import { GlobalHeader } from "../objects/pages/global/header";
+import { GlobalFooter } from "../objects/pages/global/footer";
 
 
-describe('The global header from a P1 level', () => {
+describe('The global footer from a P1 level', () => {
 
-    let header: GlobalHeader;
+    let footer: GlobalFooter;
 
     beforeEach( () => {
-        browser.get('https://dev.sttx40.com/#/');
-        header = new GlobalHeader();
+        // browser.get('https://dev.sttx40.com/#/');
+        footer = new GlobalFooter();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
     it('should be present', () => {
-        expect(header.isPresent()).toBe(true);
+        expect(footer.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
     it('should have all expected elements', () => {
         // expect Dashboard to be present
-        expect(header.patients.isPresent()).toBe(true);
+        expect(footer.patients.isPresent()).toBe(true);
         // expect(header.orders.link.isPresent()).toBe(true);
         // expect Patents to be present and have a downward facing arrow
         // expect Orders to be present and have a downward facing arrow
@@ -35,8 +35,8 @@ describe('The global header from a P1 level', () => {
         // expect Activity to be present and have a downward facing arrow
         // expect Interfaces to be present and have a downward facing arrow
         // expect Administration to be present and have a downward facing arrow
-        // expect(header.settings.isPresent()).toBe(true);
-        // expect(header.logout.isPresent()).toBe(true);
+        // expect the Settings gear icon to be present
+        // expect the Logout icon to be present
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
@@ -56,7 +56,7 @@ describe('The global header from a P1 level', () => {
                 break;
             } else {
                 browser.get(page);
-                expect(header.isPresent()).toBe(true);
+                expect(footer.isPresent()).toBe(true);
             }
             ++pageCount;
         }

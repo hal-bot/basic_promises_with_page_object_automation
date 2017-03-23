@@ -20,14 +20,14 @@ export let config: Config = {
     // baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
 
     onPrepare: () => {
-        console.log("  PREPARING TESTS");
+        // console.log("  PREPARING TESTS");
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
     },
 
     onComplete: () => {
         return browser.getProcessedConfig().then(function(config) {
-            console.log('  Finished tests for this capability: ' + config.capabilities);
+            // console.log('  Finished tests for this capability: ' + config.capabilities);
         });
     },
 
