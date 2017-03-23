@@ -16,7 +16,11 @@ export let config: Config = {
       '../specs/*.js'
     ],
 
+    baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
+    // baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+
     onPrepare: () => {
+        console.log("  PREPARING TESTS");
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
     },
