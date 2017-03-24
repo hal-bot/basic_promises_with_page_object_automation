@@ -9,7 +9,7 @@ import { GlobalFooter } from "../objects/pages/global/footer";
 import fs = require('fs');
 
 
-describe('The global footer from a P1 level', () => {
+xdescribe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
 

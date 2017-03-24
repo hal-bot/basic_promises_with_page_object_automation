@@ -21,13 +21,13 @@ export abstract class Tab {
     }
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
-    getTabCount(): Promise<number> {
-        // TODO: SET UP PROMISE STUFF HERE
-        if (!this.pagination.isPresent()) { return -1 };
-        return this.pagination.getText().then(function(count) {
-            return Number(count);
-        });
-    }
+    // getTabCount(): Promise<number> {
+    //     // TODO: SET UP PROMISE STUFF HERE
+    //     if (!this.pagination.isPresent()) { return -1 };
+    //     return this.pagination.getText().then(function(count) {
+    //         return Number(count);
+    //     });
+    // }
 
     getTitle(): Promise<string> {
         return this.title.getText();
