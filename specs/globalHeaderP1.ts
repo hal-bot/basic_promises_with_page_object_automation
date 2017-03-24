@@ -4,16 +4,16 @@
  */
 
 
-import { browser, $ } from 'protractor';
+import { browser } from 'protractor';
 import { GlobalHeader } from "../objects/pages/global/header";
-
+import fs = require('fs');
 
 describe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
 
     beforeEach( () => {
-        browser.get('https://dev.sttx40.com/#/');
+        browser.get('/');
         header = new GlobalHeader();
     });
 
@@ -44,11 +44,7 @@ describe('The global header from a P1 level', () => {
 
         let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
         let pageCount = 0;          // keeps track of how many pages we've tested
-        let pages: [string] = [     // a list of pages to check for the header
-            '',
-            '/#/patient/67315',
-            '/#/patient/65858'
-        ];
+        let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
 
         for (let page of pages) {
             // console.log("\n  Testing page: " + page + ",  test #" + pageCount);

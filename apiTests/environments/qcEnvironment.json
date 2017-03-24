@@ -1,0 +1,52 @@
+{
+  "id": "926ef6b4-eba4-0368-81c6-f74ddeb4d805",
+  "name": "QC",
+  "values": [
+    {
+      "enabled": true,
+      "key": "baseURL",
+      "value": "https://qc.sttx40.com/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionOrders",
+      "value": "Orders/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionProducts",
+      "value": "Products/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionVisitDetails",
+      "value": "VisitDetails/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionBase",
+      "value": "Patients/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionLookupData",
+      "value": "LookupData/",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "sectionSpecimens",
+      "value": "Specimens/",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1490110453327,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-03-23T22:11:43.703Z",
+  "_postman_exported_using": "Postman/4.10.3"
+}

@@ -5,8 +5,8 @@ export class TitleValueElement {
     value: ElementFinder;
 
     constructor(element: ElementFinder) {
-        this.title = element.$('');
-        this.value = element.$('');
+        this.title = element.$('label.content-label');
+        this.value = element.$('input.content-input');
     }
 
     getTitle(): Promise<string> {

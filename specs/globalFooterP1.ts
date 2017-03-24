@@ -4,8 +4,9 @@
  */
 
 
-import { browser, $ } from 'protractor';
+import { browser } from 'protractor';
 import { GlobalFooter } from "../objects/pages/global/footer";
+import fs = require('fs');
 
 
 describe('The global footer from a P1 level', () => {
@@ -13,7 +14,7 @@ describe('The global footer from a P1 level', () => {
     let footer: GlobalFooter;
 
     beforeEach( () => {
-        // browser.get('https://dev.sttx40.com/#/');
+        browser.get('/');
         footer = new GlobalFooter();
     });
 
@@ -23,20 +24,13 @@ describe('The global footer from a P1 level', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
-    it('should have all expected elements', () => {
-        // expect Dashboard to be present
-        expect(footer.patients.isPresent()).toBe(true);
-        // expect(header.orders.link.isPresent()).toBe(true);
-        // expect Patents to be present and have a downward facing arrow
-        // expect Orders to be present and have a downward facing arrow
-        // expect Inventory to be present and have a downward facing arrow
-        // expect Statistics to be present and have a downward facing arrow
-        // expect Quality Control to be present and have a downward facing arrow
-        // expect Activity to be present and have a downward facing arrow
-        // expect Interfaces to be present and have a downward facing arrow
-        // expect Administration to be present and have a downward facing arrow
-        // expect the Settings gear icon to be present
-        // expect the Logout icon to be present
+    fit('should have all expected elements', () => {
+        expect(footer.name.isPresent()).toBe(true);
+        // expect(footer.location.isPresent()).toBe(true);      // Not currently instantiated
+        expect(footer.copyright.isPresent()).toBe(true);
+        expect(footer.safetraceLogo.isPresent()).toBe(true);
+        expect(footer.haemoneticsLogo.isPresent()).toBe(true);
+
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
@@ -44,11 +38,7 @@ describe('The global footer from a P1 level', () => {
 
         let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
         let pageCount = 0;          // keeps track of how many pages we've tested
-        let pages: [string] = [     // a list of pages to check for the header
-            '',
-            '/#/patient/67315',
-            '/#/patient/65858'
-        ];
+        let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
 
         for (let page of pages) {
             // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
