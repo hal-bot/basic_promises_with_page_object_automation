@@ -4,20 +4,20 @@
  */
 
 
-import { browser, $ } from 'protractor';
+import { browser } from 'protractor';
 import { GlobalHeader } from "../objects/pages/global/header";
-
+import fs = require('fs');
 
 describe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
 
     beforeEach( () => {
-        browser.get('https://dev.sttx40.com/#/');
+        browser.get('/');
         header = new GlobalHeader();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 **/
     it('should be present', () => {
         expect(header.isPresent()).toBe(true);
     });
@@ -35,8 +35,8 @@ describe('The global header from a P1 level', () => {
         // expect Activity to be present and have a downward facing arrow
         // expect Interfaces to be present and have a downward facing arrow
         // expect Administration to be present and have a downward facing arrow
-        // expect the Settings gear icon to be present
-        // expect the Logout icon to be present
+        // expect(header.settings.isPresent()).toBe(true);
+        // expect(header.logout.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
@@ -44,11 +44,7 @@ describe('The global header from a P1 level', () => {
 
         let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
         let pageCount = 0;          // keeps track of how many pages we've tested
-        let pages: [string] = [     // a list of pages to check for the header
-            '',
-            '/#/patient/67315',
-            '/#/patient/65858'
-        ];
+        let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
 
         for (let page of pages) {
             // console.log("\n  Testing page: " + page + ",  test #" + pageCount);

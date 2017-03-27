@@ -11,7 +11,7 @@ export class ColumnHeader {
         this.arrow = new arrowIcon(element);
     }
 
-    getHeaderTitle(): object {
+    getHeaderTitle(): Promise<string> {
         return this.headerElement.getText();
     }
 }

@@ -4,7 +4,7 @@ import {InfoButton} from "./class_infoButton";
 import {TitleValueElement} from "../titleValueElement";
 
 class PatientInformation {
-    mrNumber: TitleValueElement;
+    mrn: TitleValueElement;
     patientID: TitleValueElement;
     lastName: TitleValueElement;
     firstName: TitleValueElement;
@@ -24,7 +24,7 @@ class PatientInformation {
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor(element) {
-        this.mrNumber = new TitleValueElement(element.$(''));
+        this.mrn = new TitleValueElement(element.$(''));
         this.patientID = new TitleValueElement(element.$(''));
         this.lastName = new TitleValueElement(element.$(''));
         this.firstName = new TitleValueElement(element.$(''));
@@ -44,8 +44,8 @@ class PatientInformation {
 
     }
 
-    getMRNumber(): Promise<string> {
-        return this.mrNumber.getTitle();
+    getMRN(): Promise<string> {
+        return this.mrn.getTitle();
     }
 
     getPatientNumber(): Promise<number> {
