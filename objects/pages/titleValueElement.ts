@@ -1,4 +1,4 @@
-import { ElementFinder, browser, by, element, $ } from 'protractor';
+import { ElementFinder } from 'protractor';
 
 export class TitleValueElement {
     title: ElementFinder;
@@ -13,9 +13,7 @@ export class TitleValueElement {
         return this.title.getText();
     }
 
-    getValue(): Promise<number> {
-        return this.value.getTitle().then(function(valueNumber) {
-            return Number(valueNumber);
-        });
+    getValue(): Promise<string> {
+        return this.value.getTitle();
     }
 }

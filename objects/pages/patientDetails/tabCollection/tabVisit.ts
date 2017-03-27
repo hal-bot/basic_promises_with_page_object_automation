@@ -1,6 +1,8 @@
+// Describes the "Visit" tab section seen on the Patient Details page
+
 import { $, $$, ElementFinder } from 'protractor';
-import {Tab} from "./class_Tab";
-import {ColumnHeader} from "../columnHeader";
+import {Tab} from "../class_Tab";
+import {ColumnHeader} from "../../columnHeader";
 
 class VisitTab extends Tab {
 

@@ -1,33 +1,37 @@
-import { $, ElementFinder } from 'protractor';
+import { $, ElementFinder, promise } from 'protractor';
 
 export abstract class Tab {
-    tabRowWrapper: ElementFinder;
-    title: ElementFinder;
-    pagination: ElementFinder;
+
+    actualTab: ElementFinder;           // the actual tab that is selected      Ex: Visit
+    tabContentContainer: ElementFinder; // the container for the tab content
+    title: ElementFinder;               // the title of the tab                 Ex: Visit Information
+    pagination: ElementFinder;          // the page count at the bottom of the container
 
     constructor(element: ElementFinder) {
-        this.tabRowWrapper = element;
+        this.tabContentContainer = $('');     // TODO - CODE THIS
+        this.actualTab = element;
         this.title = element.$('a.nav-link');
         this.pagination = element.$('span.tab-counter');
     }
 
     getTabTitle(): Promise<string> {
-        // TODO: Look at how to return only the title if there is a number next to it
-        //  if there's a number
-        //      see if there's a way to find the title separate from the number via page elements
-        //      if not, do a regex
-        //  else ...
-        return this.tabRowWrapper.getText();
+        return this.actualTab.getText();
     }
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
+    getTabCount() {
     // getTabCount(): Promise<number> {
-    //     // TODO: SET UP PROMISE STUFF HERE
-    //     if (!this.pagination.isPresent()) { return -1 };
-    //     return this.pagination.getText().then(function(count) {
-    //         return Number(count);
-    //     });
-    // }
+        // TODO: SET UP PROMISE STUFF HERE
+        if (!this.pagination.isPresent()) {
+            // let deferred = promise.defer();
+            // deferred.promise = -1;
+            // return deferred.promise;
+        } else {
+            return this.pagination.getText().then(function(count) {
+                return Number(count);
+            });
+        }
+    }
 
     getTitle(): Promise<string> {
         return this.title.getText();
