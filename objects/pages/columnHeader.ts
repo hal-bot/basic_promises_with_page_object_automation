@@ -1,5 +1,5 @@
-import { ElementFinder, browser, by, element, $ } from 'protractor';
-import {arrowIcon} from "./arrowIcon";
+import { ElementFinder } from 'protractor';
+import { arrowIcon } from "./arrowIcon";
 
 
 export class ColumnHeader {

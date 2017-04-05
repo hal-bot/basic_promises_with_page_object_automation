@@ -5,12 +5,12 @@
 
 
 import { browser } from 'protractor';
-import { GlobalHeader } from "../objects/pages/global/header";
-import fs = require('fs');
+import { GlobalHeader } from "../../objects/pages/global/header";
 
 describe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
+    let fs = require('fs');
 
     beforeEach( () => {
         browser.get('/');
@@ -57,6 +57,16 @@ describe('The global header from a P1 level', () => {
             ++pageCount;
         }
 
+    });
+
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/69 **/
+    it('should be 970 pixels wide', () => {
+
+        let mediumWidth = 970;
+
+        header.container.getSize().then(function(elementSize) {
+            expect(elementSize.width).toBeLessThanOrEqual(mediumWidth);
+        });
     });
 
 });

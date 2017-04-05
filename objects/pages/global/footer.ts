@@ -1,4 +1,4 @@
-import { ElementFinder, $, $$, element, by } from 'protractor';
+import { ElementFinder, $, $$ } from 'protractor';
 
 export class GlobalFooter {
 

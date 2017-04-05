@@ -1,4 +1,4 @@
-import { $, ElementFinder, promise } from 'protractor';
+import { $, ElementFinder } from 'protractor';
 
 export abstract class Tab {
 
@@ -8,8 +8,8 @@ export abstract class Tab {
     pagination: ElementFinder;          // the page count at the bottom of the container
 
     constructor(element: ElementFinder) {
-        this.tabContentContainer = $('');     // TODO - CODE THIS
-        this.actualTab = element;
+        this.actualTab = $('');     // TODO - CODE THIS
+        this.tabContentContainer = element;
         this.title = element.$('a.nav-link');
         this.pagination = element.$('span.tab-counter');
     }
@@ -33,11 +33,11 @@ export abstract class Tab {
         }
     }
 
-    getTitle(): Promise<string> {
+    getSectionTitle(): Promise<string> {
         return this.title.getText();
     }
 
-    getCurentPageNumber(): number {
+    getCurrentPageNumber(): number {
         /**
          * TODO - Figure out how to determine the current page number
          * Return it
@@ -76,5 +76,16 @@ export abstract class Tab {
          * and that page number is viable
          * go to that page
          */
+    }
+
+    isSelected(): Promise<boolean> {
+        return this.actualTab.getAttribute('class').then( function(tabClass) {
+            let index = tabClass.indexOf('active');
+            if (index >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 }

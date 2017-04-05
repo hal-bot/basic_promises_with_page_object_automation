@@ -3,13 +3,27 @@
 import {InfoButton} from "./class_infoButton";
 import {TitleValueElement} from "../titleValueElement";
 
-class PatientInformation {
+export class PatientInformation {
     mrn: TitleValueElement;
     patientID: TitleValueElement;
     lastName: TitleValueElement;
     firstName: TitleValueElement;
     middleName: TitleValueElement;
     dateOfBirth: TitleValueElement;
+
+    gender: TitleValueElement;
+    status: TitleValueElement;
+    weight: TitleValueElement;
+    ssn: TitleValueElement;
+    ethnicity: TitleValueElement;
+    prefix: TitleValueElement;
+    suffix: TitleValueElement;
+    enterpriseId: TitleValueElement;
+    mothersPid: TitleValueElement;
+    numberOfPregnancies: TitleValueElement;
+    converted: TitleValueElement;
+    mergedToId: TitleValueElement;
+
     specialNeeds_Button: InfoButton;
     notes_Button: InfoButton;
     txRx_Button: InfoButton;
@@ -30,6 +44,20 @@ class PatientInformation {
         this.firstName = new TitleValueElement(element.$(''));
         this.middleName = new TitleValueElement(element.$(''));
         this.dateOfBirth = new TitleValueElement(element.$(''));
+
+        this.gender = new TitleValueElement(element.$(''));
+        this.status = new TitleValueElement(element.$(''));
+        this.weight = new TitleValueElement(element.$(''));
+        this.ssn = new TitleValueElement(element.$(''));
+        this.ethnicity = new TitleValueElement(element.$(''));
+        this.prefix = new TitleValueElement(element.$(''));
+        this.suffix = new TitleValueElement(element.$(''));
+        this.enterpriseId = new TitleValueElement(element.$(''));
+        this.mothersPid = new TitleValueElement(element.$(''));
+        this.numberOfPregnancies = new TitleValueElement(element.$(''));
+        this.converted = new TitleValueElement(element.$(''));
+        this.mergedToId = new TitleValueElement(element.$(''));
+
         this.specialNeeds_Button = new InfoButton(element.$(''));
         this.notes_Button = new InfoButton(element.$(''));
         this.txRx_Button = new InfoButton(element.$(''));

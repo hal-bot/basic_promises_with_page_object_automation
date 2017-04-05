@@ -1,10 +1,10 @@
 // Describes the "Orders" tab section seen on the Patient Details page
 
-import { $, $$, ElementFinder } from 'protractor';
-import {Tab} from "../class_Tab";
-import {ColumnHeader} from "../../columnHeader";
+import { $, ElementFinder } from 'protractor';
+import { Tab } from "../class_Tab";
+import { ColumnHeader } from "../../columnHeader";
 
-class OrdersTab extends Tab {
+export class OrdersTab extends Tab {
 
     statusHeader: ColumnHeader;
     orderIdHeader: ColumnHeader;

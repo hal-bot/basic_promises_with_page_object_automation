@@ -1,4 +1,4 @@
-import { ElementFinder, $, by, protractor, browser, element } from 'protractor';
+import { ElementFinder, $, by, protractor } from 'protractor';
 
 export class GlobalHeader {
 
@@ -67,6 +67,10 @@ class HeaderOption {
 
     isPresent(): Promise<boolean> {
         return this.link.isPresent();
+    }
+
+    click() {
+        this.link.click();
     }
 
 }

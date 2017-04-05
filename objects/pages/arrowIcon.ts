@@ -1,4 +1,4 @@
-import {$, ElementFinder, browser} from 'protractor';
+import {ElementFinder, browser} from 'protractor';
 
 export class arrowIcon {
     icon: ElementFinder;

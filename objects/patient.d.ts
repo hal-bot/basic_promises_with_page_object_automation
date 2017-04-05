@@ -9,7 +9,7 @@
  * middleName: string
  * dob: string - date??
  * ssn: number
- * visits: visit[]              xxxx
+ * visits: visit[]
  * bloodType: string
  * antigens: string
  * specialNeeds: string{}
@@ -18,8 +18,8 @@
  * A/D/R ????
  * ABY ????
  * Electronic XM  ?????
- * labs: labs[]                 xxxx
- * issuedProducts: products[]   xxxx
+ * labs: labs[]
+ * issuedProducts: products[]
  * history: ????
  *
  ***/

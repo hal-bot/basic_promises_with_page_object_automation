@@ -1,10 +1,10 @@
 // Describes the "Products" tab section seen on the Patient Details page
 
-import { $, $$, ElementFinder } from 'protractor';
+import { $, ElementFinder } from 'protractor';
 import {Tab} from "../class_Tab";
 import {ColumnHeader} from "../../columnHeader";
 
-class ProductsTab extends Tab {
+export class ProductsTab extends Tab {
 
     adrOnlyCheckbox: ElementFinder;
 
@@ -23,7 +23,7 @@ class ProductsTab extends Tab {
     specimenHeader: ColumnHeader;
     adrHeader: ColumnHeader;
 
-    products: ProductRow[]
+    products: ProductRow[];
 
     constructor() {
         super($(''));
@@ -45,11 +45,11 @@ class ProductsTab extends Tab {
         this.specimenHeader = new ColumnHeader($(''));
         this.adrHeader = new ColumnHeader($(''));
 
-        this.setProductssArray();
+        this.setProductsArray();
     }
 
     // This will clear out the current 'visits' array and then get the array rows
-    setProductssArray() {
+    setProductsArray() {
         this.products = [];
         // TODO: FINISH THE CODE HERE
         // $$('').each.do(function(visit) {
