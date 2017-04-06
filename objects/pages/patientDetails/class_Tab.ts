@@ -1,17 +1,29 @@
-import { $, ElementFinder } from 'protractor';
+import { $, $$, ElementFinder } from 'protractor';
 
 export abstract class Tab {
 
     actualTab: ElementFinder;           // the actual tab that is selected      Ex: Visit
     tabContentContainer: ElementFinder; // the container for the tab content
     title: ElementFinder;               // the title of the tab                 Ex: Visit Information
-    pagination: ElementFinder;          // the page count at the bottom of the container
+    pages: ElementFinder[];             // the pages at the bottom of the container
+    leftArrow: ElementFinder;
+    rightArrow: ElementFinder;
 
-    constructor(element: ElementFinder) {
-        this.actualTab = $('');     // TODO - CODE THIS
-        this.tabContentContainer = element;
-        this.title = element.$('a.nav-link');
-        this.pagination = element.$('span.tab-counter');
+    constructor(tabElement: ElementFinder) {
+        this.actualTab = tabElement;
+        this.tabContentContainer = $('div.tab-content');
+        this.title = this.tabContentContainer.$('a.nav-link');
+        this.leftArrow = this.tabContentContainer.$('li.pages-prev');
+        this.rightArrow = this.tabContentContainer.$('li.pages-next');
+
+        this.setPages();
+    }
+
+    // This will clear out the current 'visits' array and then get the array rows
+    setPages(): Promise<any> {
+        return this.tabContentContainer.$$('li.page-item').map(function(pages) {
+            return this.pages = pages;
+        });
     }
 
     getTabTitle(): Promise<string> {
@@ -19,19 +31,19 @@ export abstract class Tab {
     }
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
-    getTabCount() {
-    // getTabCount(): Promise<number> {
-        // TODO: SET UP PROMISE STUFF HERE
-        if (!this.pagination.isPresent()) {
-            // let deferred = promise.defer();
-            // deferred.promise = -1;
-            // return deferred.promise;
-        } else {
-            return this.pagination.getText().then(function(count) {
-                return Number(count);
-            });
-        }
-    }
+    // getTabCount() {
+    // // getTabCount(): Promise<number> {
+    //     // TODO: SET UP PROMISE STUFF HERE
+    //     if (!this.pages.isPresent()) {
+    //         // let deferred = promise.defer();
+    //         // deferred.promise = -1;
+    //         // return deferred.promise;
+    //     } else {
+    //         return this.pages.getText().then(function(count) {
+    //             return Number(count);
+    //         });
+    //     }
+    // }
 
     getSectionTitle(): Promise<string> {
         return this.title.getText();
@@ -80,12 +92,7 @@ export abstract class Tab {
 
     isSelected(): Promise<boolean> {
         return this.actualTab.getAttribute('class').then( function(tabClass) {
-            let index = tabClass.indexOf('active');
-            if (index >= 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return tabClass.indexOf('active') >= 0;
         });
     }
 }

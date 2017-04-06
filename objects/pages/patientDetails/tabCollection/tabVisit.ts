@@ -11,8 +11,9 @@ export class VisitTab extends Tab {
 
     admissionDateHeader: ColumnHeader;
     visitTypeHeader: ColumnHeader;
-    mrNoHeader: ColumnHeader;
+    mrnHeader: ColumnHeader;
     serviceProviderHeader: ColumnHeader;
+    visitNoHeader: ColumnHeader;
     accountNumberHeader: ColumnHeader;
     locationHeader: ColumnHeader;
 
@@ -26,8 +27,9 @@ export class VisitTab extends Tab {
 
         this.admissionDateHeader = new ColumnHeader($(''));
         this.visitTypeHeader = new ColumnHeader($(''));
-        this.mrNoHeader = new ColumnHeader($(''));
+        this.mrnHeader = new ColumnHeader($(''));
         this.serviceProviderHeader = new ColumnHeader($(''));
+        this.visitNoHeader = new ColumnHeader($(''));
         this.accountNumberHeader = new ColumnHeader($(''));
         this.locationHeader = new ColumnHeader($(''));
 
@@ -50,6 +52,7 @@ class VisitRow {
     type: ElementFinder;
     mrn: ElementFinder;
     serviceProvider: ElementFinder;
+    visitNo: ElementFinder;
     accountNumber: ElementFinder; // ??
     location: ElementFinder;
 
@@ -58,6 +61,7 @@ class VisitRow {
         this.type = element.$('');
         this.mrn = element.$('');
         this.serviceProvider = element.$('');
+        this.visitNo = element.$('');
         this.accountNumber = element.$('');
         this.location = element.$('');
     };
@@ -78,6 +82,10 @@ class VisitRow {
 
     getServiceProvider(): Promise<string> {
         return this.serviceProvider.getText();
+    }
+
+    getVisitNo(): Promise<string> {
+        return this.visitNo.getText();
     }
 
     getAccountNumber(): Promise<number> {

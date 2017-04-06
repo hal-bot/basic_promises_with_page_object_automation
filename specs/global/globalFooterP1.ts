@@ -22,7 +22,7 @@ xdescribe('The global footer from a P1 level', () => {
         expect(footer.isPresent()).toBe(true);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #2 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
         expect(footer.name.isPresent()).toBe(true);
         // expect(footer.location.isPresent()).toBe(true);      // Not currently instantiated

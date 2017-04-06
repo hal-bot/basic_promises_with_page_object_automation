@@ -14,4 +14,8 @@ export class ColumnHeader {
     getHeaderTitle(): Promise<string> {
         return this.headerElement.getText();
     }
+
+    isPresent(): Promise<boolean> {
+        return this.headerElement.isPresent();
+    }
 }

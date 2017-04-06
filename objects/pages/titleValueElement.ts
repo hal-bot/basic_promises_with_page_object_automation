@@ -16,4 +16,8 @@ export class TitleValueElement {
     getValue(): Promise<string> {
         return this.value.getTitle();
     }
+
+    isPresent(): Promise<boolean> {
+        return this.title.isPresent();
+    }
 }

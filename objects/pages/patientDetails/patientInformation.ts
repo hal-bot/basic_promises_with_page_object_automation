@@ -2,8 +2,13 @@
 
 import {InfoButton} from "./class_infoButton";
 import {TitleValueElement} from "../titleValueElement";
+import {ElementFinder, $} from "protractor";
 
 export class PatientInformation {
+
+    title: ElementFinder;
+    arrowButton: DetailAccordionSection;
+
     mrn: TitleValueElement;
     patientID: TitleValueElement;
     lastName: TitleValueElement;
@@ -38,6 +43,9 @@ export class PatientInformation {
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor(element) {
+        this.title = element.$('h4');
+        this.arrowButton = new DetailAccordionSection();
+
         this.mrn = new TitleValueElement(element.$(''));
         this.patientID = new TitleValueElement(element.$(''));
         this.lastName = new TitleValueElement(element.$(''));
@@ -108,6 +116,65 @@ export class PatientInformation {
         return this.dateOfBirth.getTitle();
     }
 
+    showMoreDetails() {
 
+    }
+
+    showLessDetails() {
+
+    }
+
+    isPresent(): Promise<boolean> {
+        return this.title.isPresent();
+    }
+
+    expand(): Promise<any> {
+        return this.isExpanded().then(function(isOpen) {
+            if (isOpen) {
+                return true;
+            } else {
+                return this.arrowButton.click();
+            }
+        })
+    }
+
+    contract(): Promise<any> {
+        return this.isExpanded().then(function(isOpen) {
+            if (isOpen) {
+                return this.arrowButton.click();
+            } else {
+                return true;
+            }
+        })
+    }
+
+    isExpanded(): Promise<boolean> {
+        return this.arrowButton.isExpanded();
+    }
+
+}
+
+
+class DetailAccordionSection {
+
+    private container: ElementFinder;
+    label: ElementFinder;
+    private arrowButton: ElementFinder;
+
+    constructor() {
+        this.container = $('div.titlebar div.detail-menu');
+        this.label = this.container.$('div.accordion-label');
+        this.arrowButton = this.container.$('span.glyphicon');
+    }
+
+    click(): Promise<any> {
+        return this.arrowButton.click();
+    }
+
+    isExpanded(): Promise<boolean> {
+        return this.arrowButton.getAttribute('class').then(function(arrowButtonClass) {
+            return arrowButtonClass.indexOf('up') >= 0;
+        });
+    }
 
 }
