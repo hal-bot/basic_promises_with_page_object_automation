@@ -11,12 +11,11 @@ export class NavigationMethods {
         this.globalHeader = new GlobalHeader();
     }
 
-    navigateToAPatientPage(patientID: number | null) {
+    navigateToAPatientPage(patientID?: number): void {
         if (patientID === null) {
             patientID = 65858;
         }
         browser.get('/#/patient/' + patientID);
-
     }
 
 }

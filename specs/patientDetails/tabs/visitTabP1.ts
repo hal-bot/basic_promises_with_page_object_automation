@@ -61,21 +61,20 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
         visitTab.admissionDateHeader.headerElement.getAttribute('class').then(function (headerClass) {
             expect(headerClass.indexOf('sorted')).toBeGreaterThanOrEqual(0);
         });
-
     });
 
     //  TODO: Look into automating the other Expected Results from https://haemoslalom.testrail.net//index.php?/cases/view/65
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/66, Expected Result #1 **/
+    // Note: assumes the patient has >6 visits
     it('should have 6 records on the page', () => {
         expect(visitTab.visits.length).toBe(6);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/66, Expected Result #1 **/
     // Note: assumes the patient has >6 visits
-    it('should have correct pages on the page', () => {
+    it('should have correct pagination', () => {
         expect(visitTab.getNumberOfTotalPages()).toBeGreaterThan(1);
-
     });
 
     /**

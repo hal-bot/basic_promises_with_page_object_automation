@@ -72,4 +72,8 @@ export class VisitDetailsModal {
         }
 
     }
+
+    isPresent(): Promise<boolean> {
+        return this.container.isPresent();
+    }
 }
