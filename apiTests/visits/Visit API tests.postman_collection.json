@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Visit API tests",
+		"_postman_id": "c02c57cf-4367-1b3a-deba-2eeae1e244d6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/Visit?patientId=1000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseURL}}/{{sectionVisitDetails}}api/v4/Visit?patientId=1000",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "From https://haemoslalom.atlassian.net/browse/TX-192\n\nRepo: safetracetxapi-visitdetails\n\nTestRail: https://haemoslalom.testrail.net/index.php?/tests/view/232"
+			},
+			"response": []
+		}
+	]
+}

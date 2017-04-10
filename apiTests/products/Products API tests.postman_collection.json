@@ -1,0 +1,33 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Products API tests",
+		"_postman_id": "4b217c3c-69bf-4e28-5473-30e426c9fa7e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/Products?patientId=67296",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": " {{baseURL}}/{{sectionProducts}}api/v4/Products?patientId=67296",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "From https://haemoslalom.atlassian.net/browse/TX-211\n\nRepo: safetracetxapi-products\n\nTestRail: https://haemoslalom.testrail.net/index.php?/cases/view/45"
+			},
+			"response": []
+		}
+	]
+}
