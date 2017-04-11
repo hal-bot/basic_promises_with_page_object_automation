@@ -7,7 +7,7 @@
 import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
-xdescribe('The global footer from a P1 level', () => {
+fdescribe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
     let fs = require('fs');
@@ -25,11 +25,10 @@ xdescribe('The global footer from a P1 level', () => {
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
         expect(footer.name.isPresent()).toBe(true);
-        // expect(footer.location.isPresent()).toBe(true);      // Not currently instantiated
+        expect(footer.location.isPresent()).toBe(true);      // Not currently instantiated
         expect(footer.copyright.isPresent()).toBe(true);
         expect(footer.safetraceLogo.isPresent()).toBe(true);
         expect(footer.haemoneticsLogo.isPresent()).toBe(true);
-
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/

@@ -9,7 +9,7 @@ import { PatientPageHeader } from "../../objects/pages/patientDetails/header";
 import { GlobalHeader } from "../../objects/pages/global/header";
 
 
-describe('The global footer from a P1 level', () => {
+xdescribe('The global footer from a P1 level', () => {
 
     let patientHeader: PatientPageHeader;
     let globalHeader: GlobalHeader;
