@@ -24,19 +24,8 @@ describe('The global header from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
     it('should have all expected elements', () => {
-        // expect Dashboard to be present
         expect(header.patients.isPresent()).toBe(true);
-        // expect(header.orders.link.isPresent()).toBe(true);
-        // expect Patents to be present and have a downward facing arrow
-        // expect Orders to be present and have a downward facing arrow
-        // expect Inventory to be present and have a downward facing arrow
-        // expect Statistics to be present and have a downward facing arrow
-        // expect Quality Control to be present and have a downward facing arrow
-        // expect Activity to be present and have a downward facing arrow
-        // expect Interfaces to be present and have a downward facing arrow
-        // expect Administration to be present and have a downward facing arrow
-        // expect(header.settings.isPresent()).toBe(true);
-        // expect(header.logout.isPresent()).toBe(true);
+        expect(header.orders.link.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/

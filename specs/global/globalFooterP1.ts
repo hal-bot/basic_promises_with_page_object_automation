@@ -7,31 +7,31 @@
 import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
-fdescribe('The global footer from a P1 level', () => {
+describe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
     let fs = require('fs');
 
     beforeEach( () => {
-        browser.get('/#/patient/1000');
+        browser.get('/');
         footer = new GlobalFooter();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    fit('should be present', () => {
+    it('should be present', () => {
         expect(footer.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
         expect(footer.name.isPresent()).toBe(true);
-        expect(footer.location.isPresent()).toBe(true);      // Not currently instantiated
+        expect(footer.location.isPresent()).toBe(true);
         expect(footer.copyright.isPresent()).toBe(true);
         expect(footer.safetraceLogo.isPresent()).toBe(true);
         expect(footer.haemoneticsLogo.isPresent()).toBe(true);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #1 **/
     it('should be on every page and not change', () => {
 
         let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
