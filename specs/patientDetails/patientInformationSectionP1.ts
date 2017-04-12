@@ -9,7 +9,7 @@ import {PatientInformation} from "../../objects/pages/patientDetails/patientInfo
 import {NavigationMethods} from "../../utils/navigationUtilities";
 
 
-xdescribe('The global footer from a P1 level', () => {
+fdescribe('The global footer from a P1 level', () => {
 
     let infoSection: PatientInformation;
     let navHelper: NavigationMethods;

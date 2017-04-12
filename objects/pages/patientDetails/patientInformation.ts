@@ -29,54 +29,56 @@ export class PatientInformation {
     converted: TitleValueElement;
     mergedToId: TitleValueElement;
 
-    specialNeeds_Button: InfoButton;
-    notes_Button: InfoButton;
-    txRx_Button: InfoButton;
-    adr_Button: InfoButton;
-    aby_Button: InfoButton;
-    bloodType_Button: InfoButton;
-    electronicXM_Button: InfoButton;
-    specimenExpiration_Button: InfoButton;
-    labs_Button: InfoButton;
-    issuedProducts_Button: InfoButton;
-    history_Button: InfoButton;
+    // THESE HAVE NOT YET BEEN IMPLEMENTED
+    // specialNeeds_Button: InfoButton;
+    // notes_Button: InfoButton;
+    // txRx_Button: InfoButton;
+    // adr_Button: InfoButton;
+    // aby_Button: InfoButton;
+    // bloodType_Button: InfoButton;
+    // electronicXM_Button: InfoButton;
+    // specimenExpiration_Button: InfoButton;
+    // labs_Button: InfoButton;
+    // issuedProducts_Button: InfoButton;
+    // history_Button: InfoButton;
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor(element) {
         this.title = element.$('h4');
         this.arrowButton = new DetailAccordionSection();
 
-        this.mrn = new TitleValueElement(element.$(''));
-        this.patientID = new TitleValueElement(element.$(''));
-        this.lastName = new TitleValueElement(element.$(''));
-        this.firstName = new TitleValueElement(element.$(''));
-        this.middleName = new TitleValueElement(element.$(''));
-        this.dateOfBirth = new TitleValueElement(element.$(''));
+        this.mrn = new TitleValueElement(element.$('div.patient-information-mrn'));
+        this.patientID = new TitleValueElement(element.$('div.patient-information-patientId'));
+        this.lastName = new TitleValueElement(element.$('div.patient-information-lastName'));
+        this.firstName = new TitleValueElement(element.$('div.patient-information-firstName'));
+        this.middleName = new TitleValueElement(element.$('div.patient-information-middleName'));
+        this.dateOfBirth = new TitleValueElement(element.$('div.patient-information-dateOfBirth'));
 
-        this.gender = new TitleValueElement(element.$(''));
-        this.status = new TitleValueElement(element.$(''));
-        this.weight = new TitleValueElement(element.$(''));
-        this.ssn = new TitleValueElement(element.$(''));
-        this.ethnicity = new TitleValueElement(element.$(''));
-        this.prefix = new TitleValueElement(element.$(''));
-        this.suffix = new TitleValueElement(element.$(''));
-        this.enterpriseId = new TitleValueElement(element.$(''));
-        this.mothersPid = new TitleValueElement(element.$(''));
-        this.numberOfPregnancies = new TitleValueElement(element.$(''));
-        this.converted = new TitleValueElement(element.$(''));
-        this.mergedToId = new TitleValueElement(element.$(''));
+        this.gender = new TitleValueElement(element.$('div.patient-information-'));
+        this.status = new TitleValueElement(element.$('div.patient-information-'));
+        this.weight = new TitleValueElement(element.$('div.patient-information-'));
+        this.ssn = new TitleValueElement(element.$('div.patient-information-'));
+        this.ethnicity = new TitleValueElement(element.$('div.patient-information-'));
+        this.prefix = new TitleValueElement(element.$('div.patient-information-'));
+        this.suffix = new TitleValueElement(element.$('div.patient-information-'));
+        this.enterpriseId = new TitleValueElement(element.$('div.patient-information-'));
+        this.mothersPid = new TitleValueElement(element.$('div.patient-information-'));
+        this.numberOfPregnancies = new TitleValueElement(element.$('div.patient-information-'));
+        this.converted = new TitleValueElement(element.$('div.patient-information-'));
+        this.mergedToId = new TitleValueElement(element.$('div.patient-information-'));
 
-        this.specialNeeds_Button = new InfoButton(element.$(''));
-        this.notes_Button = new InfoButton(element.$(''));
-        this.txRx_Button = new InfoButton(element.$(''));
-        this.adr_Button = new InfoButton(element.$(''));
-        this.aby_Button = new InfoButton(element.$(''));
-        this.bloodType_Button = new InfoButton(element.$(''));
-        this.electronicXM_Button = new InfoButton(element.$(''));
-        this.specimenExpiration_Button = new InfoButton(element.$(''));
-        this.labs_Button = new InfoButton(element.$(''));
-        this.issuedProducts_Button = new InfoButton(element.$(''));
-        this.history_Button = new InfoButton(element.$(''));
+        // THESE HAVE NOT YET BEEN IMPLEMENTED
+        // this.specialNeeds_Button = new InfoButton(element.$(''));
+        // this.notes_Button = new InfoButton(element.$(''));
+        // this.txRx_Button = new InfoButton(element.$(''));
+        // this.adr_Button = new InfoButton(element.$(''));
+        // this.aby_Button = new InfoButton(element.$(''));
+        // this.bloodType_Button = new InfoButton(element.$(''));
+        // this.electronicXM_Button = new InfoButton(element.$(''));
+        // this.specimenExpiration_Button = new InfoButton(element.$(''));
+        // this.labs_Button = new InfoButton(element.$(''));
+        // this.issuedProducts_Button = new InfoButton(element.$(''));
+        // this.history_Button = new InfoButton(element.$(''));
 
     }
 
@@ -84,10 +86,8 @@ export class PatientInformation {
         return this.mrn.getTitle();
     }
 
-    getPatientNumber(): Promise<number> {
-        return this.patientID.getTitle().then(function(value) {
-            return Number(value);
-        });
+    getPatientNumber(): Promise<string> {
+        return this.patientID.getTitle();
     }
 
     getLastName(): Promise<string> {
@@ -117,11 +117,19 @@ export class PatientInformation {
     }
 
     showMoreDetails() {
-
+        if (this.arrowButton.isExpanded()) {
+            return true;
+        } else {
+            return this.arrowButton.click();
+        }
     }
 
     showLessDetails() {
-
+        if (this.arrowButton.isExpanded()) {
+            return this.arrowButton.click();
+        } else {
+            return true;
+        }
     }
 
     isPresent(): Promise<boolean> {
