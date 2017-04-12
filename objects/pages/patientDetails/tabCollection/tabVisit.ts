@@ -51,21 +51,22 @@ export class VisitTab extends Tab {
     }
 
     // this will return the admission date of the visit that's being opened.  The date is needed to verify the date in the Modal
-    openTheVisitsModal(): Promise<any> {
-        if (this.visitsModal.isPresent()) {
-            browser.driver.navigate().refresh();   // Refreshing the page will git rid of the modal if it's already open
-        }
-        let visit = this.visits[0];
-        let visitData: {admissionDate: string, type: string, mrn: string, serviceProvider: string, visitNo: string, accountNo: string, location: string} = {
-
-        }
-
-        return visit.getAdmissionDate().then(function(date) {
-            return visit.click().then(function() {
-                return date;
-            });
-        })
-    }
+    // TODO: FINISH THIS!
+    // openTheVisitsModal(): Promise<any> {
+    //     if (this.visitsModal.isPresent()) {
+    //         browser.driver.navigate().refresh();   // Refreshing the page will git rid of the modal if it's already open
+    //     }
+    //     let visit = this.visits[0];
+    //     let visitData: {admissionDate: string, type: string, mrn: string, serviceProvider: string, visitNo: string, accountNo: string, location: string} = {
+    //
+    //     }
+    //
+    //     return visit.getAdmissionDate().then(function(date) {
+    //         return visit.click().then(function() {
+    //             return date;
+    //         });
+    //     })
+    // }
 }
 
 
@@ -120,25 +121,26 @@ class VisitRow {
         return this.visitNo.click();
     }
 
-    getVisitDetails() {
-        return this.getAdmissionDate().then(function(admissionDate) {
-            return this.getType().then(function(type) {
-                return this.getMRN().then(function(mrn) {
-                    return this.getServiveProvider().then(function(serviceProvider) {
-                        return this.getVisitNo().then(function(visitNo) {
-                            return this.getAccountNumber().then(function(accountNo) {
-                                return this.getLocation().then(function(location) {
-                                    enum VisitDetails {
-                                        admissionDate = admissionDate,
-
-                                    }
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    }
+    // TODO: Finish this!
+    // getVisitDetails() {
+    //     return this.getAdmissionDate().then(function(admissionDate) {
+    //         return this.getType().then(function(type) {
+    //             return this.getMRN().then(function(mrn) {
+    //                 return this.getServiveProvider().then(function(serviceProvider) {
+    //                     return this.getVisitNo().then(function(visitNo) {
+    //                         return this.getAccountNumber().then(function(accountNo) {
+    //                             return this.getLocation().then(function(location) {
+    //                                 enum VisitDetails {
+    //                                     admissionDate = admissionDate,
+    //
+    //                                 }
+    //                             });
+    //                         });
+    //                     });
+    //                 });
+    //             });
+    //         });
+    //     });
+    // }
 
 }

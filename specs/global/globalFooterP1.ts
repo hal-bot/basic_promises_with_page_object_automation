@@ -13,12 +13,12 @@ fdescribe('The global footer from a P1 level', () => {
     let fs = require('fs');
 
     beforeEach( () => {
-        browser.get('/');
+        browser.get('/#/patient/1000');
         footer = new GlobalFooter();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    it('should be present', () => {
+    fit('should be present', () => {
         expect(footer.isPresent()).toBe(true);
     });
 
