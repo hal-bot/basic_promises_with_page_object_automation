@@ -37,3 +37,5 @@ newman run https://www.getpostman.com/collections/4a159b77157920654ba0 -e enviro
   - https://www.getpostman.com/collections/40b4b61805e94d90ce48
 - Lookup Data 
   - https://www.getpostman.com/collections/801f411c83a4e0de605e
+- Components 
+  - https://www.getpostman.com/collections/10600f49baf415993cea

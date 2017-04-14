@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "R: safetracetxapi-orders - /OrderItems?orderId=12113 - TX-197",
+			"name": "/orders/357/orderitems",
 			"event": [
 				{
 					"listen": "test",
@@ -36,7 +36,7 @@
 				}
 			],
 			"request": {
-				"url": "{{baseURL}}/{{sectionOrders}}api/v4/OrderItems?orderId=12113",
+				"url": "{{baseURL}}/{{sectionOrders}}api/v4/orders/357/orderitems",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -45,7 +45,7 @@
 			"response": []
 		},
 		{
-			"name": "R: safetracetxapi-orders - /Orders/15800 - TX-196",
+			"name": "/Orders/15800",
 			"event": [
 				{
 					"listen": "test",
@@ -67,29 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "R: safetracetxapi-orders - /orders/15800/orderitems - TX-193 (2)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "{{baseURL}}/{{sectionOrders}}api/v4/orders/15800/orderitems",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "From https://haemoslalom.atlassian.net/browse/TX-193 (2nd set of criteria)\n\nRepo: safetracetxapi-orders\n\nTestRail: https://haemoslalom.testrail.net/index.php?/cases/view/38"
-			},
-			"response": []
-		},
-		{
-			"name": "R: safetracetxapi-orders - /Orders?patientId=65858 - TX-193 (1)",
+			"name": "/Orders?patientId=65858",
 			"event": [
 				{
 					"listen": "test",
@@ -111,7 +89,7 @@
 			"response": []
 		},
 		{
-			"name": "R:safetracetxapi-orders - /OrderTests?patientId=65858 - TX-243",
+			"name": "/OrderTests?patientId=65858",
 			"event": [
 				{
 					"listen": "test",
@@ -124,11 +102,94 @@
 				}
 			],
 			"request": {
-				"url": "{{baseURL}}/{{sectionOrders}}api/v4/OrderTests?patientId=65858",
+				"url": "{{baseURL}}/{{sectionOrders}}api/v4/OrderTests?patientId=64907",
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"description": "From https://haemoslalom.atlassian.net/browse/TX-243\n\nRepo: ??\n\nTestRail:\nhttps://haemoslalom.testrail.net/index.php?/cases/view/49"
+			},
+			"response": []
+		},
+		{
+			"name": "/orders?patientId=1000&specimenId=10001 (unrestricted)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseURL}}/{{sectionOrders}}api/v4/orders?patientId=1000&specimenId=10001",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "TestRail: https://haemoslalom.testrail.net//index.php?/cases/view/256"
+			},
+			"response": []
+		},
+		{
+			"name": "/orders?patientId=25446&specimenId=254465 (restricted)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseURL}}/{{sectionOrders}}api/v4/orders?patientId=25446&specimenId=254465",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "TestRail: https://haemoslalom.testrail.net//index.php?/cases/view/255"
+			},
+			"response": []
+		},
+		{
+			"name": "/Orders/15800",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseURL}}/{{sectionOrders}}api/v4/Orders/15800",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tspecimanId: \"658583\"\n}"
+				},
+				"description": "TestRail: https://haemoslalom.testrail.net/index.php?/cases/view/221"
 			},
 			"response": []
 		}
