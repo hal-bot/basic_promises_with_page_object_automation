@@ -1,6 +1,6 @@
 // Describes the "Diagnosis" tabbed section of the 'Visit Details' pop-up modal
 
-import { ColumnHeader } from "../../columnHeader";
+import { ColumnHeader } from "../../elements/columnHeader";
 import { ElementFinder } from "protractor";
 
 export class TabDiagnosis {

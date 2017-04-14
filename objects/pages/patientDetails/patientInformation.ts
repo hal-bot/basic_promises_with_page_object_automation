@@ -1,7 +1,7 @@
 // Describes the section below the Patient Detail header and the tabs section
 
 import {InfoButton} from "./class_infoButton";
-import {TitleValueElement} from "../titleValueElement";
+import {TitleValueElement} from "../elements/titleValueElement";
 import {ElementFinder, $} from "protractor";
 
 export class PatientInformation {

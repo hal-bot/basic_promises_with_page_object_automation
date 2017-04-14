@@ -1,14 +1,15 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
-import { $, ElementFinder, browser } from 'protractor';
+import { $, $$, ElementFinder } from 'protractor';
 import {Tab} from "../class_Tab";
-import {ColumnHeader} from "../../columnHeader";
+import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
+import {Checkbox} from "../../elements/checkbox";
 
 export class VisitTab extends Tab {
 
-    showDischargedVisits_checkbox: ElementFinder;
-    createVisit_button: ElementFinder;
+    showDischargedVisits_checkbox: Checkbox;
+    // createVisit_button: ElementFinder;            // not yet implemented
 
     admissionDateHeader: ColumnHeader;
     visitTypeHeader: ColumnHeader;
@@ -23,18 +24,18 @@ export class VisitTab extends Tab {
     visitsModal: VisitDetailsModal;
 
     constructor() {
-        super($(''));
+        super($('li.patient-visit-tab'));
 
-        this.showDischargedVisits_checkbox = $('');
-        this.createVisit_button = $('');
+        this.showDischargedVisits_checkbox = new Checkbox(this.tabContentContainer.$('div.tab-actions'));
+        // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
 
-        this.admissionDateHeader = new ColumnHeader($(''));
-        this.visitTypeHeader = new ColumnHeader($(''));
-        this.mrnHeader = new ColumnHeader($(''));
-        this.serviceProviderHeader = new ColumnHeader($(''));
-        this.visitNoHeader = new ColumnHeader($(''));
-        this.accountNumberHeader = new ColumnHeader($(''));
-        this.locationHeader = new ColumnHeader($(''));
+        this.admissionDateHeader = new ColumnHeader($('th.visit-tableHeader-admissionDate'));
+        this.visitTypeHeader = new ColumnHeader($('th.visit-tableHeader-type'));
+        this.mrnHeader = new ColumnHeader($('th.visit-tableHeader-mrn'));
+        this.serviceProviderHeader = new ColumnHeader($('th.visit-tableHeader-serviceProvider'));
+        this.visitNoHeader = new ColumnHeader($('th.visit-tableHeader-externalVisitNumber'));
+        this.accountNumberHeader = new ColumnHeader($('th.visit-tableHeader-accountNo'));
+        this.locationHeader = new ColumnHeader($('th.visit-tableHeader-location'));
 
         this.setVisitsArray();
 
@@ -45,9 +46,9 @@ export class VisitTab extends Tab {
     setVisitsArray() {
         this.visits = [];
         // TODO: FINISH THE CODE HERE
-        // $$('').each.do(function(visit) {
-        //     this.visits.push(new VisitRow(visit));
-        // });
+        $$('tr.visit-tableRow').each.do(function(visit) {
+            this.visits.push(new VisitRow(visit));
+        });
     }
 
     // this will return the admission date of the visit that's being opened.  The date is needed to verify the date in the Modal
@@ -71,22 +72,22 @@ export class VisitTab extends Tab {
 
 
 class VisitRow {
-    admissionDate: ElementFinder;  // (DATE??)
+    admissionDate: ElementFinder;
     type: ElementFinder;
     mrn: ElementFinder;
     serviceProvider: ElementFinder;
     visitNo: ElementFinder;
-    accountNumber: ElementFinder; // ??
+    accountNumber: ElementFinder;
     location: ElementFinder;
 
     constructor(element) {
-        this.admissionDate = element.$('');
-        this.type = element.$('');
-        this.mrn = element.$('');
-        this.serviceProvider = element.$('');
-        this.visitNo = element.$('');
-        this.accountNumber = element.$('');
-        this.location = element.$('');
+        this.admissionDate = element.$('td.visit-tableCell-admissionDate');
+        this.type = element.$('td.visit-tableCell-visitTypeCode');
+        this.mrn = element.$('td.visit-tableCell-mrn');
+        this.serviceProvider = element.$('td.visit-tableCell-serviceProviderId');
+        this.visitNo = element.$('td.visit-tableCell-externalVisitNumber');
+        this.accountNumber = element.$('td.visit-tableCell-accountNumber');
+        this.location = element.$('td.visit-tableCell-locationId');
     };
 
     getAdmissionDate(): Promise<string> {

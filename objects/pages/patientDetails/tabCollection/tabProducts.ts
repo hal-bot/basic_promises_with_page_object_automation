@@ -2,7 +2,7 @@
 
 import { $, ElementFinder } from 'protractor';
 import {Tab} from "../class_Tab";
-import {ColumnHeader} from "../../columnHeader";
+import {ColumnHeader} from "../../elements/columnHeader";
 
 export class ProductsTab extends Tab {
 

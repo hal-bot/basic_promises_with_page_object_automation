@@ -49,12 +49,12 @@ describe('The global header from a P1 level', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/69 **/
-    it('should be 970 pixels wide', () => {
+    it('should be less than 1200 pixels wide', () => {
 
-        let mediumWidth = 970;
+        let largeWidth = 1200;
 
         header.container.getSize().then(function(elementSize) {
-            expect(elementSize.width).toBeLessThanOrEqual(mediumWidth);
+            expect(elementSize.width).toBeLessThan(largeWidth);
         });
     });
 

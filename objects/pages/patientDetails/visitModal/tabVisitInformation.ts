@@ -1,6 +1,6 @@
 // Describes the "Visit Information" tabbed section of the 'Visit Details' pop-up modal
 
-import {TitleValueElement} from "../../titleValueElement";
+import {TitleValueElement} from "../../elements/titleValueElement";
 
 export class TabVisitInformation {
 
