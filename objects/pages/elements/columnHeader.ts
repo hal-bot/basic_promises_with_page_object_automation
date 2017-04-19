@@ -1,5 +1,5 @@
-import { ElementFinder, browser, by, element, $ } from 'protractor';
-import {arrowIcon} from "./arrowIcon";
+import { ElementFinder } from 'protractor';
+import { arrowIcon } from "./arrowIcon";
 
 
 export class ColumnHeader {
@@ -13,5 +13,13 @@ export class ColumnHeader {
 
     getHeaderTitle(): Promise<string> {
         return this.headerElement.getText();
+    }
+
+    isPresent(): Promise<boolean> {
+        return this.headerElement.isPresent();
+    }
+
+    click(): Promise<void> {
+        return this.headerElement.click();
     }
 }

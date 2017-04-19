@@ -1,4 +1,4 @@
-import { ElementFinder, $, $$, element, by } from 'protractor';
+import { ElementFinder, $, $$ } from 'protractor';
 
 export class GlobalFooter {
 
@@ -14,28 +14,12 @@ export class GlobalFooter {
     constructor() {
         this.container = $('div.app-footer-container');
 
-        $$('div.app-footer-info div').then(function(nameArray) {
-            console.log("  array length = " + nameArray.length);
-            console.log("  array = " + nameArray);
-            console.log("  array[0] = " + nameArray[0]);
-            console.log("  array[1] = " + nameArray[1]);
-            // nameArray.getText().then(function(txt) {
-            //     console.log("  array.txt = " + txt);
-            // });
-            // nameArray[0].getText().then(function(txt) {
-            //     console.log("  array0.txt = " + txt);
-            // });
-            // nameArray[1].getText().then(function(txt) {
-            //     console.log("  array1.txt = " + txt);
-            // });
-            this.name = $$('div.app-footer-info div')[0];
-        });
-        // this.location = $('');
-        // this.copyright = $$('div.list-inline li')[0];
-        // let footerImages = $$('div.app-footer-logo-container');
-        // this.safetraceLogo = footerImages[0];
-        // this.haemoneticsLogo = footerImages[1];
-
+        this.name = this.container.$('div.userName');
+        this.location = this.container.$('div.app-footer-copyright');
+        this.copyright = this.container.$('li.year_companyName');
+        // TODO: Use REGEX to only return the years
+        this.safetraceLogo = this.container.$('img.safetracetxLogo');
+        this.haemoneticsLogo = this.container.$('img.haemoneticsLogo');
     }
 
     isPresent(): Promise<boolean> {

@@ -1,39 +1,55 @@
-import { $, ElementFinder } from 'protractor';
+import { $, $$, ElementFinder } from 'protractor';
 
 export abstract class Tab {
-    tabRowWrapper: ElementFinder;
-    title: ElementFinder;
-    pagination: ElementFinder;
 
-    constructor(element: ElementFinder) {
-        this.tabRowWrapper = element;
-        this.title = element.$('a.nav-link');
-        this.pagination = element.$('span.tab-counter');
+    actualTab: ElementFinder;           // the actual tab that is selected      Ex: Visit
+    tabContentContainer: ElementFinder; // the container for the tab content
+    title: ElementFinder;               // the title of the tab                 Ex: Visit Information
+    pages: ElementFinder[];             // the pages at the bottom of the container
+    leftArrow: ElementFinder;
+    rightArrow: ElementFinder;
+
+    constructor(tabElement: ElementFinder) {
+        this.actualTab = tabElement;
+        this.tabContentContainer = $('div.tab-content');
+        this.title = this.tabContentContainer.$('a.nav-link');
+        this.leftArrow = this.tabContentContainer.$('li.pages-prev');
+        this.rightArrow = this.tabContentContainer.$('li.pages-next');
+
+        this.setPages();
+    }
+
+    // This will clear out the current 'pages' array and then get the array rows
+    setPages(): Promise<any> {
+        return this.tabContentContainer.$$('li.page-item').map(function(pages) {
+            return this.pages = pages;
+        });
     }
 
     getTabTitle(): Promise<string> {
-        // TODO: Look at how to return only the title if there is a number next to it
-        //  if there's a number
-        //      see if there's a way to find the title separate from the number via page elements
-        //      if not, do a regex
-        //  else ...
-        return this.tabRowWrapper.getText();
+        return this.actualTab.getText();
     }
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
-    // getTabCount(): Promise<number> {
+    // getTabCount() {
+    // // getTabCount(): Promise<number> {
     //     // TODO: SET UP PROMISE STUFF HERE
-    //     if (!this.pagination.isPresent()) { return -1 };
-    //     return this.pagination.getText().then(function(count) {
-    //         return Number(count);
-    //     });
+    //     if (!this.pages.isPresent()) {
+    //         // let deferred = promise.defer();
+    //         // deferred.promise = -1;
+    //         // return deferred.promise;
+    //     } else {
+    //         return this.pages.getText().then(function(count) {
+    //             return Number(count);
+    //         });
+    //     }
     // }
 
-    getTitle(): Promise<string> {
+    getSectionTitle(): Promise<string> {
         return this.title.getText();
     }
 
-    getCurentPageNumber(): number {
+    getCurrentPageNumber(): number {
         /**
          * TODO - Figure out how to determine the current page number
          * Return it
@@ -72,5 +88,11 @@ export abstract class Tab {
          * and that page number is viable
          * go to that page
          */
+    }
+
+    isSelected(): Promise<boolean> {
+        return this.actualTab.getAttribute('class').then( function(tabClass) {
+            return tabClass.indexOf('active') >= 0;
+        });
     }
 }

@@ -21,9 +21,9 @@ class Visit {
     accountNumber: number; // ??
     location: string;
 
-    constructor(vistType: string, mrn: number, provider: string, accountNumber: number, location: string) {
+    constructor(visitType: string, mrn: number, provider: string, accountNumber: number, location: string) {
         this.admissionDate = 'today';  //TODO: make this a date
-        this.type = vistType;
+        this.type = visitType;
         this.mrn = mrn;
         this.serviceProvider = provider;
         this.accountNumber = accountNumber;

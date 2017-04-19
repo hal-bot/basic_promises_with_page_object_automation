@@ -1,4 +1,4 @@
-import { ElementFinder, $, by, protractor, browser, element } from 'protractor';
+import { ElementFinder, $, by, protractor } from 'protractor';
 
 export class GlobalHeader {
 
@@ -14,10 +14,10 @@ export class GlobalHeader {
     logout: ElementFinder;
 
     constructor() {
-        this.container = $('div.app-header');
+        this.container = $('div.app-header-nav-container');
 
-        this.patients = new HeaderOption(this.container.element(by.linkText("Patients")));
-        this.orders = new HeaderOption(this.container.element(by.linkText("Orders")));
+        this.patients = new HeaderOption(this.container.$('li.patients-header-nav'));
+        this.orders = new HeaderOption(this.container.$('li.orders-header-nav'));
 
         // TODO: Update this code once these icons become enabled
         // this.settings = this.container.element(by.linkText("Patients"));
@@ -38,7 +38,7 @@ class HeaderOption {
     link: ElementFinder;
 
     constructor(element: ElementFinder) {
-        this.link = element;
+        this.link = element.$('a');
     }
 
     open(): Promise<any> {
@@ -67,6 +67,10 @@ class HeaderOption {
 
     isPresent(): Promise<boolean> {
         return this.link.isPresent();
+    }
+
+    click() {
+        this.link.click();
     }
 
 }
