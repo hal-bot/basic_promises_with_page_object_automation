@@ -21,18 +21,18 @@ export class VisitDetailsModal {
 
     constructor() {
 
-        this.container = $('');     // use this to ensure the elements found below are only in the container
+        this.container = $('modal-content');     // use this to ensure the elements found below are only in the container
 
-        this.title = this.container.$('');
-        this.visitDate = this.container.$('');
-        this.editVisit = this.container.$('');
-        this.closeButton = this.container.$('');
+        this.title = this.container.$('span.detailsModal-header-title');
+        this.visitDate = this.container.$('span.detailsModal-header-date');
+        // this.editVisit = this.container.$('');                               // Not yet instantiated
+        this.closeButton = this.container.$('div.close-button');
 
-        this.visitInformationSection = new TabVisitInformation(this.container.$(''));
+        this.visitInformationSection = new TabVisitInformation(this.container.$('tab-content'));
     }
 
     setDiagnosisInfo() {
-        this.diagnosisSection = new TabDiagnosis(this.container.$(''));
+        this.diagnosisSection = new TabDiagnosis(this.container.$('tab-content'));
     }
 
     editTheVisit() {

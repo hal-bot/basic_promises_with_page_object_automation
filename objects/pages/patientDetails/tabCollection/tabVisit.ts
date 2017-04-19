@@ -5,11 +5,12 @@ import {Tab} from "../class_Tab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
+import {ElementMethods} from "../../../../utils/elementUtilities";
 
 export class VisitTab extends Tab {
 
     showDischargedVisits_checkbox: Checkbox;
-    // createVisit_button: ElementFinder;            // not yet implemented
+    createVisit_button: ElementFinder;            // not yet implemented
 
     admissionDateHeader: ColumnHeader;
     visitTypeHeader: ColumnHeader;
@@ -43,11 +44,9 @@ export class VisitTab extends Tab {
     }
 
     // This will clear out the current 'visits' array and then get the array rows
-    setVisitsArray() {
-        this.visits = [];
-        // TODO: FINISH THE CODE HERE
-        $$('tr.visit-tableRow').each.do(function(visit) {
-            this.visits.push(new VisitRow(visit));
+    setVisitsArray(): Promise<any> {
+        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then(function(visitsArray) {
+            return this.visits = visitsArray;
         });
     }
 
@@ -71,7 +70,7 @@ export class VisitTab extends Tab {
 }
 
 
-class VisitRow {
+export class VisitRow {
     admissionDate: ElementFinder;
     type: ElementFinder;
     mrn: ElementFinder;

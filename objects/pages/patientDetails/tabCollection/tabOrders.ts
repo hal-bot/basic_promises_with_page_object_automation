@@ -3,6 +3,7 @@
 import { $, ElementFinder } from 'protractor';
 import { Tab } from "../class_Tab";
 import { ColumnHeader } from "../../elements/columnHeader";
+import {ElementMethods} from "../../../../utils/elementUtilities";
 
 export class OrdersTab extends Tab {
 
@@ -16,46 +17,42 @@ export class OrdersTab extends Tab {
     orders: OrderRow[];
 
     constructor() {
-        super($(''));
+        super($('li.patient-orders-tab'));
 
-        this.statusHeader = new ColumnHeader($(''));
-        this.orderIdHeader = new ColumnHeader($(''));
-        this.orderDateTimeHeader = new ColumnHeader($(''));
-        this.specimenHeader = new ColumnHeader($(''));
-        this.locationSublocationHeader = new ColumnHeader($(''));
-        this.priorityHeader = new ColumnHeader($(''));
+        this.statusHeader = new ColumnHeader($('th.order-tableHeader-status'));
+        this.orderIdHeader = new ColumnHeader($('th.order-tableHeader-orderID'));
+        this.orderDateTimeHeader = new ColumnHeader($('th.order-tableHeader-orderDateTime'));
+        this.specimenHeader = new ColumnHeader($('th.order-tableHeader-specimen'));
+        this.locationSublocationHeader = new ColumnHeader($('th.order-tableHeader-locationSubLocation'));
+        this.priorityHeader = new ColumnHeader($('th.order-tableHeader-priority'));
 
         this.setOrdersArray();
     };
 
-
-    // This will clear out the current 'visits' array and then get the array rows
-    setOrdersArray() {
-        this.orders = [];
-        // TODO: FINISH THE CODE HERE
-        // $$('').each.do(function(visit) {
-        //     this.visits.push(new VisitRow(visit));
-        // });
+    setOrdersArray(): Promise<any> {
+        return ElementMethods.getCustomElementArray('tr.order-tableRow', 'OrderRow').then(function(orderArray) {
+            return this.orders = orderArray;
+        });
     }
 
 }
 
 
-class OrderRow {
+export class OrderRow {
     status: ElementFinder;
     orderId: ElementFinder;
     orderDateTime: ElementFinder;
     specimen: ElementFinder;
-    locationSublocation: ElementFinder; // ??
+    locationSublocation: ElementFinder;
     priority: ElementFinder;
 
     constructor(element) {
-        this.status = element.$('');
-        this.orderId = element.$('');
-        this.orderDateTime = element.$('');
-        this.specimen = element.$('');
-        this.locationSublocation = element.$('');
-        this.priority = element.$('');
+        this.status = element.$('td.order-tableRow-statusCode');
+        this.orderId = element.$('td.order-tableRow-id');
+        this.orderDateTime = element.$('td.order-tableRow-orderDateTime');
+        this.specimen = element.$('td.order-tableRow-specimen');
+        this.locationSublocation = element.$('td.order-tableRow-locationId');
+        this.priority = element.$('td.order-tableRow-priorityCode');
     };
 
     getStatus(): Promise<string> {

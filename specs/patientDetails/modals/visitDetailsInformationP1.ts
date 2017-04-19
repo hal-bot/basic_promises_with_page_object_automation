@@ -11,13 +11,11 @@ import { VisitDetailsModal } from "../../../objects/pages/patientDetails/visitMo
 xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
 
     let visitTab: VisitTab;
-    let navHelper: NavigationMethods;
     let visitModal: VisitDetailsModal;
 
     beforeAll( () => {
         browser.get('/');
-        navHelper = new NavigationMethods;
-        navHelper.navigateToAPatientPage();
+        NavigationMethods.navigateToAPatientPage();
         visitTab = new VisitTab();
         visitTab.visits[0].visitNo.click();     //opens the Visit modal
         visitModal = new VisitDetailsModal();

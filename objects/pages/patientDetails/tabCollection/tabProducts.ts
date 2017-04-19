@@ -3,6 +3,7 @@
 import { $, ElementFinder } from 'protractor';
 import {Tab} from "../class_Tab";
 import {ColumnHeader} from "../../elements/columnHeader";
+import {ElementMethods} from "../../../../utils/elementUtilities";
 
 export class ProductsTab extends Tab {
 
@@ -26,35 +27,32 @@ export class ProductsTab extends Tab {
     products: ProductRow[];
 
     constructor() {
-        super($(''));
+        super($('li.patient-products-tab'));
 
-        this.adrOnlyCheckbox = $('');
+        this.adrOnlyCheckbox = $('div.tab-actions');
 
-        this.allComponentsFilter = new ProductsFilter($(''));
-        this.workInProgressFilter = new ProductsFilter($(''));
-        this.readyToIssueFilter = new ProductsFilter($(''));
-        this.issuedFilter = new ProductsFilter($(''));
-        this.transfusedFilter = new ProductsFilter($(''));
+        this.allComponentsFilter = new ProductsFilter($('a.filterHeader-all'));
+        this.workInProgressFilter = new ProductsFilter($('a.filterHeader-anchor-WorkinProgress'));
+        this.readyToIssueFilter = new ProductsFilter($('a.filterHeader-anchor-ReadytoIssue'));
+        this.issuedFilter = new ProductsFilter($('a.filterHeader-anchor-Issued'));
+        this.transfusedFilter = new ProductsFilter($('a.filterHeader-anchor-Transfused'));
 
-        this.statusHeader = new ColumnHeader($(''));
-        this.unitNoHeader = new ColumnHeader($(''));
-        this.productCodeHeader = new ColumnHeader($(''));
-        this.productHeader = new ColumnHeader($(''));
-        this.abo_rhHeader = new ColumnHeader($(''));
-        this.expirationDateTimeHeader = new ColumnHeader($(''));
-        this.specimenHeader = new ColumnHeader($(''));
-        this.adrHeader = new ColumnHeader($(''));
+        this.statusHeader = new ColumnHeader($('th.columnHeader-statusCode'));
+        this.unitNoHeader = new ColumnHeader($('th.columnHeader-unitNumber'));
+        this.productCodeHeader = new ColumnHeader($('th.columnHeader-productCode'));
+        this.productHeader = new ColumnHeader($('th.columnHeader-standardProductTypeCode'));
+        this.abo_rhHeader = new ColumnHeader($('th.columnHeader-aboRh'));
+        this.expirationDateTimeHeader = new ColumnHeader($('th.columnHeader-expirationDateTimeObj'));
+        this.specimenHeader = new ColumnHeader($('th.columnHeader-specimenId'));
+        this.adrHeader = new ColumnHeader($('th.columnHeader-adr'));
 
         this.setProductsArray();
     }
 
-    // This will clear out the current 'visits' array and then get the array rows
     setProductsArray() {
-        this.products = [];
-        // TODO: FINISH THE CODE HERE
-        // $$('').each.do(function(visit) {
-        //     this.visits.push(new VisitRow(visit));
-        // });
+        return ElementMethods.getCustomElementArray('tr.', 'ProductRow').then(function(productArray) {
+            return this.products = productArray;
+        });
     }
 
 }
@@ -64,12 +62,12 @@ class ProductsFilter {
     count: ElementFinder;
 
     constructor(element: ElementFinder) {
-        this.title = element.$('');
-        this.count = element.$('');
+        this.title = element.$('span');
+        this.count = element.$('div.header-count');
     }
 }
 
-class ProductRow {
+export class ProductRow {
     status: ElementFinder;
     unitNo: ElementFinder;
     productCode: ElementFinder;

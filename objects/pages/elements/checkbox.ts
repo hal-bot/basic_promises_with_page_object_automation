@@ -28,4 +28,12 @@ export class Checkbox {
             return true;
         }
     }
+
+    getLocation(): Promise<any> {
+        return this.box.getLocation();
+    }
+
+    attr(value: string): Promise<boolean> {
+        return this.box.attr(value);
+    }
 }

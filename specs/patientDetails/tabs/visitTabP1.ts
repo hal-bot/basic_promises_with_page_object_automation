@@ -10,12 +10,10 @@ import {NavigationMethods} from "../../../utils/navigationUtilities";
 xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
 
     let visitTab: VisitTab;
-    let navHelper: NavigationMethods;
 
     beforeEach( () => {
         browser.get('/');
-        navHelper = new NavigationMethods;
-        navHelper.navigateToAPatientPage(65858);
+        NavigationMethods.navigateToAPatientPage(65858);
         visitTab = new VisitTab();
     });
 
@@ -34,8 +32,7 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/64, Expected Result #1 **/
-    // NOTE: 'Create Visit' BUTTON HAS NOT YET BEEN CREATED.
-    //       TODO: introduce test once Create Visit button has been implemented
+    // TODO: introduce test once Create Visit button has been implemented
     xit('should have the checkbox to the left of the Create Visit button', () => {
         visitTab.showDischargedVisits_checkbox.getLocation().then(function( dischargedVisitsCheckboxLocation ) {
             visitTab.createVisit_button.getLocation().then(function( createVisitButtonLocation ) {
@@ -78,10 +75,11 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     });
 
     /**
-     *  MORE TESTS TODO...
-     *  - Verify pagination
-     *  - Verify clicking "Show Discharged Visits" adds more records when appropriate
-     *  - Verify clicking on column headers sorts by that row properly
+     *  TODO...
+     *  - Case 65, #2 -> arrows in headers
+     *  - Case 65, #3 -> column headers sort properly
+     *  - Case 66, #1 -> 6 records on the page
+     *  - Case 66, #2 -> Verify pagination
      */
 
 });

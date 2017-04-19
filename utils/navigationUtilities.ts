@@ -7,11 +7,7 @@ export class NavigationMethods {
 
     globalHeader: GlobalHeader;
 
-    constructor() {
-        this.globalHeader = new GlobalHeader();
-    }
-
-    navigateToAPatientPage(patientID?: number): void {
+    static navigateToAPatientPage(patientID?: number): void {
         if (patientID === null) {
             patientID = 65858;
         }

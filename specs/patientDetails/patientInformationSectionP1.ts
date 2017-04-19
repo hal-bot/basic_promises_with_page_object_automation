@@ -9,10 +9,9 @@ import {PatientInformation} from "../../objects/pages/patientDetails/patientInfo
 import {NavigationMethods} from "../../utils/navigationUtilities";
 
 
-fdescribe('The global footer from a P1 level', () => {
+xdescribe('The global footer from a P1 level', () => {
 
     let infoSection: PatientInformation;
-    let navHelper: NavigationMethods;
 
     function validateExtendedPropertyPresenceToBe(value: boolean) {
         expect(infoSection.gender.isPresent()).toBe(value);
@@ -30,8 +29,7 @@ fdescribe('The global footer from a P1 level', () => {
     }
 
     beforeAll( () => {
-        navHelper = new NavigationMethods;
-        navHelper.navigateToAPatientPage(65858);
+        NavigationMethods.navigateToAPatientPage(65858);
         infoSection = new PatientInformation($('div.patient-information'));
     });
 

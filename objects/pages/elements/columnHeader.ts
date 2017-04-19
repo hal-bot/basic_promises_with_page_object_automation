@@ -18,4 +18,8 @@ export class ColumnHeader {
     isPresent(): Promise<boolean> {
         return this.headerElement.isPresent();
     }
+
+    click(): Promise<void> {
+        return this.headerElement.click();
+    }
 }
