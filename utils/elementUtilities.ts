@@ -32,7 +32,7 @@ export class ElementMethods {
                         this.finalArray.push(new DiagnosisRow(elements[i]));
                         break;
                     default:
-                        throw new TypeError("No array conversion case established for custom element type'" + elementType + "'");
+                        throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
                 }
             }
         }).then(function() {
