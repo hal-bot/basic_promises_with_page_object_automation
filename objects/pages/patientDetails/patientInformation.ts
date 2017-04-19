@@ -117,19 +117,15 @@ export class PatientInformation {
     }
 
     showMoreDetails() {
-        if (this.arrowButton.isExpanded()) {
-            return true;
-        } else {
-            return this.arrowButton.click();
-        }
+        return this.arrowButton.isExpanded()
+            ? true
+            : this.arrowButton.click();
     }
 
     showLessDetails() {
-        if (this.arrowButton.isExpanded()) {
-            return this.arrowButton.click();
-        } else {
-            return true;
-        }
+        return this.arrowButton.isExpanded()
+            ? this.arrowButton.click()
+            : true
     }
 
     isPresent(): Promise<boolean> {
@@ -138,21 +134,17 @@ export class PatientInformation {
 
     expand(): Promise<any> {
         return this.isExpanded().then(function(isOpen) {
-            if (isOpen) {
-                return true;
-            } else {
-                return this.arrowButton.click();
-            }
+            return isOpen
+                ? true
+                :this.arrowButton.click();
         })
     }
 
     contract(): Promise<any> {
         return this.isExpanded().then(function(isOpen) {
-            if (isOpen) {
-                return this.arrowButton.click();
-            } else {
-                return true;
-            }
+            return isOpen
+                ? this.arrowButton.click()
+                : true;
         })
     }
 

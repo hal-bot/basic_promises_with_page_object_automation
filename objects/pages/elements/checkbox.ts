@@ -14,19 +14,15 @@ export class Checkbox {
     }
 
     select() {
-        if (this.box.isSelected()) {
-            return true;
-        } else {
-            return this.box.click();
-        }
+        return this.box.isSelected()
+            ? true
+            : this.box.click();
     }
 
     deselect() {
-        if (this.box.isSelected()) {
-            return this.box.click();
-        } else {
-            return true;
-        }
+        return this.box.isSelected()
+            ? this.box.click()
+            : true;
     }
 
     getLocation(): Promise<any> {
