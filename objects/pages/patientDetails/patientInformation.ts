@@ -43,29 +43,30 @@ export class PatientInformation {
     // history_Button: InfoButton;
 
     // element will be the section of the site dedicated to the Patient Information section
-    constructor(element) {
-        this.title = element.$('h4');
+    constructor() {
+        let container = $('div.patient-information');
+        this.title = container.$('h4');
         this.arrowButton = new DetailAccordionSection();
 
-        this.mrn = new TitleValueElement(element.$('div.patient-information-mrn'));
-        this.patientID = new TitleValueElement(element.$('div.patient-information-patientId'));
-        this.lastName = new TitleValueElement(element.$('div.patient-information-lastName'));
-        this.firstName = new TitleValueElement(element.$('div.patient-information-firstName'));
-        this.middleName = new TitleValueElement(element.$('div.patient-information-middleName'));
-        this.dateOfBirth = new TitleValueElement(element.$('div.patient-information-dateOfBirth'));
+        this.mrn = new TitleValueElement(container.$('div.patient-information-mrn'));
+        this.patientID = new TitleValueElement(container.$('div.patient-information-patientId'));
+        this.lastName = new TitleValueElement(container.$('div.patient-information-lastName'));
+        this.firstName = new TitleValueElement(container.$('div.patient-information-firstName'));
+        this.middleName = new TitleValueElement(container.$('div.patient-information-middleName'));
+        this.dateOfBirth = new TitleValueElement(container.$('div.patient-information-dateOfBirth'));
 
-        this.gender = new TitleValueElement(element.$('div.patient-information-'));
-        this.status = new TitleValueElement(element.$('div.patient-information-'));
-        this.weight = new TitleValueElement(element.$('div.patient-information-'));
-        this.ssn = new TitleValueElement(element.$('div.patient-information-'));
-        this.ethnicity = new TitleValueElement(element.$('div.patient-information-'));
-        this.prefix = new TitleValueElement(element.$('div.patient-information-'));
-        this.suffix = new TitleValueElement(element.$('div.patient-information-'));
-        this.enterpriseId = new TitleValueElement(element.$('div.patient-information-'));
-        this.mothersPid = new TitleValueElement(element.$('div.patient-information-'));
-        this.numberOfPregnancies = new TitleValueElement(element.$('div.patient-information-'));
-        this.converted = new TitleValueElement(element.$('div.patient-information-'));
-        this.mergedToId = new TitleValueElement(element.$('div.patient-information-'));
+        this.gender = new TitleValueElement(container.$('div.patient-information-'));
+        this.status = new TitleValueElement(container.$('div.patient-information-'));
+        this.weight = new TitleValueElement(container.$('div.patient-information-'));
+        this.ssn = new TitleValueElement(container.$('div.patient-information-'));
+        this.ethnicity = new TitleValueElement(container.$('div.patient-information-'));
+        this.prefix = new TitleValueElement(container.$('div.patient-information-'));
+        this.suffix = new TitleValueElement(container.$('div.patient-information-'));
+        this.enterpriseId = new TitleValueElement(container.$('div.patient-information-'));
+        this.mothersPid = new TitleValueElement(container.$('div.patient-information-'));
+        this.numberOfPregnancies = new TitleValueElement(container.$('div.patient-information-'));
+        this.converted = new TitleValueElement(container.$('div.patient-information-'));
+        this.mergedToId = new TitleValueElement(container.$('div.patient-information-'));
 
         // THESE HAVE NOT YET BEEN IMPLEMENTED
         // this.specialNeeds_Button = new InfoButton(element.$(''));

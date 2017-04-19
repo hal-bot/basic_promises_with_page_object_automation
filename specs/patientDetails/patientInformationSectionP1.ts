@@ -30,7 +30,7 @@ xdescribe('The global footer from a P1 level', () => {
 
     beforeAll( () => {
         NavigationMethods.navigateToAPatientPage(65858);
-        infoSection = new PatientInformation($('div.patient-information'));
+        infoSection = new PatientInformation();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/

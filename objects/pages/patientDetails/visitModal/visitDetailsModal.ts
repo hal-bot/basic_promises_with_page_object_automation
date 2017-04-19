@@ -49,7 +49,6 @@ export class VisitDetailsModal {
          *      - for each argument
          *          - determine what it is that they want to edit
          *          - input that into the proper input field
-         *
          */
 
         saveButton.click();

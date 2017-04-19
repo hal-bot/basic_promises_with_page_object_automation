@@ -13,7 +13,7 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     beforeEach( () => {
         browser.get('/');
-        NavigationMethods.navigateToAPatientPage(65858);
+        NavigationMethods.navigateToAPatientPage();
         visitTab = new VisitTab();
     });
 
