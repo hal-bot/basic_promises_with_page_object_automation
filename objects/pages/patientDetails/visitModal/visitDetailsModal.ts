@@ -62,14 +62,12 @@ export class VisitDetailsModal {
     }
 
     getEditResultText() {
-    // getEditResultText(): Promise<string> {
         if (this.actionMessage.isPresent()) {
             return this.actionMessage.getText();
         } else {
             // TODO : Add some PROMISE stuff here to return 'No result set'
             // TODO : Set the above to return Promise<string>
         }
-
     }
 
     isPresent(): Promise<boolean> {

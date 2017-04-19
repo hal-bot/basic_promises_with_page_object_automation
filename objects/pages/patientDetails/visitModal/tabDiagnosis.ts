@@ -2,6 +2,7 @@
 
 import { ColumnHeader } from "../../elements/columnHeader";
 import { ElementFinder } from "protractor";
+import {ElementMethods} from "../../../../utils/elementUtilities";
 
 export class TabDiagnosis {
 
@@ -23,17 +24,15 @@ export class TabDiagnosis {
         this.setDiagnosisArray();
     }
 
-    // This will clear out the current 'visits' array and then get the array rows
-    setDiagnosisArray() {
-        this.diagnoses = [];
-        // TODO: FINISH THE CODE HERE
-        // $$('').each.do(function(diagnosis) {
-        //     this.diagnoses.push(new DiagnosisRow(diagnosis));
-        // });
+    // This will get the diagnosis rows and put them into the 'diagnosis' array
+    setDiagnosisArray(): Promise<any> {
+        return ElementMethods.getCustomElementArray('tr.diagnosis-tableRow', 'DiagnosisRow').then(function(diagnosisArray) {
+            return this.diagnoses = diagnosisArray;
+        });
     }
 }
 
-class DiagnosisRow {
+export class DiagnosisRow {
     diagnosis: ElementFinder;
     code: ElementFinder;
     startDate: ElementFinder;

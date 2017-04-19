@@ -19,7 +19,7 @@ export abstract class Tab {
         this.setPages();
     }
 
-    // This will clear out the current 'visits' array and then get the array rows
+    // This will clear out the current 'pages' array and then get the array rows
     setPages(): Promise<any> {
         return this.tabContentContainer.$$('li.page-item').map(function(pages) {
             return this.pages = pages;

@@ -43,7 +43,7 @@ export class VisitTab extends Tab {
         this.visitsModal = new VisitDetailsModal();
     }
 
-    // This will clear out the current 'visits' array and then get the array rows
+    // This will get the rows and put them into the 'visits' array
     setVisitsArray(): Promise<any> {
         return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then(function(visitsArray) {
             return this.visits = visitsArray;

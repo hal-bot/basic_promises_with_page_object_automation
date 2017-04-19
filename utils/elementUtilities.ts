@@ -4,6 +4,7 @@ import { $$ } from "protractor";
 import {VisitRow} from "../objects/pages/patientDetails/tabCollection/tabVisit";
 import {ProductRow} from "../objects/pages/patientDetails/tabCollection/tabProducts";
 import {OrderRow} from "../objects/pages/patientDetails/tabCollection/tabOrders";
+import {DiagnosisRow} from "../objects/pages/patientDetails/visitModal/tabDiagnosis";
 
 export class ElementMethods {
 
@@ -27,8 +28,11 @@ export class ElementMethods {
                     case "OrderRow":
                         this.finalArray.push(new OrderRow(elements[i]));
                         break;
+                    case "DiagnosisRow":
+                        this.finalArray.push(new DiagnosisRow(elements[i]));
+                        break;
                     default:
-                        throw new TypeError("No array conversion case established for custom element type'" + elementType + "'");
+                        throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
                 }
             }
         }).then(function() {
