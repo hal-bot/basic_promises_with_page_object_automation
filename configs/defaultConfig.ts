@@ -16,6 +16,8 @@ export let config: Config = {
       '../specs/**/*.js'
     ],
 
+    useAllAngular2AppRoots: true,
+
     baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
     // baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
 

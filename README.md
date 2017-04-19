@@ -27,7 +27,7 @@ npm run default-tests
 
 This will:
 - Transpile TypeScript
-- Run the test directly with the browser specified in the "capabilities" section of 'congifs > defaultConfig.ts' on your local machine
+- Run the test directly with the browser specified in the "capabilities" section of 'configs > defaultConfig.ts' on your local machine
 - Rerun test files where a test has failed
 
 Testing with SauceLabs

@@ -4,7 +4,6 @@
  *  Example: https://qc.sttx40.com/#/patient/65858
  */
 
-import { $ } from 'protractor';
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
 

@@ -1,6 +1,6 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
-import { $, $$, ElementFinder } from 'protractor';
+import { $, ElementFinder } from 'protractor';
 import {Tab} from "../class_Tab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
@@ -126,7 +126,7 @@ export class VisitRow {
     //     return this.getAdmissionDate().then(function(admissionDate) {
     //         return this.getType().then(function(type) {
     //             return this.getMRN().then(function(mrn) {
-    //                 return this.getServiveProvider().then(function(serviceProvider) {
+    //                 return this.getServiceProvider().then(function(serviceProvider) {
     //                     return this.getVisitNo().then(function(visitNo) {
     //                         return this.getAccountNumber().then(function(accountNo) {
     //                             return this.getLocation().then(function(location) {

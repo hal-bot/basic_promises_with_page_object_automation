@@ -22,4 +22,4 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     it('should be present, selected, and have the title "Visit"', () => {
 
     });
-}
+});

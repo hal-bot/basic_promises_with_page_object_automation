@@ -1,4 +1,4 @@
-import { $, $$, ElementFinder } from 'protractor';
+import { $, ElementFinder } from 'protractor';
 
 export abstract class Tab {
 
