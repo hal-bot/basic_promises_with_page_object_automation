@@ -1,9 +1,9 @@
 // Describes the section below the Patient Detail header and the tabs section
 
 
-import {InfoButton} from "./class_infoButton";
+// import {InfoButton} from "./class_infoButton";
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $, protractor, browser} from "protractor";
+import {ElementFinder, $, protractor } from "protractor";
 // import Promise = promise.Promise;
 
 export class PatientInformation {

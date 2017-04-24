@@ -19,15 +19,15 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/62 **/
     it('should be present, selected, and have the title "Visit"', () => {
-        expect(visitTab.actualTab.isPresent()).toBe(true);
-        expect(visitTab.isSelected()).toBe(true);
-        expect(visitTab.getTabTitle).toBe("Visit");
+        expect<any>(visitTab.actualTab.isPresent()).toBe(true);
+        expect<any>(visitTab.isSelected()).toBe(true);
+        expect<any>(visitTab.getTabTitle).toBe("Visit");
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/42 **/
     it('should display the proper elements above the grid', () => {
-        expect(visitTab.title.isPresent()).toBe(true);
-        expect(visitTab.showDischargedVisits_checkbox.isPresent()).toBe(true);
+        expect<any>(visitTab.title.isPresent()).toBe(true);
+        expect<any>(visitTab.showDischargedVisits_checkbox.isPresent()).toBe(true);
         expect(visitTab.visits.length).toBeGreaterThan(0);
     });
 
@@ -44,13 +44,13 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/64, Expected Result #2 **/
     it('should display the correct column headers', () => {
-        expect(visitTab.admissionDateHeader.isPresent()).toBe(true);
-        expect(visitTab.visitTypeHeader.isPresent()).toBe(true);
-        expect(visitTab.mrnHeader.isPresent()).toBe(true);
-        expect(visitTab.serviceProviderHeader.isPresent()).toBe(true);
-        expect(visitTab.visitNoHeader.isPresent()).toBe(true);
-        expect(visitTab.accountNumberHeader.isPresent()).toBe(true);
-        expect(visitTab.locationHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.admissionDateHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.visitTypeHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.mrnHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.serviceProviderHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.visitNoHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.accountNumberHeader.isPresent()).toBe(true);
+        expect<any>(visitTab.locationHeader.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/65, Expected Result #1 **/

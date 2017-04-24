@@ -19,13 +19,13 @@ xdescribe('The global header from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 **/
     it('should be present', () => {
-        expect(header.isPresent()).toBe(true);
+        expect<any>(header.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
     it('should have all expected elements', () => {
-        expect(header.patients.isPresent()).toBe(true);
-        expect(header.orders.link.isPresent()).toBe(true);
+        expect<any>(header.patients.isPresent()).toBe(true);
+        expect<any>(header.orders.link.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
@@ -41,7 +41,7 @@ xdescribe('The global header from a P1 level', () => {
                 break;
             } else {
                 browser.get(page);
-                expect(header.isPresent()).toBe(true);
+                expect<any>(header.isPresent()).toBe(true);
             }
             ++pageCount;
         }

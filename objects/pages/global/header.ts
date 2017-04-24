@@ -1,4 +1,4 @@
-import { ElementFinder, $, by, protractor } from 'protractor';
+import { ElementFinder, $ } from 'protractor';
 
 export class GlobalHeader {
 

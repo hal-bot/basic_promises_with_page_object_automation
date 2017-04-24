@@ -42,7 +42,7 @@ export class VisitDetailsModal {
 
         this.editVisit.click();
         this.setActionMessage();
-        expect(this.getEditResultText()).toBe("Editing Visit");
+        expect<any>(this.getEditResultText()).toBe("Editing Visit");
 
         /** TODO: Add the code here to edit the visit
          *      - update the above to accept an array of arguments
@@ -54,23 +54,31 @@ export class VisitDetailsModal {
         saveButton.click();
 
         this.setActionMessage();
-        expect(this.getEditResultText()).toBe("Visit Changes Saved");
+        expect<any>(this.getEditResultText()).toBe("Visit Changes Saved");
     }
 
     setActionMessage() {
         this.actionMessage = $('');
     }
 
-    getEditResultText() {
-        if (this.actionMessage.isPresent()) {
-            return this.actionMessage.getText();
-        } else {
-            // TODO : Add some PROMISE stuff here to return 'No result set'
-            // TODO : Set the above to return Promise<string>
-        }
+    getEditResultText(): Promise<string> {
+        // if (this.actionMessage.isPresent()) {
+        //     // return this.actionMessage.getText();
+        //     return new Promise(()=> { this.actionMessage.getText(); });
+        // } else {
+        //     return new Promise(()=> { return 'No result set' });
+        // }
+        return new Promise(()=> {
+            if (this.actionMessage.isPresent()) {
+                return this.actionMessage.getText();
+            } else {
+                return 'No result set';
+            }
+        });
     }
 
     isPresent(): Promise<boolean> {
         return new Promise(()=> { this.container.isPresent(); });
+        // return this.container.isPresent();
     }
 }

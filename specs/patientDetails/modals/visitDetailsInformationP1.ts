@@ -23,15 +23,15 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
     it('should be present, have correct title & date', () => {
-        expect(visitModal.isPresent()).toBe(true);
-        expect(visitModal.title.getText()).toBe('Visit Details');
-        expect(visitModal.visitDate.isPresent()).toBe(true);
+        expect<any>(visitModal.isPresent()).toBe(true);
+        expect<any>(visitModal.title.getText()).toBe('Visit Details');
+        expect<any>(visitModal.visitDate.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
     // Note: assumes the patient has >6 visits
     it('should have 6 records on the page', () => {
-        expect(visitTab.visits.length).toBe(6);
+        expect<any>(visitTab.visits.length).toBe(6);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/

@@ -19,16 +19,16 @@ xdescribe('The global footer from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
     it('should be present', () => {
-        expect(footer.isPresent()).toBe(true);
+        expect<any>(footer.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
-        expect(footer.name.isPresent()).toBe(true);
-        expect(footer.location.isPresent()).toBe(true);
-        expect(footer.copyright.isPresent()).toBe(true);
-        expect(footer.safetraceLogo.isPresent()).toBe(true);
-        expect(footer.haemoneticsLogo.isPresent()).toBe(true);
+        expect<any>(footer.name.isPresent()).toBe(true);
+        expect<any>(footer.location.isPresent()).toBe(true);
+        expect<any>(footer.copyright.isPresent()).toBe(true);
+        expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
+        expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #1 **/
@@ -44,7 +44,7 @@ xdescribe('The global footer from a P1 level', () => {
                 break;
             } else {
                 browser.get(page);
-                expect(footer.isPresent()).toBe(true);
+                expect<any>(footer.isPresent()).toBe(true);
             }
             ++pageCount;
         }

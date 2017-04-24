@@ -18,20 +18,20 @@ describe('The patient\'s information details', () => {
 
         // these take a few second to run a piece if the 'expectation' is false.  If too many are checked a timeout error will be thrown.
         // Splitting it out to ensure a few things are checked if we expect it to be closed and all if we expect it to be open
-        expect(browser.isElementPresent(infoSection.gender.title)).toBe(expectation);
+        expect<any>(browser.isElementPresent(infoSection.gender.title)).toBe(expectation);
         // if (expectation === true) {
-        //     expect(browser.isElementPresent(infoSection.status.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.weight.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.ssn.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.ethnicity.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.prefix.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.suffix.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.enterpriseId.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.mothersPid.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.numberOfPregnancies.title)).toBe(expectation);
-        //     expect(browser.isElementPresent(infoSection.converted.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.status.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.weight.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.ssn.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.ethnicity.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.prefix.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.suffix.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.enterpriseId.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.mothersPid.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.numberOfPregnancies.title)).toBe(expectation);
+        //     expect<any>(browser.isElementPresent(infoSection.converted.title)).toBe(expectation);
         // }
-        expect(browser.isElementPresent(infoSection.mergedToId.title)).toBe(expectation);
+        expect<any>(browser.isElementPresent(infoSection.mergedToId.title)).toBe(expectation);
     }
 
     beforeAll( () => {
@@ -47,15 +47,15 @@ describe('The patient\'s information details', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
     it('should be present, be collapsed on load, display default fields', () => {
-        expect(infoSection.isPresent()).toBe(true);
-        expect(infoSection.title.getText()).toBe('Patient Information');
-        expect(infoSection.isExpanded()).toBe(false);
-        expect(infoSection.mrn.isPresent()).toBe(true);
-        expect(infoSection.patientID.isPresent()).toBe(true);
-        expect(infoSection.lastName.isPresent()).toBe(true);
-        expect(infoSection.firstName.isPresent()).toBe(true);
-        expect(infoSection.middleName.isPresent()).toBe(true);
-        expect(infoSection.dateOfBirth.isPresent()).toBe(true);
+        expect<any>(infoSection.isPresent()).toBe(true);
+        expect<any>(infoSection.title.getText()).toBe('Patient Information');
+        expect<any>(infoSection.isExpanded()).toBe(false);
+        expect<any>(infoSection.mrn.isPresent()).toBe(true);
+        expect<any>(infoSection.patientID.isPresent()).toBe(true);
+        expect<any>(infoSection.lastName.isPresent()).toBe(true);
+        expect<any>(infoSection.firstName.isPresent()).toBe(true);
+        expect<any>(infoSection.middleName.isPresent()).toBe(true);
+        expect<any>(infoSection.dateOfBirth.isPresent()).toBe(true);
 
         validateExtendedPropertyPresenceToBe(false);
     });
@@ -65,13 +65,13 @@ describe('The patient\'s information details', () => {
         console.log("In the second IT method");
         infoSection.expand().then(function () {
             console.log("EXPANDED");
-            expect(infoSection.arrowButton.label.getText()).toBe('Less Details');
-            expect(infoSection.isExpanded()).toBe(true);
+            expect<any>(infoSection.arrowButton.label.getText()).toBe('Less Details');
+            expect<any>(infoSection.isExpanded()).toBe(true);
             validateExtendedPropertyPresenceToBe(true);
         }).then(function () {
            infoSection.contract().then(function () {
-               expect(infoSection.arrowButton.label.getText()).toBe('More Details');
-               expect(infoSection.isExpanded()).toBe(false);
+               expect<any>(infoSection.arrowButton.label.getText()).toBe('More Details');
+               expect<any>(infoSection.isExpanded()).toBe(false);
                validateExtendedPropertyPresenceToBe(false);
            });
         });

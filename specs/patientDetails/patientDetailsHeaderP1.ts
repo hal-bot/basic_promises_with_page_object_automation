@@ -24,7 +24,7 @@ xdescribe('The global footer from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/53 **/
     it('should be present', () => {
-        expect(patientHeader.isPresent()).toBe(true);
+        expect<any>(patientHeader.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/53 **/
