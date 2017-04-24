@@ -25,7 +25,7 @@ export class GlobalHeader {
     }
 
     isPresent(): Promise<boolean> {
-        return this.container.isPresent();
+        return new Promise(()=> { this.container.isPresent(); });
     }
 
     //TODO: Create 'open' and 'close' methods for
@@ -43,19 +43,17 @@ class HeaderOption {
 
     open(): Promise<any> {
         if (this.isExpanded()) {
-            let deferred = protractor.promise.defer();
-            return deferred.promise;
+            return new Promise(()=> { });
         } else {
-            return this.link.click();
+            return new Promise(()=> { this.link.click(); });
         }
     }
 
     close(): Promise<any> {
         if (this.isExpanded()) {
-            this.link.click();
+            return new Promise(()=> { this.link.click(); });
         } else {
-            let deferred = protractor.promise.defer();
-            return deferred.promise;
+            return new Promise(()=> { });
         }
     }
 
@@ -66,7 +64,7 @@ class HeaderOption {
     }
 
     isPresent(): Promise<boolean> {
-        return this.link.isPresent();
+        return new Promise(()=> { this.link.isPresent(); });
     }
 
     click() {

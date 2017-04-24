@@ -10,7 +10,7 @@ export class Checkbox {
     }
 
     isPresent(): Promise<boolean> {
-        return this.box.isPresent();
+        return new Promise(()=> { this.box.isPresent(); });
     }
 
     select() {
@@ -26,7 +26,7 @@ export class Checkbox {
     }
 
     getLocation(): Promise<any> {
-        return this.box.getLocation();
+        return new Promise(()=> { this.box.getLocation(); });
     }
 
     attr(value: string): Promise<boolean> {

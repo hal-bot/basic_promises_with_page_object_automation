@@ -20,14 +20,16 @@ export abstract class Tab {
     }
 
     // This will clear out the current 'pages' array and then get the array rows
-    setPages(): Promise<any> {
-        return this.tabContentContainer.$$('li.page-item').map(function(pages) {
-            return this.pages = pages;
+    setPages(): Promise<{}> {
+        return new Promise(()=> {
+            return this.tabContentContainer.$$('li.page-item').map(function(pages) {
+                return this.pages = pages;
+            });
         });
     }
 
     getTabTitle(): Promise<string> {
-        return this.actualTab.getText();
+        return new Promise(()=> { this.actualTab.getText(); });
     }
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
@@ -46,7 +48,7 @@ export abstract class Tab {
     // }
 
     getSectionTitle(): Promise<string> {
-        return this.title.getText();
+        return new Promise(()=> { this.title.getText(); });
     }
 
     getCurrentPageNumber(): number {
@@ -91,8 +93,10 @@ export abstract class Tab {
     }
 
     isSelected(): Promise<boolean> {
-        return this.actualTab.getAttribute('class').then( function(tabClass) {
-            return tabClass.indexOf('active') >= 0;
+        return new Promise(()=> {
+            return this.actualTab.getAttribute('class').then( function(tabClass) {
+                return tabClass.indexOf('active') >= 0;
+            });
         });
     }
 }

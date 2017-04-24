@@ -13,12 +13,14 @@ export class PatientPageHeader {
     }
 
     isPresent(): Promise<boolean> {
-        return this.container.isPresent();
+        return new Promise(()=> { this.container.isPresent(); });
     }
 
     title(): Promise<string> {
-        return this.container.getText().then(function (txt) {
-            return txt;
+        return new Promise(()=> {
+            return this.container.getText().then(function (txt) {
+                return txt;
+            });
         });
     }
 }

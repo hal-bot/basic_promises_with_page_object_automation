@@ -1,10 +1,14 @@
 // Describes the section below the Patient Detail header and the tabs section
 
+
 import {InfoButton} from "./class_infoButton";
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $} from "protractor";
+import {ElementFinder, $, protractor, browser} from "protractor";
+// import Promise = promise.Promise;
 
 export class PatientInformation {
+
+    private container = $('div.patient-information');
 
     title: ElementFinder;
     arrowButton: DetailAccordionSection;
@@ -44,29 +48,17 @@ export class PatientInformation {
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor() {
-        let container = $('div.patient-information');
-        this.title = container.$('h4');
-        this.arrowButton = new DetailAccordionSection();
+        console.log("In constructor for 'PatientInformation'");
 
-        this.mrn = new TitleValueElement(container.$('div.patient-information-mrn'));
-        this.patientID = new TitleValueElement(container.$('div.patient-information-patientId'));
-        this.lastName = new TitleValueElement(container.$('div.patient-information-lastName'));
-        this.firstName = new TitleValueElement(container.$('div.patient-information-firstName'));
-        this.middleName = new TitleValueElement(container.$('div.patient-information-middleName'));
-        this.dateOfBirth = new TitleValueElement(container.$('div.patient-information-dateOfBirth'));
-
-        this.gender = new TitleValueElement(container.$('div.patient-information-'));
-        this.status = new TitleValueElement(container.$('div.patient-information-'));
-        this.weight = new TitleValueElement(container.$('div.patient-information-'));
-        this.ssn = new TitleValueElement(container.$('div.patient-information-'));
-        this.ethnicity = new TitleValueElement(container.$('div.patient-information-'));
-        this.prefix = new TitleValueElement(container.$('div.patient-information-'));
-        this.suffix = new TitleValueElement(container.$('div.patient-information-'));
-        this.enterpriseId = new TitleValueElement(container.$('div.patient-information-'));
-        this.mothersPid = new TitleValueElement(container.$('div.patient-information-'));
-        this.numberOfPregnancies = new TitleValueElement(container.$('div.patient-information-'));
-        this.converted = new TitleValueElement(container.$('div.patient-information-'));
-        this.mergedToId = new TitleValueElement(container.$('div.patient-information-'));
+        // this.title = this.container.$('h4');
+        // this.arrowButton = new DetailAccordionSection();
+        //
+        // this.mrn = new TitleValueElement(this.container.$('div.patient-information-mrn'));
+        // this.patientID = new TitleValueElement(this.container.$('div.patient-information-patientId'));
+        // this.lastName = new TitleValueElement(this.container.$('div.patient-information-lastName'));
+        // this.firstName = new TitleValueElement(this.container.$('div.patient-information-firstName'));
+        // this.middleName = new TitleValueElement(this.container.$('div.patient-information-middleName'));
+        // this.dateOfBirth = new TitleValueElement(this.container.$('div.patient-information-dateOfBirth'));
 
         // THESE HAVE NOT YET BEEN IMPLEMENTED
         // this.specialNeeds_Button = new InfoButton(element.$(''));
@@ -80,7 +72,38 @@ export class PatientInformation {
         // this.labs_Button = new InfoButton(element.$(''));
         // this.issuedProducts_Button = new InfoButton(element.$(''));
         // this.history_Button = new InfoButton(element.$(''));
+    }
 
+    private async initialize() {
+        return new Promise<void>( () => {
+            this.title = this.container.$('h4');
+            this.arrowButton = new DetailAccordionSection();
+
+            this.mrn = new TitleValueElement(this.container.$('div.patient-information-mrn'));
+            this.patientID = new TitleValueElement(this.container.$('div.patient-information-patientId'));
+            this.lastName = new TitleValueElement(this.container.$('div.patient-information-lastName'));
+            this.firstName = new TitleValueElement(this.container.$('div.patient-information-firstName'));
+            this.middleName = new TitleValueElement(this.container.$('div.patient-information-middleName'));
+            this.dateOfBirth = new TitleValueElement(this.container.$('div.patient-information-dateOfBirth'));
+        });
+    }
+
+    private async initializeExtraDetails() {
+        console.log("   In 'initializeExtraDetails()'");
+        await this.initialize();
+
+        this.gender = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.status = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.weight = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.ssn = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.ethnicity = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.prefix = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.suffix = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.enterpriseId = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.mothersPid = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.numberOfPregnancies = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.converted = new TitleValueElement(this.container.$('div.patient-information-'));
+        this.mergedToId = new TitleValueElement(this.container.$('div.patient-information-'));
     }
 
     getMRN(): Promise<string> {
@@ -108,45 +131,48 @@ export class PatientInformation {
             return this.getMiddleName().then(function(middleName) {
                 return this.getLastName().then(function(lastName) {
                     return firstName +' '+ middleName +' '+ lastName;
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     getDateOfBirth(): Promise<string> {
         return this.dateOfBirth.getTitle();
     }
 
-    showMoreDetails() {
-        return this.arrowButton.isExpanded()
-            ? true
-            : this.arrowButton.click();
-    }
-
-    showLessDetails() {
-        return this.arrowButton.isExpanded()
-            ? this.arrowButton.click()
-            : true
-    }
-
     isPresent(): Promise<boolean> {
-        return this.title.isPresent();
+        return new Promise(()=> { return this.title.isPresent(); });
     }
 
     expand(): Promise<any> {
-        return this.isExpanded().then(function(isOpen) {
-            return isOpen
-                ? true
-                :this.arrowButton.click();
-        })
+        console.log("   In 'expand'");
+        // return this.isExpanded().then(function(isOpen) {
+        //     console.log("     Is it expanded?  " + isOpen);
+        //     if (isOpen) {
+        //         let deferred = protractor.promise.defer();
+        //         deferred.fulfill(true);
+        //         return deferred.promise;
+        //     } else {
+        //         console.log("       EXPANDING click!");
+        //         return this.arrowButton.click();
+        //     }
+        // });
+        return this.arrowButton.click().then( () => {
+            return this.initializeExtraDetails();
+        });
+
     }
 
-    contract(): Promise<any> {
-        return this.isExpanded().then(function(isOpen) {
-            return isOpen
-                ? this.arrowButton.click()
-                : true;
-        })
+    contract(): Promise<boolean> {
+        return this.isExpanded().then( (isOpen) => {
+            if (isOpen) {
+                return this.arrowButton.click();
+            } else {
+                let deferred = protractor.promise.defer();
+                deferred.fulfill(true);
+                return deferred.promise;
+            }
+        });
     }
 
     isExpanded(): Promise<boolean> {
@@ -158,24 +184,32 @@ export class PatientInformation {
 
 class DetailAccordionSection {
 
-    private container: ElementFinder;
     label: ElementFinder;
-    private arrowButton: ElementFinder;
+    private directionalButton: ElementFinder;
 
     constructor() {
-        this.container = $('div.titlebar div.detail-menu');
-        this.label = this.container.$('div.accordion-label');
-        this.arrowButton = this.container.$('span.glyphicon');
+        // console.log("   In 'DetailAccordionSection' constructor");
+        let container = $('div.titlebar div.detail-menu');
+        this.label = container.$('div.accordion-label');
+        this.directionalButton = container.$('span.glyphicon');
     }
 
-    click(): Promise<any> {
-        return this.arrowButton.click();
-    }
+    click(): Promise<boolean> {
+        // console.log("  Gonna click the button");
+        return new Promise(()=> { this.directionalButton.click(); });
+}
 
     isExpanded(): Promise<boolean> {
-        return this.arrowButton.getAttribute('class').then(function(arrowButtonClass) {
-            return arrowButtonClass.indexOf('up') >= 0;
+        return new Promise(()=> {
+            return this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
+                console.log("  class of the 'directionalButton' = " + directionalButtonClass);
+                return directionalButtonClass.indexOf('up') >= 0;
+            });
         });
+    }
+
+    getText():Promise<string> {
+        return new Promise(()=> { return this.label.getText(); });
     }
 
 }

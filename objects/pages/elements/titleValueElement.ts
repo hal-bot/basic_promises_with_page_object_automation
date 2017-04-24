@@ -10,7 +10,7 @@ export class TitleValueElement {
     }
 
     getTitle(): Promise<string> {
-        return this.title.getText();
+        return new Promise(()=> { this.title.getText(); });
     }
 
     getValue(): Promise<string> {
@@ -18,6 +18,6 @@ export class TitleValueElement {
     }
 
     isPresent(): Promise<boolean> {
-        return this.title.isPresent();
+        return new Promise(()=> { this.title.isPresent(); });
     }
 }

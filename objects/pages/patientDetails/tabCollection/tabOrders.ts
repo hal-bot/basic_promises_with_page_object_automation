@@ -56,27 +56,27 @@ export class OrderRow {
     };
 
     getStatus(): Promise<string> {
-        return this.status.getText();
+        return new Promise(()=> { this.status.getText(); });
     }
 
     getOrderId(): Promise<string> {
-        return this.orderId.getText();
+        return new Promise(()=> { this.orderId.getText(); });
     }
 
     getOrderDateTime(): Promise<string> {
-        return this.orderDateTime.getText();
+        return new Promise(()=> { this.orderDateTime.getText(); });
     }
 
     getSpecimen(): Promise<string> {
-        return this.specimen.getText();
+        return new Promise(()=> { this.specimen.getText(); });
     }
 
     getLocationSublocation(): Promise<string> {
-        return this.locationSublocation.getText();
+        return new Promise(()=> { this.locationSublocation.getText(); });
     }
 
     getPriority(): Promise<string> {
-        return this.priority.getText();
+        return new Promise(()=> { this.priority.getText(); });
     }
 
 }

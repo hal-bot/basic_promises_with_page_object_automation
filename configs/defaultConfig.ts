@@ -18,8 +18,8 @@ export let config: Config = {
 
     useAllAngular2AppRoots: true,
 
-    baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
-    // baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+    // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
+    baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
 
     onPrepare: () => {
         // console.log("  PREPARING TESTS");

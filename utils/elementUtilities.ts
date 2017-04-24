@@ -13,30 +13,32 @@ export class ElementMethods {
         let finalArray = [];
         let elementArray = $$(identifier);
 
-        return elementArray.map(function(elements){
-            return elements;
-        }).then(function(elements){
-            for (let i = 0; elements.length; i++) {
-                switch (elementType)
-                {
-                    case "VisitRow":
-                        this.finalArray.push(new VisitRow(elements[i]));
-                        break;
-                    case "ProductRow":
-                        this.finalArray.push(new ProductRow(elements[i]));
-                        break;
-                    case "OrderRow":
-                        this.finalArray.push(new OrderRow(elements[i]));
-                        break;
-                    case "DiagnosisRow":
-                        this.finalArray.push(new DiagnosisRow(elements[i]));
-                        break;
-                    default:
-                        throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
+        return new Promise(()=> {
+            return elementArray.map(function(elements){
+                return elements;
+            }).then(function(elements){
+                for (let i = 0; elements.length; i++) {
+                    switch (elementType)
+                    {
+                        case "VisitRow":
+                            this.finalArray.push(new VisitRow(elements[i]));
+                            break;
+                        case "ProductRow":
+                            this.finalArray.push(new ProductRow(elements[i]));
+                            break;
+                        case "OrderRow":
+                            this.finalArray.push(new OrderRow(elements[i]));
+                            break;
+                        case "DiagnosisRow":
+                            this.finalArray.push(new DiagnosisRow(elements[i]));
+                            break;
+                        default:
+                            throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
+                    }
                 }
-            }
-        }).then(function() {
-            return this.finalArray;
+            }).then(function() {
+                return this.finalArray;
+            });
         });
     }
 

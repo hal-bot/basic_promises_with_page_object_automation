@@ -89,36 +89,37 @@ export class ProductRow {
         this.adr = element.$('');
     };
 
-    getStatus(): Promise<string> {
-        return this.status.getText();
-    }
-
-    getUnitNo(): Promise<string> {
-        return this.unitNo.getText();
-    }
-
-    getProductCode(): Promise<string> {
-        return this.productCode.getText();
-    }
-
-    getProduct(): Promise<string> {
-        return this.product.getText();
-    }
-
-    getAbo_rh(): Promise<string> {
-        return this.abo_rh.getText();
-    }
-
-    getExpirationDateTime(): Promise<string> {
-        return this.expirationDateTime.getText();
-    }
-
-    getSpecimen(): Promise<string> {
-        return this.specimen.getText();
-    }
-
-    getADR(): Promise<string> {
-        return this.adr.getText();
-    }
+    //  TODO - if these ever are needed, address with 'return new Promise(()=> { });' code
+    // getStatus(): Promise<string> {
+    //     return this.status.getText();
+    // }
+    //
+    // getUnitNo(): Promise<string> {
+    //     return this.unitNo.getText();
+    // }
+    //
+    // getProductCode(): Promise<string> {
+    //     return this.productCode.getText();
+    // }
+    //
+    // getProduct(): Promise<string> {
+    //     return this.product.getText();
+    // }
+    //
+    // getAbo_rh(): Promise<string> {
+    //     return this.abo_rh.getText();
+    // }
+    //
+    // getExpirationDateTime(): Promise<string> {
+    //     return this.expirationDateTime.getText();
+    // }
+    //
+    // getSpecimen(): Promise<string> {
+    //     return this.specimen.getText();
+    // }
+    //
+    // getADR(): Promise<string> {
+    //     return this.adr.getText();
+    // }
 
 }

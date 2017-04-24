@@ -89,58 +89,59 @@ export class VisitRow {
         this.location = element.$('td.visit-tableCell-locationId');
     };
 
-    getAdmissionDate(): Promise<string> {
-        return this.admissionDate.getText();
-    }
-
-    getType(): Promise<string> {
-        return this.type.getText();
-    }
-
-    getMRN(): Promise<string> {
-        return this.mrn.getText();
-    }
-
-    getServiceProvider(): Promise<string> {
-        return this.serviceProvider.getText();
-    }
-
-    getVisitNo(): Promise<string> {
-        return this.visitNo.getText();
-    }
-
-    getAccountNumber(): Promise<string> {
-        return this.accountNumber.getText();
-    }
-
-    getLocation(): Promise<string> {
-        return this.location.getText();
-    }
-
-    click(): Promise<any> {
-        return this.visitNo.click();
-    }
-
-    // TODO: Finish this!
-    // getVisitDetails() {
-    //     return this.getAdmissionDate().then(function(admissionDate) {
-    //         return this.getType().then(function(type) {
-    //             return this.getMRN().then(function(mrn) {
-    //                 return this.getServiceProvider().then(function(serviceProvider) {
-    //                     return this.getVisitNo().then(function(visitNo) {
-    //                         return this.getAccountNumber().then(function(accountNo) {
-    //                             return this.getLocation().then(function(location) {
-    //                                 enum VisitDetails {
-    //                                     admissionDate = admissionDate,
-    //
-    //                                 }
-    //                             });
-    //                         });
-    //                     });
-    //                 });
-    //             });
-    //         });
-    //     });
+    // TODO - if these are ever needed, address w/ 'return new Promise(()=> { });' code
+    // getAdmissionDate(): Promise<string> {
+    //     return this.admissionDate.getText();
     // }
+    //
+    // getType(): Promise<string> {
+    //     return this.type.getText();
+    // }
+    //
+    // getMRN(): Promise<string> {
+    //     return this.mrn.getText();
+    // }
+    //
+    // getServiceProvider(): Promise<string> {
+    //     return this.serviceProvider.getText();
+    // }
+    //
+    // getVisitNo(): Promise<string> {
+    //     return this.visitNo.getText();
+    // }
+    //
+    // getAccountNumber(): Promise<string> {
+    //     return this.accountNumber.getText();
+    // }
+    //
+    // getLocation(): Promise<string> {
+    //     return this.location.getText();
+    // }
+    //
+    // click(): Promise<any> {
+    //     return this.visitNo.click();
+    // }
+    //
+    // // TODO: Finish this!
+    // // getVisitDetails() {
+    // //     return this.getAdmissionDate().then(function(admissionDate) {
+    // //         return this.getType().then(function(type) {
+    // //             return this.getMRN().then(function(mrn) {
+    // //                 return this.getServiceProvider().then(function(serviceProvider) {
+    // //                     return this.getVisitNo().then(function(visitNo) {
+    // //                         return this.getAccountNumber().then(function(accountNo) {
+    // //                             return this.getLocation().then(function(location) {
+    // //                                 enum VisitDetails {
+    // //                                     admissionDate = admissionDate,
+    // //
+    // //                                 }
+    // //                             });
+    // //                         });
+    // //                     });
+    // //                 });
+    // //             });
+    // //         });
+    // //     });
+    // // }
 
 }

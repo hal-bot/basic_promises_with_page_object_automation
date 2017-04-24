@@ -23,7 +23,7 @@ export class GlobalFooter {
     }
 
     isPresent(): Promise<boolean> {
-        return this.container.isPresent();
+        return new Promise(() => { this.container.isPresent() });
     }
 
     // // Will return the address w/out the copyright info and extra characters

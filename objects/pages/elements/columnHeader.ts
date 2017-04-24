@@ -12,14 +12,14 @@ export class ColumnHeader {
     }
 
     getHeaderTitle(): Promise<string> {
-        return this.headerElement.getText();
+        return new Promise(()=> { this.headerElement.getText(); });
     }
 
     isPresent(): Promise<boolean> {
-        return this.headerElement.isPresent();
+        return new Promise(()=> { this.headerElement.isPresent(); });
     }
 
-    click(): Promise<void> {
-        return this.headerElement.click();
+    click(): Promise<any> {
+        return new Promise(()=> { this.headerElement.click(); });
     }
 }

@@ -71,6 +71,6 @@ export class VisitDetailsModal {
     }
 
     isPresent(): Promise<boolean> {
-        return this.container.isPresent();
+        return new Promise(()=> { this.container.isPresent(); });
     }
 }
