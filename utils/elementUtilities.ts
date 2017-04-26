@@ -1,6 +1,6 @@
 /** This file will be used to store misc. methods used for element manipulation */
 
-import { $$ } from "protractor";
+import { $$, ElementFinder } from "protractor";
 import {VisitRow} from "../objects/pages/patientDetails/tabCollection/tabVisit";
 import {ProductRow} from "../objects/pages/patientDetails/tabCollection/tabProducts";
 import {OrderRow} from "../objects/pages/patientDetails/tabCollection/tabOrders";
@@ -39,6 +39,26 @@ export class ElementMethods {
             }).then(function() {
                 return this.finalArray;
             });
+        });
+    }
+
+}
+
+
+/**
+ * This is used to ensure that class instances that require ElementFinder input return a Promise
+ * It's not necessary for when an ElementFinder is not passed to the class instantiation
+ */
+export class ElementFactory {
+
+    // static make<T>(clazz: { new(ElementFinder): T; }, input: Promise<ElementFinder>): Promise<T> {
+    static make<T>(clazz: { new(ElementFinder): T; }, input: ElementFinder): Promise<T> {
+        return new Promise(resolve => {
+            // input.then(elementFinder => {
+            //     resolve(new clazz(elementFinder));
+            // });
+            resolve(new clazz(input));
+
         });
     }
 

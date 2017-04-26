@@ -1,23 +1,56 @@
-import { ElementFinder } from 'protractor';
+import {ElementFinder} from 'protractor';
 
 export class TitleValueElement {
-    title: ElementFinder;
-    value: ElementFinder;
+    private title: ElementFinder;
+    private value: ElementFinder;
 
-    constructor(element: ElementFinder) {
-        this.title = element.$('label.content-label');
-        this.value = element.$('input.content-input');
+    private initializePromise: Promise<void>;
+
+    constructor(private element: ElementFinder) {
+        // console.log("   In constructor for 'TitleValueElement'");
     }
 
-    getTitle(): Promise<string> {
-        return new Promise(()=> { this.title.getText(); });
+    private async initialize() {
+        // console.log("    In 'initialize' for 'TitleValueElement'");
+
+        if(!this.initializePromise) {
+            console.log("     ... Initializing 'TitleValueElement'");
+            this.initializePromise = new Promise<void>(async (resolve) => {
+                console.log(this.element);
+                this.element.$('label').getText().then((text) => {
+                    console.log(`  the element's text = ${text}`);
+                });
+
+                this.title = await this.element.$('label');
+                this.value = await this.element.$('input');
+
+                return resolve();
+            });
+        }
     }
 
-    getValue(): Promise<string> {
+    async getTitle(): Promise<string> {
+        await this.initialize();
+        return this.title.getText();
+    }
+
+    async getValue(): Promise<string> {
+        await this.initialize();
         return this.value.getTitle();
     }
 
-    isPresent(): Promise<boolean> {
-        return new Promise(()=> { this.title.isPresent(); });
+    async isPresent(): Promise<boolean> {
+        await this.initialize();
+        return this.title.isPresent();
+    }
+
+    async getTitleElement(): Promise<ElementFinder> {
+        await this.initialize();
+        return this.title;
+    }
+
+    async getValueElement(): Promise<ElementFinder> {
+        await this.initialize();
+        return this.value;
     }
 }
