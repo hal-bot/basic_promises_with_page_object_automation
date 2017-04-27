@@ -8,11 +8,12 @@ export let config: Config = {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
 
+    baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
     /****
      *   Add tests in the 'specs' section
      ****/
     specs: [
-        '../specs/*.js'
+        '../specs/**/*.js'
     ],
 
     onPrepare: function () {
@@ -25,9 +26,9 @@ export let config: Config = {
      *        It is not meant to be a test for an actual iPad.
      ****/
     multiCapabilities: [{
-        name: "win10-chrome56-tests",
+        name: "win10-chrome57-tests",
         browserName: 'chrome',
-        version: '56',
+        version: '57',
         platform: 'Windows 10',
         shardTestFiles: true,
         maxInstances: 25

@@ -54,7 +54,7 @@ export class PatientInformation {
         // console.log("  In constructor for 'PatientInformation'");
     }
 
-    private async initialize(): Promise<void> {
+    async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
@@ -208,8 +208,8 @@ export class PatientInformation {
 class DetailAccordionSection {
 
     private container: ElementFinder;
-    label: ElementFinder;
     private directionalButton: ElementFinder;
+    label: ElementFinder;
 
     private initializePromise: Promise<void>;
 
@@ -241,9 +241,10 @@ class DetailAccordionSection {
     }
 
     async isExpanded(): Promise<boolean> {
+        console.log("     In 'isExpanded' for 'DetailAccordionSection'");
         await this.initialize();
         return new Promise<boolean>((resolve) => {
-            return this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
+            this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
                 // console.log("  class of the 'directionalButton' = " + directionalButtonClass);
                 resolve(directionalButtonClass.indexOf('up') >= 0);
             });
