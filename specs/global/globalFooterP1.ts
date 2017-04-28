@@ -7,28 +7,30 @@
 import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
-xdescribe('The global footer from a P1 level', () => {
+fdescribe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
     let fs = require('fs');
 
     beforeEach( () => {
-        browser.get('/');
         footer = new GlobalFooter();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    it('should be present', () => {
+    fit('should be present', () => {
         expect<any>(footer.isPresent()).toBe(true);
+        browser.sleep(5000);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
-        expect<any>(footer.name.isPresent()).toBe(true);
-        expect<any>(footer.location.isPresent()).toBe(true);
-        expect<any>(footer.copyright.isPresent()).toBe(true);
-        expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
-        expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
+        return footer.initialize().then(()=> {
+            expect<any>(footer.name.isPresent()).toBe(true);
+            expect<any>(footer.location.isPresent()).toBe(true);
+            expect<any>(footer.copyright.isPresent()).toBe(true);
+            expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
+            expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
+        });
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #1 **/
@@ -43,8 +45,9 @@ xdescribe('The global footer from a P1 level', () => {
             if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
                 break;
             } else {
-                browser.get(page);
-                expect<any>(footer.isPresent()).toBe(true);
+                browser.get(page).then(()=> {
+                    expect<any>(footer.isPresent()).toBe(true);
+                });
             }
             ++pageCount;
         }

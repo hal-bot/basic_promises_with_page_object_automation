@@ -3,7 +3,7 @@ import { ElementFinder, $ } from 'protractor';
 export class GlobalFooter {
 
     // the whole header object
-    container: ElementFinder;
+    private container: ElementFinder;
 
     name: ElementFinder;
     location: ElementFinder;
@@ -11,19 +11,38 @@ export class GlobalFooter {
     safetraceLogo: ElementFinder;
     haemoneticsLogo: ElementFinder;
 
-    constructor() {
-        this.container = $('div.app-footer-container');
 
-        this.name = this.container.$('div.userName');
-        this.location = this.container.$('div.app-footer-copyright');
-        this.copyright = this.container.$('li.year_companyName');
-        // TODO: Use REGEX to only return the years
-        this.safetraceLogo = this.container.$('img.safetracetxLogo');
-        this.haemoneticsLogo = this.container.$('img.haemoneticsLogo');
+    private initializePromise: Promise<void>;
+
+    constructor() {
+        // console.log("  In constructor for 'GlobalFooter'");
     }
 
-    isPresent(): Promise<boolean> {
-        return new Promise(() => { this.container.isPresent() });
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'GlobalFooter'");
+
+        if(!this.initializePromise) {
+            console.log("     ... Initializing 'GlobalFooter'");
+            this.initializePromise = new Promise<void>(async (resolve) => {
+                this.container = $('div.app-footer-container');
+
+                this.name = await this.container.$('div.userName');
+                this.location = await this.container.$('div.app-footer-copyright');
+                this.copyright = await this.container.$('li.year_companyName');
+                // TODO: Use REGEX to only return the years
+                this.safetraceLogo = await this.container.$('img.safetracetxLogo');
+                this.haemoneticsLogo = await this.container.$('img.haemoneticsLogo');
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
+    }
+
+    async isPresent(): Promise<boolean> {
+        await this.initialize();
+        return this.container.isPresent();
     }
 
     // // Will return the address w/out the copyright info and extra characters

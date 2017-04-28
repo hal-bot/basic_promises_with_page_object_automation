@@ -9,7 +9,7 @@ import {NavigationMethods} from "../../utils/navigationUtilities";
 import {browser} from "protractor";
 
 
-fdescribe('The patient\'s information details', () => {
+xdescribe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;
 
@@ -45,19 +45,17 @@ fdescribe('The patient\'s information details', () => {
     }
 
     beforeAll( (done) => {
-        console.log("In 'beforeAll'");
         NavigationMethods.navigateToAPatientPage();
         infoSection = new PatientInformation();
         return done();
     });
 
     afterAll( () => {
-        console.log("DONE WITH ALL TESTS!");
+        // console.log("~~~** DONE WITH P1 Patient Information section TESTS!**~~~~");
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
     it('should be present, be collapsed on load, display default fields', () => {
-        console.log("~~In the first IT method");
         return infoSection.initialize().then(()=> {
             expect<any>(infoSection.isPresent()).toBe(true);
             expect<any>(infoSection.title.getText()).toBe('Patient Information');
@@ -75,14 +73,11 @@ fdescribe('The patient\'s information details', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/55 **/
     it('should be able to expand to show more details', () => {
-        console.log("~~In the second IT method");
         return infoSection.expand().then( ()=> {
-            console.log("First set of tests");
             expect<any>(infoSection.arrowButton.getText()).toBe('Less Details');
             expect<any>(infoSection.isExpanded()).toBe(true);
             // return validateExtendedPropertyPresenceToBe(true);
         }).then( ()=> {
-            console.log("Second set of tests");
             return infoSection.contract().then(function () {
                 expect<any>(infoSection.arrowButton.label.getText()).toBe('More Details');
                 expect<any>(infoSection.isExpanded()).toBe(false);
