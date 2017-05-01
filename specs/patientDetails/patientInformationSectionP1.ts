@@ -9,7 +9,7 @@ import {NavigationMethods} from "../../utils/navigationUtilities";
 import {browser} from "protractor";
 
 
-xdescribe('The patient\'s information details', () => {
+fdescribe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;
 
@@ -45,9 +45,12 @@ xdescribe('The patient\'s information details', () => {
     }
 
     beforeAll( (done) => {
-        NavigationMethods.navigateToAPatientPage();
-        infoSection = new PatientInformation();
-        return done();
+        console.log("HERE1");
+        NavigationMethods.navigateToAPatientPage().then(()=> {
+            console.log("HERE2");
+            infoSection = new PatientInformation();
+            return done();
+        });
     });
 
     afterAll( () => {
@@ -55,7 +58,8 @@ xdescribe('The patient\'s information details', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
-    it('should be present, be collapsed on load, display default fields', () => {
+    fit('should be present, be collapsed on load, display default fields', () => {
+        console.log("HERE3");
         return infoSection.initialize().then(()=> {
             expect<any>(infoSection.isPresent()).toBe(true);
             expect<any>(infoSection.title.getText()).toBe('Patient Information');

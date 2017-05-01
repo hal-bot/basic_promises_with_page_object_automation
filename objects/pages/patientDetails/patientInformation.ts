@@ -51,7 +51,7 @@ export class PatientInformation {
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor() {
-        // console.log("  In constructor for 'PatientInformation'");
+        console.log("  In constructor for 'PatientInformation'");
     }
 
     async initialize(): Promise<void> {

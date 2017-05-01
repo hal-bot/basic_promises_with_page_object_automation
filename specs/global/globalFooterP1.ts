@@ -7,7 +7,7 @@
 import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
-fdescribe('The global footer from a P1 level', () => {
+xdescribe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
     let fs = require('fs');
@@ -17,7 +17,7 @@ fdescribe('The global footer from a P1 level', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    fit('should be present', () => {
+    it('should be present', () => {
         expect<any>(footer.isPresent()).toBe(true);
         browser.sleep(5000);
     });
