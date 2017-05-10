@@ -21,33 +21,34 @@ fdescribe('The patient\'s information details', () => {
         // });
 
         return new Promise<void>((resolve)=> {
+            console.log("HERE 1");
             // these take a few second to run a piece if the 'expectation' is false.  If too many are checked a timeout error will be thrown.
             // Splitting it out to ensure a few things are checked if we expect it to be closed and all if we expect it to be open
 
-            expect<any>(browser.isElementPresent(infoSection.gender.getTitleElement())).toBe(expectation);
-            // if (expectation === true) {
-            //     expect<any>(browser.isElementPresent(infoSection.status.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.weight.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.ssn.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.ethnicity.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.prefix.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.suffix.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.enterpriseId.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.mothersPid.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.numberOfPregnancies.title)).toBe(expectation);
-            //     expect<any>(browser.isElementPresent(infoSection.converted.title)).toBe(expectation);
-            // }
+            console.log("HERE 2");
+            expect<any>(browser.isElementPresent(infoSection.gender.title)).toBe(expectation);
+            if (expectation === true) {
+                console.log("HERE 3");
+                expect<any>(browser.isElementPresent(infoSection.status.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.weight.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.ssn.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.ethnicity.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.prefix.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.suffix.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.enterpriseId.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.mothersPid.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.numberOfPregnancies.title)).toBe(expectation);
+                expect<any>(browser.isElementPresent(infoSection.converted.title)).toBe(expectation);
+            }
+            console.log("HERE 4");
             expect<any>(browser.isElementPresent(infoSection.mergedToId.getTitleElement())).toBe(expectation);
-
-            resolve();
+            return resolve();
         });
 
     }
 
     beforeAll( (done) => {
-        console.log("HERE1");
-        NavigationMethods.navigateToAPatientPage().then(()=> {
-            console.log("HERE2");
+        return NavigationMethods.navigateToAPatientPage().then(()=> {
             infoSection = new PatientInformation();
             return done();
         });
@@ -58,8 +59,7 @@ fdescribe('The patient\'s information details', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
-    fit('should be present, be collapsed on load, display default fields', () => {
-        console.log("HERE3");
+    fit('should be present, be collapsed on load, display default fields', (done) => {
         return infoSection.initialize().then(()=> {
             expect<any>(infoSection.isPresent()).toBe(true);
             expect<any>(infoSection.title.getText()).toBe('Patient Information');
@@ -71,21 +71,27 @@ fdescribe('The patient\'s information details', () => {
             expect<any>(infoSection.middleName.isPresent()).toBe(true);
             expect<any>(infoSection.dateOfBirth.isPresent()).toBe(true);
 
-            // return validateExtendedPropertyPresenceToBe(false);
+            return validateExtendedPropertyPresenceToBe(false).then(()=> {
+                return done();
+            });
         });
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/55 **/
-    it('should be able to expand to show more details', () => {
+    it('should be able to expand to show more details', (done) => {
         return infoSection.expand().then( ()=> {
             expect<any>(infoSection.arrowButton.getText()).toBe('Less Details');
             expect<any>(infoSection.isExpanded()).toBe(true);
-            // return validateExtendedPropertyPresenceToBe(true);
+            return infoSection.initializeExtraDetails().then(()=> {
+                return validateExtendedPropertyPresenceToBe(true);
+            });
         }).then( ()=> {
             return infoSection.contract().then(function () {
                 expect<any>(infoSection.arrowButton.label.getText()).toBe('More Details');
                 expect<any>(infoSection.isExpanded()).toBe(false);
-                // return validateExtendedPropertyPresenceToBe(false);\
+                return validateExtendedPropertyPresenceToBe(false).then(()=> {
+                    return done();
+                });
             });
         });
     });

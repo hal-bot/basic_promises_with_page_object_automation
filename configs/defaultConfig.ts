@@ -2,6 +2,8 @@
 
 import {Config, browser} from 'protractor';
 
+let timeoutMS = 59000;
+
 export let config: Config = {
 
     framework: 'jasmine',
@@ -15,6 +17,9 @@ export let config: Config = {
     specs: [
       '../specs/**/*.js'
     ],
+
+    allScriptsTimeout: timeoutMS,                  // how long Protractor will wait for Angular tasks to execute
+    jasmineNodeOpts: {defaultTimeoutInterval: timeoutMS},
 
     useAllAngular2AppRoots: true,
 

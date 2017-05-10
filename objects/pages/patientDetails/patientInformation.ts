@@ -92,27 +92,27 @@ export class PatientInformation {
         return this.initializePromise;
     }
 
-    private async initializeExtraDetails(): Promise<void> {
+    async initializeExtraDetails(): Promise<void> {
         // console.log("   In 'initializeExtraDetails()' - NOT YET TESTABLE");
         if(!this.initializeExtraPromise) {
             // console.log("     ... Initializing extra details of 'PatientInformation'");
-            //
-            // this.initializeExtraPromise = new Promise<void>(async (resolve) => {
-            //     this.gender = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.status = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.weight = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.ssn = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.ethnicity = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.prefix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.suffix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.enterpriseId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.mothersPid = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.numberOfPregnancies = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.converted = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //     this.mergedToId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-'));
-            //
-            //     return resolve();
-            // });
+
+            this.initializeExtraPromise = new Promise<void>(async (resolve) => {
+                this.gender = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-gender'));
+                this.status = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-status'));
+                this.weight = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-weight'));
+                this.ssn = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-ssn'));
+                this.ethnicity = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-ethnicity'));
+                this.prefix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-prefix'));
+                this.suffix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-suffix'));
+                this.enterpriseId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-enterpriseId'));
+                this.mothersPid = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-motherPid'));
+                this.numberOfPregnancies = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-numPregnancies'));
+                this.converted = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-converted'));
+                this.mergedToId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-mergedToId'));
+
+                return resolve();
+            });
         }
         return this.initializeExtraPromise;
     }

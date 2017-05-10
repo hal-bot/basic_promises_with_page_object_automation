@@ -1,7 +1,7 @@
 import {ElementFinder} from 'protractor';
 
 export class TitleValueElement {
-    private title: ElementFinder;
+    title: ElementFinder;
     private value: ElementFinder;
 
     private initializePromise: Promise<void>;
