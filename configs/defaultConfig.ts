@@ -30,6 +30,8 @@ export let config: Config = {
         // console.log("  PREPARING TESTS");
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
+
+        browser.ignoreSynchronization = true;
     },
 
     onComplete: () => {

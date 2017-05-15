@@ -15,13 +15,15 @@ export class TitleValueElement {
 
         if(!this.initializePromise) {
             console.log("     ... Initializing 'TitleValueElement'");
-            this.initializePromise = new Promise<void>(async (resolve) => {
+            return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await this.element.$('label');
                 this.value = await this.element.$('input');
 
                 return resolve();
             });
         }
+
+        return this.initializePromise;
     }
 
     async getTitle(): Promise<string> {

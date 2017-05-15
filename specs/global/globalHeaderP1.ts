@@ -13,7 +13,6 @@ xdescribe('The global header from a P1 level', () => {
     let fs = require('fs');
 
     beforeEach( () => {
-        browser.get('/');
         header = new GlobalHeader();
     });
 

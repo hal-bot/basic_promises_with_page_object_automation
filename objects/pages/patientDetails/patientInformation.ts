@@ -51,15 +51,15 @@ export class PatientInformation {
 
     // element will be the section of the site dedicated to the Patient Information section
     constructor() {
-        console.log("  In constructor for 'PatientInformation'");
+        // console.log("  In constructor for 'PatientInformation'");
     }
 
-    async initialize(): Promise<void> {
+    async   initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
             console.log("     ... Initializing basic details of 'PatientInformation'");
-            this.initializePromise = new Promise<void>(async (resolve) => {
+            return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.patient-information');
                 this.title = await this.container.$('h4');
@@ -93,11 +93,11 @@ export class PatientInformation {
     }
 
     async initializeExtraDetails(): Promise<void> {
-        // console.log("   In 'initializeExtraDetails()' - NOT YET TESTABLE");
+        // console.log("   In 'initializeExtraDetails()'");
         if(!this.initializeExtraPromise) {
-            // console.log("     ... Initializing extra details of 'PatientInformation'");
+            console.log("     ... Initializing extra details of 'PatientInformation'");
 
-            this.initializeExtraPromise = new Promise<void>(async (resolve) => {
+            return this.initializeExtraPromise = new Promise<void>(async (resolve) => {
                 this.gender = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-gender'));
                 this.status = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-status'));
                 this.weight = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-weight'));
@@ -127,14 +127,13 @@ export class PatientInformation {
         console.log("   In 'expand' for 'PatientInformation'");
 
         await this.initialize();
-        return this.isExpanded().then((isOpen) => {
+        return this.arrowButton.isExpanded().then((isOpen) => {
             if (!isOpen) {
-                return this.arrowButton.click().then((promize)=> {
-                    console.log("GONNA PAUSE A SEC...");
-                    return browser.sleep(2000).then(()=> {
+                return this.arrowButton.click().then((promise)=> {
+                    console.log("almost done");
+                    return this.initializeExtraDetails().then(()=> {
                         console.log("DONE!");
-                        return promize;
-                        // return this.initializeExtraDetails();
+                        return promise;
                     });
                 });
             } else {
@@ -146,7 +145,7 @@ export class PatientInformation {
     async contract(): Promise<void> {
         console.log("   In 'contract' for 'PatientInformation'");
         await this.initialize();
-        return this.isExpanded().then( (isOpen) => {
+        return this.arrowButton.isExpanded().then( (isOpen) => {
             if (isOpen) {
                 return this.arrowButton.click();
             } else {
@@ -222,7 +221,7 @@ class DetailAccordionSection {
 
         if(!this.initializePromise) {
             console.log("     ... Initializing 'DetailAccordionSection'");
-            this.initializePromise = new Promise<void>(async (resolve) => {
+            return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.titlebar div.detail-menu');
                 this.label = await this.container.$('div.accordion-label');
                 this.directionalButton = await this.container.$('span.glyphicon');
@@ -237,16 +236,19 @@ class DetailAccordionSection {
     async click(): Promise<void> {
         console.log("  Gonna click the arrow button");
         await this.initialize();
-        return this.directionalButton.click();
+        return this.directionalButton.click().then((promise)=> {
+            console.log("    BUTTON CLICKED!");
+            return promise;
+        });
     }
 
     async isExpanded(): Promise<boolean> {
         console.log("     In 'isExpanded' for 'DetailAccordionSection'");
         await this.initialize();
         return new Promise<boolean>((resolve) => {
-            this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
+            return this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
                 // console.log("  class of the 'directionalButton' = " + directionalButtonClass);
-                resolve(directionalButtonClass.indexOf('up') >= 0);
+                return resolve(directionalButtonClass.indexOf('up') >= 0);
             });
         });
     }

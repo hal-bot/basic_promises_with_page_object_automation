@@ -12,7 +12,10 @@ export class NavigationMethods {
             // console.log("  Waiting for Patient Information to load");
 
             //TODO: this 'isElelementPresent' takes awhile.  Figure out a way to speed it up!
-            return $('div.patient-information-mrn').isPresent();
+            // return $('div.patient-information-mrn').isPresent();
+            return browser.wait(()=> {
+                return browser.isElementPresent($('div.patient-information-mrn'));
+            }, 30000);
         });
     }
 
