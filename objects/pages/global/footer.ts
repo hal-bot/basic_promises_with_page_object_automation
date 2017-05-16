@@ -11,7 +11,6 @@ export class GlobalFooter {
     safetraceLogo: ElementFinder;
     haemoneticsLogo: ElementFinder;
 
-
     private initializePromise: Promise<void>;
 
     constructor() {
@@ -22,7 +21,7 @@ export class GlobalFooter {
         // console.log("   In 'initialize' for 'GlobalFooter'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing 'GlobalFooter'");
+            // console.log("     ... Initializing 'GlobalFooter'");
             this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = $('div.app-footer-container');
 

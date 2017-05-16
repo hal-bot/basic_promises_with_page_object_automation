@@ -7,34 +7,40 @@
 import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
-xdescribe('The global footer from a P1 level', () => {
+describe('The global footer from a P1 level', () => {
 
     let footer: GlobalFooter;
     let fs = require('fs');
 
-    beforeEach( () => {
+    beforeEach( (done) => {
+        // console.log("In 'beforeEach' for GlobalHeader");
+        browser.get('/');
         footer = new GlobalFooter();
+        return done();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
     it('should be present', () => {
-        expect<any>(footer.isPresent()).toBe(true);
-        browser.sleep(5000);
+        console.log("The Global Footer should be present");
+        return expect<any>(footer.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
     it('should have all expected elements', () => {
+        console.log("The Global Footer should have all expected elements");
         return footer.initialize().then(()=> {
             expect<any>(footer.name.isPresent()).toBe(true);
             expect<any>(footer.location.isPresent()).toBe(true);
             expect<any>(footer.copyright.isPresent()).toBe(true);
             expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
-            expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
+            return expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
         });
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #1 **/
-    it('should be on every page and not change', () => {
+    // TODO: Get this working for each page.
+    xit('should be on every page and not change', (done) => {
+        console.log("The Global Footer should be on every page and not change");
 
         let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
         let pageCount = 0;          // keeps track of how many pages we've tested
@@ -51,6 +57,8 @@ xdescribe('The global footer from a P1 level', () => {
             }
             ++pageCount;
         }
+
+        return done();
 
     });
 

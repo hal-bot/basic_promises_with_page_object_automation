@@ -54,11 +54,11 @@ export class PatientInformation {
         // console.log("  In constructor for 'PatientInformation'");
     }
 
-    async   initialize(): Promise<void> {
+    async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing basic details of 'PatientInformation'");
+            // console.log("     ... Initializing basic details of 'PatientInformation'");
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.patient-information');
@@ -95,7 +95,7 @@ export class PatientInformation {
     async initializeExtraDetails(): Promise<void> {
         // console.log("   In 'initializeExtraDetails()'");
         if(!this.initializeExtraPromise) {
-            console.log("     ... Initializing extra details of 'PatientInformation'");
+            // console.log("     ... Initializing extra details of 'PatientInformation'");
 
             return this.initializeExtraPromise = new Promise<void>(async (resolve) => {
                 this.gender = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-gender'));

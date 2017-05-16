@@ -1,6 +1,7 @@
 import {ElementFinder} from 'protractor';
 
 export class TitleValueElement {
+
     title: ElementFinder;
     private value: ElementFinder;
 

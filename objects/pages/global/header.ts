@@ -1,11 +1,15 @@
 import { ElementFinder, $ } from 'protractor';
+import {ElementFactory} from "../../../utils/elementUtilities";
 
 export class GlobalHeader {
+
+    private initializePromise: Promise<void>;
 
     // the whole header object
     container: ElementFinder;
 
     // options
+    dashboard: HeaderOption;
     patients: HeaderOption;
     orders: HeaderOption;
 
@@ -14,21 +18,38 @@ export class GlobalHeader {
     logout: ElementFinder;
 
     constructor() {
-        this.container = $('div.app-header-nav-container');
-
-        this.patients = new HeaderOption(this.container.$('li.patients-header-nav'));
-        this.orders = new HeaderOption(this.container.$('li.orders-header-nav'));
-
-        // TODO: Update this code once these icons become enabled
-        // this.settings = this.container.element(by.linkText("Patients"));
-        // this.logout = this.container.element(by.linkText("Patients"));
+        // console.log("  In constructor for 'GlobalHeader'");
     }
 
-    isPresent(): Promise<boolean> {
-        return new Promise(()=> { this.container.isPresent(); });
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'GlobalHeader'");
+
+        if(!this.initializePromise) {
+            // console.log("     ... Initializing basic details of 'GlobalHeader'");
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+
+                this.container = await $('div.app-header-nav-container');
+
+                this.dashboard = await ElementFactory.make(HeaderOption, this.container.$('li.dashboard-header-nav'));
+                this.patients = await ElementFactory.make(HeaderOption, this.container.$('li.patients-header-nav'));
+                this.orders = await ElementFactory.make(HeaderOption, this.container.$('li.orders-header-nav'));
+
+                // TODO: Update this code once these icons become enabled
+                // this.settings = this.container.element(by.linkText("Patients"));
+                // this.logout = this.container.element(by.linkText("Patients"));
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
     }
 
-    //TODO: Create 'open' and 'close' methods for
+    async isPresent(): Promise<boolean> {
+        // console.log("   In 'isPresent' for 'GlobalHeader'");
+        await this.initialize();
+        return this.container.isPresent();
+    }
 
 }
 
@@ -37,38 +58,60 @@ class HeaderOption {
 
     link: ElementFinder;
 
-    constructor(element: ElementFinder) {
-        this.link = element.$('a');
+    private initializePromise: Promise<void>;
+
+    constructor(private element: ElementFinder) {
+        // console.log("   In constructor for 'HeaderOption'");
     }
 
-    open(): Promise<any> {
-        if (this.isExpanded()) {
-            return new Promise(()=> { });
-        } else {
-            return new Promise(()=> { this.link.click(); });
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'HeaderOption'");
+
+        if(!this.initializePromise) {
+            // console.log("     ... Initializing basic details of 'HeaderOption'");
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+
+                this.link = await this.element.$('a');
+
+                return resolve();
+            });
         }
+
+        return this.initializePromise;
     }
 
-    close(): Promise<any> {
-        if (this.isExpanded()) {
-            return new Promise(()=> { this.link.click(); });
-        } else {
-            return new Promise(()=> { });
-        }
+    // async open(): Promise<any> {
+    //     if (this.isExpanded()) {
+    //         return new Promise(()=> { });
+    //     } else {
+    //         return new Promise(()=> { this.link.click(); });
+    //     }
+    // }
+    //
+    // async close(): Promise<any> {
+    //     if (this.isExpanded()) {
+    //         return new Promise(()=> { this.link.click(); });
+    //     } else {
+    //         return new Promise(()=> { });
+    //     }
+    // }
+    //
+    // // Returns true if the option is expanded, false if not
+    // async isExpanded(): boolean {
+    //     //TODO: add logic here
+    //     return false;
+    // }
+
+    async isPresent(): Promise<boolean> {
+        // console.log("   In 'isPresent' for 'HeaderOption'");
+        await this.initialize();
+        return this.link.isPresent();
     }
 
-    // Returns true if the option is expanded, false if not
-    isExpanded(): boolean {
-        //TODO: add logic here
-        return false;
-    }
-
-    isPresent(): Promise<boolean> {
-        return new Promise(()=> { this.link.isPresent(); });
-    }
-
-    click() {
-        this.link.click();
+    async click(): Promise<void> {
+        // console.log("   In 'isPresent' for 'HeaderOption'");
+        await this.initialize();
+        return this.link.click();
     }
 
 }
