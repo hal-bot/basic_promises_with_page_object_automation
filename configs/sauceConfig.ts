@@ -18,6 +18,10 @@ export let config: Config = {
 
     onPrepare: function () {
         let caps = browser.getCapabilities();
+        browser.manage().window().maximize();
+        browser.manage().timeouts().implicitlyWait(5000);
+        browser.get('/');
+        browser.ignoreSynchronization = true;
     },
 
     /****
