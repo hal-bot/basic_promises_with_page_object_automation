@@ -7,7 +7,7 @@
 import { browser } from 'protractor';
 import { GlobalHeader } from "../../objects/pages/global/header";
 
-fdescribe('The global header from a P1 level', () => {
+describe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
     let fs = require('fs');

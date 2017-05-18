@@ -7,14 +7,14 @@ import { browser } from 'protractor';
 import {VisitTab} from "../../../objects/pages/patientDetails/tabCollection/tabVisit";
 import {NavigationMethods} from "../../../utils/navigationUtilities";
 
-xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
+fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
 
     let visitTab: VisitTab;
 
-    beforeEach( () => {
-        browser.get('/');
+    beforeEach( (done) => {
         NavigationMethods.navigateToAPatientPage();
         visitTab = new VisitTab();
+        return done();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/62 **/
