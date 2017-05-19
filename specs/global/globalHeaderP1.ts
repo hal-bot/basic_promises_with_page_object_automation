@@ -31,6 +31,9 @@ describe('The global header from a P1 level', () => {
         return header.initialize().then(()=> {
             expect<any>(header.dashboard.isPresent()).toBe(true);
             return expect<any>(header.patients.isPresent()).toBe(true);
+            // orders - not implemented
+            // settings icon - not implemented
+            // log out icon - not implemented
         });
     });
 

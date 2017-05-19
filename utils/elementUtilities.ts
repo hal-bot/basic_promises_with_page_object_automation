@@ -13,31 +13,29 @@ export class ElementMethods {
         let finalArray = [];
         let elementArray = $$(identifier);
 
-        return new Promise(()=> {
-            return elementArray.map(function(elements){
-                return elements;
-            }).then(function(elements){
+        return new Promise((resolve)=> {
+            return elementArray.map((elements)=> {
                 for (let i = 0; elements.length; i++) {
                     switch (elementType)
                     {
                         case "VisitRow":
-                            this.finalArray.push(new VisitRow(elements[i]));
+                            finalArray.push(new VisitRow(elements[i]));
                             break;
                         case "ProductRow":
-                            this.finalArray.push(new ProductRow(elements[i]));
+                            finalArray.push(new ProductRow(elements[i]));
                             break;
                         case "OrderRow":
-                            this.finalArray.push(new OrderRow(elements[i]));
+                            finalArray.push(new OrderRow(elements[i]));
                             break;
                         case "DiagnosisRow":
-                            this.finalArray.push(new DiagnosisRow(elements[i]));
+                            finalArray.push(new DiagnosisRow(elements[i]));
                             break;
                         default:
                             throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
                     }
                 }
-            }).then(function() {
-                return this.finalArray;
+            }).then(()=> {
+                return resolve(finalArray);
             });
         });
     }
@@ -51,14 +49,9 @@ export class ElementMethods {
  */
 export class ElementFactory {
 
-    // static make<T>(clazz: { new(ElementFinder): T; }, input: Promise<ElementFinder>): Promise<T> {
     static make<T>(clazz: { new(ElementFinder): T; }, input: ElementFinder): Promise<T> {
         return new Promise(resolve => {
-            // input.then(elementFinder => {
-            //     resolve(new clazz(elementFinder));
-            // });
-            resolve(new clazz(input));
-
+            return resolve(new clazz(input));
         });
     }
 

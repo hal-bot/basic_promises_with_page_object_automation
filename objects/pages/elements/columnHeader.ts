@@ -1,25 +1,45 @@
 import { ElementFinder } from 'protractor';
-import { arrowIcon } from "./arrowIcon";
+import { ArrowIcon } from "./arrowIcon";
+import {ElementFactory} from "../../../utils/elementUtilities";
 
 
 export class ColumnHeader {
+
+    private initializePromise: Promise<void>;
+
     headerElement: ElementFinder;
-    arrow: arrowIcon;
+    arrow: ArrowIcon;
 
-    constructor(element: ElementFinder) {
-        this.headerElement = element;
-        this.arrow = new arrowIcon(element);
+    constructor(private element: ElementFinder) {
+        // console.log("  In constructor for 'ColumnHeader'");
     }
 
-    getHeaderTitle(): Promise<string> {
-        return new Promise(()=> { this.headerElement.getText(); });
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'ColumnHeader'");
+
+        if(!this.initializePromise) {
+            // console.log("     ... Initializing basic details of 'ColumnHeader'");
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+
+                this.headerElement = await this.element;
+                this.arrow = await ElementFactory.make(ArrowIcon, this.element);
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
     }
 
-    isPresent(): Promise<boolean> {
-        return new Promise(()=> { this.headerElement.isPresent(); });
+    async getHeaderTitle(): Promise<string> {
+        return this.headerElement.getText();
     }
 
-    click(): Promise<any> {
-        return new Promise(()=> { this.headerElement.click(); });
+    async isPresent(): Promise<boolean> {
+        return this.headerElement.isPresent();
+    }
+
+    async click(): Promise<any> {
+        return this.headerElement.click();
     }
 }

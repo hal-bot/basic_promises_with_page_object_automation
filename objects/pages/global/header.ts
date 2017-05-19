@@ -25,7 +25,7 @@ export class GlobalHeader {
         // console.log("   In 'initialize' for 'GlobalHeader'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing basic details of 'GlobalHeader'");
+            console.log("     ... Initializing basic details of 'GlobalHeader'");
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.app-header-nav-container');
@@ -49,6 +49,12 @@ export class GlobalHeader {
         // console.log("   In 'isPresent' for 'GlobalHeader'");
         await this.initialize();
         return this.container.isPresent();
+    }
+
+    async clickPatients() {
+        // console.log("   In 'clickPatients' for 'GlobalHeader'");
+        await this.initialize();
+        return this.patients.click();
     }
 
 }

@@ -12,13 +12,21 @@ fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     let visitTab: VisitTab;
 
     beforeEach( (done) => {
-        NavigationMethods.navigateToAPatientPage();
-        visitTab = new VisitTab();
-        return done();
+        console.log("HERE 1");
+        return NavigationMethods.navigateToAPatientPage().then(()=> {
+            console.log("HERE 2");
+            return visitTab = new VisitTab();
+        }).then(()=> {
+            console.log("HERE 3");
+            return visitTab.initialize().then(()=> {
+                console.log("HERE 4");
+                return done();
+            });
+        });
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/62 **/
-    it('should be present, selected, and have the title "Visit"', () => {
+    fit('should be present, selected, and have the title "Visit"', () => {
         expect<any>(visitTab.actualTab.isPresent()).toBe(true);
         expect<any>(visitTab.isSelected()).toBe(true);
         expect<any>(visitTab.getTabTitle).toBe("Visit");
@@ -31,16 +39,16 @@ fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
         expect(visitTab.visits.length).toBeGreaterThan(0);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/64, Expected Result #1 **/
-    // TODO: introduce test once Create Visit button has been implemented
-    xit('should have the checkbox to the left of the Create Visit button', () => {
-        visitTab.showDischargedVisits_checkbox.getLocation().then(function( dischargedVisitsCheckboxLocation ) {
-            visitTab.createVisit_button.getLocation().then(function( createVisitButtonLocation ) {
-                expect(dischargedVisitsCheckboxLocation.x).toBeLessThan(createVisitButtonLocation.x)
-            });
-        });
-        expect(visitTab.showDischargedVisits_checkbox.attr('checked') ).toBeFalsy();
-    });
+    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/64, Expected Result #1 **/
+    // // TODO: introduce test once Create Visit button has been implemented
+    // xit('should have the checkbox to the left of the Create Visit button', () => {
+    //     visitTab.showDischargedVisits_checkbox.getLocation().then(function( dischargedVisitsCheckboxLocation ) {
+    //         visitTab.createVisit_button.getLocation().then(function( createVisitButtonLocation ) {
+    //             expect(dischargedVisitsCheckboxLocation.x).toBeLessThan(createVisitButtonLocation.x)
+    //         });
+    //     });
+    //     expect(visitTab.showDischargedVisits_checkbox.attr('checked') ).toBeFalsy();
+    // });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/64, Expected Result #2 **/
     it('should display the correct column headers', () => {

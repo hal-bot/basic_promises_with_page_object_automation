@@ -51,4 +51,9 @@ export class TitleValueElement {
         await this.initialize();
         return this.value;
     }
+
+    async input(text: string): Promise<void> {
+        await this.initialize();
+        return this.value.sendKeys(text);
+    }
 }

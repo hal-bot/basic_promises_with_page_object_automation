@@ -22,8 +22,8 @@ export class GlobalFooter {
 
         if(!this.initializePromise) {
             // console.log("     ... Initializing 'GlobalFooter'");
-            this.initializePromise = new Promise<void>(async (resolve) => {
-                this.container = $('div.app-footer-container');
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+                this.container = await $('div.app-footer-container');
 
                 this.name = await this.container.$('div.userName');
                 this.location = await this.container.$('div.app-footer-copyright');
