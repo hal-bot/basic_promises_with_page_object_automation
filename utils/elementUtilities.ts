@@ -5,6 +5,7 @@ import {VisitRow} from "../objects/pages/patientDetails/tabCollection/tabVisit";
 import {ProductRow} from "../objects/pages/patientDetails/tabCollection/tabProducts";
 import {OrderRow} from "../objects/pages/patientDetails/tabCollection/tabOrders";
 import {DiagnosisRow} from "../objects/pages/patientDetails/visitModal/tabDiagnosis";
+import {promise} from "selenium-webdriver";
 
 export class ElementMethods {
 
@@ -38,6 +39,18 @@ export class ElementMethods {
                 return resolve(finalArray);
             });
         });
+    }
+
+
+    // This will output the CSS class of the element passed in, along with the class type that's being initialized
+    static initializationMessage(element: ElementFinder, classBeingInitialized: string = "NEEDS INFO"): promise.Promise<void> {
+        if (element === null) {
+            console.log(`     ... Initializing basic details of '${classBeingInitialized}'`);
+        } else {
+            return element.getAttribute('class').then((elementClass)=> {
+                return console.log(`     ... Initializing basic details of '${classBeingInitialized}' for element "${elementClass}"`);
+            });
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 import { ElementFinder, $ } from 'protractor';
 import {promise} from "selenium-webdriver";
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class PageHeader {
 
@@ -19,7 +20,8 @@ export class PageHeader {
         // console.log("   In 'initialize' for 'PageHeader'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing 'PageHeader'");
+            ElementMethods.initializationMessage(null, 'PageHeader');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.page-header-content');

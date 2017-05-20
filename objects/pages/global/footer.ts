@@ -1,4 +1,5 @@
 import { ElementFinder, $ } from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class GlobalFooter {
 
@@ -21,7 +22,8 @@ export class GlobalFooter {
         // console.log("   In 'initialize' for 'GlobalFooter'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing 'GlobalFooter'");
+            ElementMethods.initializationMessage(null, 'GlobalFooter');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.app-footer-container');
 

@@ -15,7 +15,7 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     beforeAll( () => {
         browser.get('/');
-        NavigationMethods.navigateToAPatientPage();
+        NavigationMethods.navigateToAPatientPageQuickly();
         visitTab = new VisitTab();
         visitTab.visits[0].visitNo.click();     //opens the Visit modal
         visitModal = new VisitDetailsModal();

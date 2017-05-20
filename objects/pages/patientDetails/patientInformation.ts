@@ -3,7 +3,8 @@
 
 import {TitleValueElement} from "../elements/titleValueElement";
 import {ElementFinder, $, browser} from "protractor";
-import {ElementFactory} from "../../../utils/elementUtilities";
+import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
+import {async} from "q";
 
 
 export class PatientInformation {
@@ -58,7 +59,8 @@ export class PatientInformation {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing basic details of 'PatientInformation'");
+            ElementMethods.initializationMessage(null, 'PatientInformation');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.patient-information');
@@ -86,6 +88,16 @@ export class PatientInformation {
                 // this.history_Button = new InfoButton(element.$(''));
 
                 return resolve();
+            }).then(async (resolve)=> {
+                console.log("\tNow initializing all elements just defined for 'PatientInformation'");
+                await this.arrowButton.initialize();
+                await this.mrn.initialize();
+                await this.patientID.initialize();
+                await this.lastName.initialize();
+                await this.firstName.initialize();
+                await this.middleName.initialize();
+                await this.dateOfBirth.initialize();
+                return resolve;
             });
         }
 
@@ -112,6 +124,21 @@ export class PatientInformation {
                 this.mergedToId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-mergedToId'));
 
                 return resolve();
+            }).then(async (resolve)=> {
+                console.log("\tNow initializing all extra elements just defined for 'PatientInformation'");
+                await this.gender.initialize();
+                await this.status.initialize();
+                await this.weight.initialize();
+                await this.ssn.initialize();
+                await this.ethnicity.initialize();
+                await this.prefix.initialize();
+                await this.suffix.initialize();
+                await this.enterpriseId.initialize();
+                await this.mothersPid.initialize();
+                await this.numberOfPregnancies.initialize();
+                await this.converted.initialize();
+                await this.mergedToId.initialize();
+                return resolve;
             });
         }
         return this.initializeExtraPromise;
@@ -216,11 +243,12 @@ class DetailAccordionSection {
         // console.log("     In 'DetailAccordionSection' constructor");
     }
 
-    private async initialize(): Promise<void> {
+    async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'DetailAccordionSection'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing 'DetailAccordionSection'");
+            ElementMethods.initializationMessage(null, 'DetailAccordionSection');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.titlebar div.detail-menu');
                 this.label = await this.container.$('div.accordion-label');

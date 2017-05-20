@@ -13,7 +13,7 @@ fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
 
     beforeEach( (done) => {
         console.log("HERE 1");
-        return NavigationMethods.navigateToAPatientPage().then(()=> {
+        return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
             console.log("HERE 2");
             return visitTab = new VisitTab();
         }).then(()=> {

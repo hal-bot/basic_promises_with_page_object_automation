@@ -1,4 +1,5 @@
 import {ElementFinder} from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class TitleValueElement {
 
@@ -11,11 +12,11 @@ export class TitleValueElement {
         // console.log("   In constructor for 'TitleValueElement'");
     }
 
-    private async initialize() {
+    async initialize() {
         // console.log("    In 'initialize' for 'TitleValueElement'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing 'TitleValueElement'");
+            ElementMethods.initializationMessage(this.element, 'TitleValueElement');
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await this.element.$('label');
                 this.value = await this.element.$('input');
@@ -53,6 +54,7 @@ export class TitleValueElement {
     }
 
     async input(text: string): Promise<void> {
+        console.log("   In 'input(text)' ... text = " + text);
         await this.initialize();
         return this.value.sendKeys(text);
     }

@@ -6,6 +6,7 @@ import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {async} from "q";
 
 export class VisitTab extends Tab {
 
@@ -35,11 +36,10 @@ export class VisitTab extends Tab {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing basic details of 'VisitTab'");
+            ElementMethods.initializationMessage(this.tabContentContainer, 'VisitTab');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
-
                 return super.initialize().then( async ()=> {
-
                     this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
                     // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
 
@@ -57,6 +57,16 @@ export class VisitTab extends Tab {
                         return resolve();
                     });
 
+                }).then(async (resolve)=> {
+                    await this.admissionDateHeader.initialize();
+                    await this.visitTypeHeader.initialize();
+                    await this.mrnHeader.initialize();
+                    await this.serviceProviderHeader.initialize();
+                    await this.visitNoHeader.initialize();
+                    await this.accountNumberHeader.initialize();
+                    await this.locationHeader.initialize();
+
+                    return resolve;
                 });
             });
         }
@@ -113,7 +123,8 @@ export class VisitRow {
         // console.log("   In 'initialize' for 'VisitRow'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing basic details of 'VisitRow'");
+            ElementMethods.initializationMessage(this.element, 'VisitRow');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.admissionDate = await this.element.$('td.visit-tableCell-admissionDate');
                 this.type = await this.element.$('td.visit-tableCell-visitTypeCode');

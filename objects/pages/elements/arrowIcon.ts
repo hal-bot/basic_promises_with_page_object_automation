@@ -1,4 +1,5 @@
 import {ElementFinder, browser} from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class ArrowIcon {
 
@@ -14,7 +15,7 @@ export class ArrowIcon {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing basic details of 'ColumnHeader'");
+            // ElementMethods.initializationMessage(this.headerElement, 'ArrowIcon');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.icon = this.headerElement.$('');

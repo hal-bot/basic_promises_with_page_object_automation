@@ -1,6 +1,7 @@
 import { ElementFinder, $ } from 'protractor';
-import {ElementFactory} from "../../utils/elementUtilities";
+import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
 import {PageHeader} from "./elements/pageHeader";
+import {async} from "q";
 
 export class Dashboard {
 
@@ -22,7 +23,8 @@ export class Dashboard {
         // console.log("   In 'initialize' for 'Dashboard'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing 'Dashboard'");
+            ElementMethods.initializationMessage(null, 'Dashboard');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.dashboard-content');
 
@@ -35,6 +37,14 @@ export class Dashboard {
                     this.container.$('app-dashboard-button.dashboardButton-selectVisit'));
 
                 return resolve();
+            }).then(async (resolve)=> {
+                await this.header.initialize();
+                this.patientSearchButton.initialize();
+                this.specimenButton = await ElementFactory.make(DashboardButton,
+                    this.container.$('app-dashboard-button.dashboardButton-specimen'));
+                this.selectVisitButton
+
+                return resolve;
             });
         }
 
@@ -64,7 +74,8 @@ class DashboardButton {
         // console.log("   In 'initialize' for 'DashboardButton'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing 'DashboardButton'");
+            ElementMethods.initializationMessage(null, 'DashboardButton');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.icon = await this.container.$('img');

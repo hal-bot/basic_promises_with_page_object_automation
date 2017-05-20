@@ -1,5 +1,5 @@
-import { ElementFinder, $ } from 'protractor';
-import {ElementFactory} from "../../../utils/elementUtilities";
+import {ElementFinder, $, browser} from 'protractor';
+import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
 
 export class GlobalHeader {
 
@@ -25,7 +25,7 @@ export class GlobalHeader {
         // console.log("   In 'initialize' for 'GlobalHeader'");
 
         if(!this.initializePromise) {
-            console.log("     ... Initializing basic details of 'GlobalHeader'");
+            ElementMethods.initializationMessage(null, 'GlobalHeader');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.app-header-nav-container');
@@ -39,6 +39,12 @@ export class GlobalHeader {
                 // this.logout = this.container.element(by.linkText("Patients"));
 
                 return resolve();
+            }).then(async (resolve)=> {
+                console.log("\tNow initializing all elements just defined for 'GlobalHeader'");
+                await this.dashboard.initialize();
+                await this.patients.initialize();
+                await this.orders.initialize();
+                return resolve;
             });
         }
 
@@ -46,7 +52,7 @@ export class GlobalHeader {
     }
 
     async isPresent(): Promise<boolean> {
-        // console.log("   In 'isPresent' for 'GlobalHeader'");
+        console.log("   In 'isPresent' for 'GlobalHeader'");
         await this.initialize();
         return this.container.isPresent();
     }
@@ -54,7 +60,12 @@ export class GlobalHeader {
     async clickPatients() {
         // console.log("   In 'clickPatients' for 'GlobalHeader'");
         await this.initialize();
-        return this.patients.click();
+        return this.patients.click().then(()=> {
+            // Wasn't waiting for the page to load to exit, so making sure the search form is there before continuing on
+            return browser.wait(() => {
+                return browser.isElementPresent($('div.patient-search-form'));
+            }, 3000);
+        });
     }
 
 }
@@ -74,7 +85,8 @@ class HeaderOption {
         // console.log("   In 'initialize' for 'HeaderOption'");
 
         if(!this.initializePromise) {
-            // console.log("     ... Initializing basic details of 'HeaderOption'");
+            ElementMethods.initializationMessage(this.element, 'HeaderOption');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.link = await this.element.$('a');

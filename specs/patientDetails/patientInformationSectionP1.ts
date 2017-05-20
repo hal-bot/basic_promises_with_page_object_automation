@@ -50,7 +50,7 @@ xdescribe('The patient\'s information details', () => {
     }
 
     beforeAll( (done) => {
-        return NavigationMethods.navigateToAPatientPage().then(()=> {
+        return NavigationMethods.navigateToAPatientPageQuickly().then(()=> {
             infoSection = new PatientInformation();
             return done();
         });
