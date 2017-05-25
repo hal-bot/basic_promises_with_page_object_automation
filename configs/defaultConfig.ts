@@ -1,6 +1,7 @@
 //// Ref: https://github.com/angular/protractor/blob/master/lib/config.ts
 
 import {Config, browser} from 'protractor';
+import {LoginPage} from "../objects/pages/login";
 
 let timeoutMS = 59000;
 
@@ -30,8 +31,17 @@ export let config: Config = {
         // console.log("  PREPARING TESTS");
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
-        browser.get('/');
         browser.ignoreSynchronization = true;
+
+        // Logs into the site
+        return browser.get('/').then((thisPromise)=> {
+            let loginPage = new LoginPage();
+            return loginPage.initialize().then(()=> {
+                return loginPage.login();
+            }).then(()=> {
+                return thisPromise;
+            });
+        });
     },
 
     onComplete: () => {

@@ -25,7 +25,7 @@ export class GlobalHeader {
         // console.log("   In 'initialize' for 'GlobalHeader'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'GlobalHeader');
+            // ElementMethods.initializationMessage(null, 'GlobalHeader');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.app-header-nav-container');
@@ -85,12 +85,10 @@ class HeaderOption {
         // console.log("   In 'initialize' for 'HeaderOption'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.element, 'HeaderOption');
+            // await ElementMethods.initializationMessage(this.element, 'HeaderOption');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-
                 this.link = await this.element.$('a');
-
                 return resolve();
             });
         }

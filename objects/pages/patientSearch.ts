@@ -25,7 +25,7 @@ export class PatientSearch {
         // console.log("   In 'initialize' for 'PatientSearch'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'PatientSearch');
+            // ElementMethods.initializationMessage(null, 'PatientSearch');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.content-container');
@@ -116,7 +116,7 @@ class PatientSearchInfoSection {
         // console.log("   In 'initialize' for 'PatientSearchInfoSection'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.container, 'PatientSearchInfoSection');
+            // await ElementMethods.initializationMessage(this.container, 'PatientSearchInfoSection');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

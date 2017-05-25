@@ -12,9 +12,7 @@ fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     let visitTab: VisitTab;
 
     beforeEach( (done) => {
-        console.log("HERE 1");
         return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
-            console.log("HERE 2");
             return visitTab = new VisitTab();
         }).then(()=> {
             console.log("HERE 3");
@@ -29,7 +27,7 @@ fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     fit('should be present, selected, and have the title "Visit"', () => {
         expect<any>(visitTab.actualTab.isPresent()).toBe(true);
         expect<any>(visitTab.isSelected()).toBe(true);
-        expect<any>(visitTab.getTabTitle).toBe("Visit");
+        expect<any>(visitTab.getTabTitle()).toBe("Visits");
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/42 **/

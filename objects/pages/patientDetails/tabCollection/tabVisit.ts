@@ -36,7 +36,9 @@ export class VisitTab extends Tab {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.tabContentContainer, 'VisitTab');
+            await super.initialize();
+
+            await ElementMethods.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 return super.initialize().then( async ()=> {

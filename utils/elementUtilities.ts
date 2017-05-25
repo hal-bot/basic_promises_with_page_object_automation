@@ -38,6 +38,9 @@ export class ElementMethods {
                     case "PatientSearchRow":
                         await finalArray.push(new PatientSearchResultRow(element));
                         break;
+                    case "ElementFinder":
+                        await finalArray.push(element);
+                        break;
                     default:
                         throw new TypeError("No array conversion case established for custom element type '" + elementType + "'");
                 }

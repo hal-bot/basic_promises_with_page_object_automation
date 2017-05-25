@@ -1,4 +1,5 @@
 import { $, ElementFinder } from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export abstract class Tab {
 
@@ -41,12 +42,13 @@ export abstract class Tab {
     }
 
     // This will clear out the current 'pages' array and then get the array rows
-    async setPages(): Promise<{}> {
-        return new Promise(async (resolve) => {
-            return this.tabContentContainer.$$('li.page-item').map(function(pages) {
-                this.pages = pages;
-                return resolve(this.pages);
-            });
+    async setPages(): Promise<any[]> {
+        console.log("   In 'setPages()'");
+        return ElementMethods.getCustomElementArray('tab.active li.page-item', 'ElementFinder').then((pagesArray)=> {
+            console.log(`     Found ${pagesArray.length} pagination elements`);
+            this.leftArrow = pagesArray[0];
+            this.rightArrow = pagesArray[-1];
+            return this.pages = pagesArray.slice(1, -1);
         });
     }
 
@@ -81,12 +83,14 @@ export abstract class Tab {
     //     return -1;
     // }
 
-    getNumberOfTotalPages(): number {
+    getNumberOfTotalPages(): Promise<number> {
         /**
          * TODO - Figure out how to determine the total number of pages
          * Return it
          */
-        return -1;
+        return new Promise<number>((resolve)=> {
+            return resolve(this.pages.length);
+        });
     }
 
     // async goToNextPage() {

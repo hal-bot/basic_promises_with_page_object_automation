@@ -1,26 +1,42 @@
 
 
 import {ElementFinder, $} from "protractor";
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class PatientPageHeader {
+
+    private initializePromise: Promise<void>;
 
     container: ElementFinder;
     icon: ElementFinder;
 
     constructor() {
-        this.container = $('div.page-header-content');
-        this.icon = this.container.$('img');
+        // console.log("  In constructor for 'PatientPageHeader'");
     }
 
-    isPresent(): Promise<boolean> {
-        return new Promise(()=> { this.container.isPresent(); });
-    }
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'PatientPageHeader'");
 
-    title(): Promise<string> {
-        return new Promise(()=> {
-            return this.container.getText().then(function (txt) {
-                return txt;
+        if(!this.initializePromise) {
+
+            // await ElementMethods.initializationMessage(null, 'PatientPageHeader');
+
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+                this.container = await $('div.page-header-content');
+                this.icon = await this.container.$('img');
+
+                return resolve();
             });
-        });
+        }
+
+        return this.initializePromise;
+    }
+
+    async isPresent(): Promise<boolean> {
+        return this.container.isPresent();
+    }
+
+    async title(): Promise<string> {
+        return this.container.getText();
     }
 }
