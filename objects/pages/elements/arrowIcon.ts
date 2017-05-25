@@ -1,11 +1,14 @@
-import {ElementFinder, browser} from 'protractor';
+/** Since the arrows are being defined in the code with '::before' CSS3 tags, can't really do much, so for now the arrow icon will be null **/
+// TODO - figure out if there's a way to interact w/ the '::before' tag
+
+import {ElementFinder, browser, $} from 'protractor';
 import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class ArrowIcon {
 
     private initializePromise: Promise<void>;
 
-    icon: ElementFinder;
+    icon;//: ElementFinder;
 
     constructor(private headerElement: ElementFinder) {
         // console.log("  In constructor for 'ColumnHeader'");
@@ -15,15 +18,18 @@ export class ArrowIcon {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(this.headerElement, 'ArrowIcon');
+            await ElementMethods.initializationMessage(this.headerElement, 'ArrowIcon');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
-                this.icon = this.headerElement.$('');
+                // this.icon = this.headerElement.$('');
+                // this.icon = null;
 
-                //http://stackoverflow.com/questions/25496379/should-i-use-browser-or-ptor-protractor-getinstance
-                return browser.executeScript("return window.getComputedStyle($('.my-class')[0], ':after').content")
-                    .then((data) => { console.log(arguments); })
-                    .then(()=> { return resolve(); });
+                return browser.executeScript("return window.getComputedStyle(arguments[0], '::after').content;", this.headerElement).then((data) => {
+                    console.log(`   data = ${data}`);
+                    this.icon = data;
+                    return resolve();
+                });
             });
         }
 

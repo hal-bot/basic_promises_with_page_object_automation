@@ -18,35 +18,26 @@ export class NavigationMethods {
         return globalHeader.isPresent().then(async (itIsPresent) => {
             // get to the search page
             if (itIsPresent) {
-                console.log("      HERE B");
                 return globalHeader.clickPatients();
             } else {
                 return false;
             }
         }).then(async () => {
             // enter the patient ID into the search page and click Search
-            console.log("      HERE C");
             let patientSearch = await ElementFactory.make(PatientSearch, null);
-            console.log("      HERE D");
             return patientSearch.isPresent().then(async (itIsPresent) => {
-                console.log("      HERE E - itIsPresent = " + itIsPresent);
+                // console.log("      itIsPresent = " + itIsPresent);
                 if (itIsPresent) {
-                    console.log("      HERE F");
-                    // return patientSearch.searchInfoSection.patientID.input(patientID).then(async() => {
                     return patientSearch.enterPatientId(patientID).then(async() => {
-                        console.log("      HERE G");
                         return patientSearch.clickSearchButton();
                     });
                     // wait until the page has loaded
                 } else {
-                    console.log("      HERE H");
                     throw "ERROR - didn't get to patient search";
                 }
+            }).then(async ()=> {
+                return patientSearch.searchResults.selectFirstResult();
             });
-        }).then(async ()=> {
-            console.log("      HERE I");
-            // click the first result's 'Select' button
-            return $('td.patientSearch-results-row-selectButton a').click();
         });
     }
 

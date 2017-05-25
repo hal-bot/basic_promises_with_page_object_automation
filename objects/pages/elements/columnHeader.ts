@@ -1,3 +1,5 @@
+/** TODO - get the 'arrow' element working.  Currently it's not really working... but it's also not really important */
+
 import { ElementFinder } from 'protractor';
 import { ArrowIcon } from "./arrowIcon";
 import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
@@ -9,7 +11,7 @@ export class ColumnHeader {
     private initializePromise: Promise<void>;
 
     headerElement: ElementFinder;
-    arrow: ArrowIcon;
+    // arrow: ArrowIcon;
 
     constructor(private element: ElementFinder) {
         // console.log("  In constructor for 'ColumnHeader'");
@@ -19,16 +21,16 @@ export class ColumnHeader {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.element, 'ColumnHeader');
+            await ElementMethods.initializationMessage(this.element, 'ColumnHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.headerElement = await this.element;
-                this.arrow = await ElementFactory.make(ArrowIcon, this.element);
+                // this.arrow = await ElementFactory.make(ArrowIcon, this.element);
 
                 return resolve();
             }).then(async (resolve)=> {
-                console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
-                await this.arrow.initialize();
+                // console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
+                // await this.arrow.initialize();
                 return resolve;
             });
         }

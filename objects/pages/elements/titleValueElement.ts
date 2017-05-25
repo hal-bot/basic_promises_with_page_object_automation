@@ -16,7 +16,8 @@ export class TitleValueElement {
         // console.log("    In 'initialize' for 'TitleValueElement'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.element, 'TitleValueElement');
+            await ElementMethods.initializationMessage(this.element, 'TitleValueElement');
+
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await this.element.$('label');
                 this.value = await this.element.$('input');

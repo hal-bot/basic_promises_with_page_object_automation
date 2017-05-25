@@ -16,7 +16,7 @@ export class Checkbox {
         // console.log("   In 'initialize' for 'Checkbox'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(this.container, 'Checkbox');
+            // await ElementMethods.initializationMessage(this.container, 'Checkbox');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.label = await this.container.$('label');

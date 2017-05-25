@@ -36,7 +36,7 @@ export class VisitTab extends Tab {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.tabContentContainer, 'VisitTab');
+            await ElementMethods.initializationMessage(this.tabContentContainer, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 return super.initialize().then( async ()=> {
@@ -123,7 +123,7 @@ export class VisitRow {
         // console.log("   In 'initialize' for 'VisitRow'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.element, 'VisitRow');
+            await ElementMethods.initializationMessage(this.element, 'VisitRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.admissionDate = await this.element.$('td.visit-tableCell-admissionDate');

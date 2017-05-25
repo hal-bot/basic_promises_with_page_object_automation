@@ -30,7 +30,7 @@ export class TabVisitInformation {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if (!this.initializePromise) {
-            ElementMethods.initializationMessage(this.element, 'TabVisitInformation');
+            await ElementMethods.initializationMessage(this.element, 'TabVisitInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

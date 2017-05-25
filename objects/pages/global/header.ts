@@ -85,7 +85,7 @@ class HeaderOption {
         // console.log("   In 'initialize' for 'HeaderOption'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.element, 'HeaderOption');
+            await ElementMethods.initializationMessage(this.element, 'HeaderOption');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

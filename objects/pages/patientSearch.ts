@@ -4,6 +4,7 @@ import {TitleValueElement} from "./elements/titleValueElement";
 import {ArrowIcon} from "./elements/arrowIcon";
 import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
 import {ColumnHeader} from "./elements/columnHeader";
+import {async} from "q";
 
 export class PatientSearch {
 
@@ -65,14 +66,18 @@ export class PatientSearch {
     }
 
     async clickSearchButton(): Promise<void> {
-        // console.log("    In 'clickSearchButton'");
-        
+        console.log("    In 'clickSearchButton'");
+
         await this.initialize();
         return this.searchInfoSection.searchButton.click().then(()=> {
+            console.log("       Search button clicked");
             return browser.wait(() => {
                 // waiting until results are present to proceed
                 return browser.isElementPresent($('tr.patientSearch-results-row'));
             }, 3000);
+        }).then(async (value)=> {
+            await this.searchResults.initialize();
+            return value;
         });
     }
 
@@ -111,7 +116,7 @@ class PatientSearchInfoSection {
         // console.log("   In 'initialize' for 'PatientSearchInfoSection'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.container, 'PatientSearchInfoSection');
+            await ElementMethods.initializationMessage(this.container, 'PatientSearchInfoSection');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -179,9 +184,9 @@ class PatientSearchResults {
     dob: ColumnHeader;
     gender: ColumnHeader;
 
-    firstSelectButton: ElementFinder;   // THIS IS A HACK!!  ONCE ROWS OF RESULTS ARE RETURNED, GET RID OF THIS SHAMEFUL THING
+    // firstSelectButton: ElementFinder;   // THIS IS A HACK!!  ONCE ROWS OF RESULTS ARE RETURNED, GET RID OF THIS SHAMEFUL THING
 
-    //results: PatientSearchResultRow[];
+    searchResults: PatientSearchResultRow[];
 
     constructor(private container: ElementFinder) {
         // console.log("  In constructor for 'PatientSearchResults'");
@@ -191,24 +196,24 @@ class PatientSearchResults {
         // console.log("   In 'initialize' for 'PatientSearchResults'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(this.container, 'PatientSearchResults');
+            await ElementMethods.initializationMessage(this.container, 'PatientSearchResults');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
+                console.log("\tFirst, assign element values");
 
                 this.title = await this.container.$('div.titlebar span.title');
                 this.resultsCount = await this.container.$('div.titlebar span.subtitle');
 
-                this.mrn = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-mrn'));
-                this.patientID = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-patientId'));
-                this.lastName = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-lastName'));
-                this.firstName = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-firstName'));
-                this.middleName = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-middleName'));
-                this.cp = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-cp'));
-                this.dob = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-dob'));
-                this.gender = await ElementFactory.make(ColumnHeader, this.container.$('div.patientSearch-results-header-gender'));
+                this.mrn = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-mrn'));
+                this.patientID = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-patientId'));
+                this.lastName = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-lastName'));
+                this.firstName = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-firstName'));
+                this.middleName = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-middleName'));
+                this.cp = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-currentPrevious'));
+                this.dob = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-dateOfBirth'));
+                this.gender = await ElementFactory.make(ColumnHeader, this.container.$('th.patientSearch-results-header-gender'));
 
-                // this.results: PatientSearchResultRow[];
-                this.firstSelectButton = await this.container.$('td.patientSearch-results-row-selectButton a.button');
+                // this.firstSelectButton = await this.container.$('th.patientSearch-results-header-selectButton a.button');
 
                 return resolve();
             }).then(async (resolve)=> {
@@ -222,6 +227,8 @@ class PatientSearchResults {
                 await this.dob.initialize();
                 await this.gender.initialize();
 
+                await this.setSearchResultsArray();
+
                 return resolve;
             });
         }
@@ -232,6 +239,81 @@ class PatientSearchResults {
     async isPresent(): Promise<boolean> {
         await this.initialize();
         return this.container.isPresent();
+    }
+
+    // This will get the rows and put them into the 'searchResults' array
+    async setSearchResultsArray(): Promise<any> {
+        console.log("\t  In 'setSearchResultsArray()'");
+        return ElementMethods.getCustomElementArray('tr.patientSearch-results-row ', 'PatientSearchRow').then((searchResultsArray)=> {
+            return this.searchResults = searchResultsArray;
+        });
+    }
+
+    async selectFirstResult(): Promise<void> {
+        // console.log("\t  In 'selectFirstResult()'");
+        await this.initialize();
+        return this.searchResults[0].select().then(async ()=> {
+            // console.log("\t\tSelect button clicked");
+
+            return browser.wait(() => {
+                // waiting until results are present to proceed
+                return browser.isElementPresent($('div.patient-information-mrn'));
+            }, 30000);
+        });
+    }
+
+}
+
+
+export class PatientSearchResultRow {
+
+    private initializePromise: Promise<void>;
+
+    mrn: ElementFinder;
+    patientID: ElementFinder;
+    lastName: ElementFinder;
+    firstName: ElementFinder;
+    middleName: ElementFinder;
+    cp: ElementFinder;
+    dob: ElementFinder;
+    gender: ElementFinder;
+
+    selectButton: ElementFinder;
+
+    constructor(private element: ElementFinder) {
+        // console.log("  In constructor for 'PatientSearchResultRow'");
+    };
+
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'PatientSearchResultRow'");
+
+        if(!this.initializePromise) {
+            await ElementMethods.initializationMessage(this.element, 'PatientSearchResultRow');
+
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+                this.mrn = await this.element.$('td.patientSearch-results-row-mrn');
+                this.patientID = await this.element.$('td.patientSearch-results-row-patientId');
+                this.lastName = await this.element.$('td.patientSearch-results-row-lastName');
+                this.firstName = await this.element.$('td.patientSearch-results-row-firstName');
+                this.middleName = await this.element.$('td.patientSearch-results-row-middleName');
+                this.cp = await this.element.$('td.patientSearch-results-row-currentPrevious');
+                this.dob = await this.element.$('td.patientSearch-results-row-dateOfBirth');
+                this.gender = await this.element.$('td.patientSearch-results-row-gender');
+
+                this.selectButton = await this.element.$('td.patientSearch-results-row-selectButton a');
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
+    }
+
+    async select(): Promise<void> {
+        // console.log("   In 'select' for 'PatientSearchResultRow'");
+
+        await this.initialize();
+        return this.selectButton.click();
     }
 
 }
