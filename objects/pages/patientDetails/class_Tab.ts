@@ -31,9 +31,7 @@ export abstract class Tab {
 
             this.actualTab = await this.tabElement;
             this.tabContentContainer = await $('div.tab-content');
-            this.title = await this.tabContentContainer.$('a.nav-link');
-            this.leftArrow = await this.tabContentContainer.$('li.pages-prev');
-            this.rightArrow = await this.tabContentContainer.$('li.pages-next');
+            this.title = await this.tabContentContainer.$('span.tab-title');
 
             return this.setPages().then(()=> {
                 return resolve();
