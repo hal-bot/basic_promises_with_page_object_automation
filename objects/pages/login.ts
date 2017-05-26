@@ -21,7 +21,7 @@ export class LoginPage {
         // console.log("   In 'initialize' for 'LoginPage'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'LoginPage');
+            // ElementMethods.initializationMessage(null, 'LoginPage');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await $('div.login img');

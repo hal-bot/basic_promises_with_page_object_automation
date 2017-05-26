@@ -40,7 +40,7 @@ export class GlobalHeader {
 
                 return resolve();
             }).then(async (resolve)=> {
-                console.log("\tNow initializing all elements just defined for 'GlobalHeader'");
+                // console.log("\tNow initializing all elements just defined for 'GlobalHeader'");
                 await this.dashboard.initialize();
                 await this.patients.initialize();
                 await this.orders.initialize();
@@ -52,7 +52,7 @@ export class GlobalHeader {
     }
 
     async isPresent(): Promise<boolean> {
-        console.log("   In 'isPresent' for 'GlobalHeader'");
+        // console.log("   In 'isPresent' for 'GlobalHeader'");
         await this.initialize();
         return this.container.isPresent();
     }

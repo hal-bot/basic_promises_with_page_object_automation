@@ -20,7 +20,7 @@ export class PageHeader {
         // console.log("   In 'initialize' for 'PageHeader'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'PageHeader');
+            // ElementMethods.initializationMessage(null, 'PageHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

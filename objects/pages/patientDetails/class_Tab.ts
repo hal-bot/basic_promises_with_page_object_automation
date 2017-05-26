@@ -1,4 +1,4 @@
-import { $, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 import {ElementMethods} from "../../../utils/elementUtilities";
 
 export abstract class Tab {
@@ -10,22 +10,13 @@ export abstract class Tab {
     leftArrow: ElementFinder;
     rightArrow: ElementFinder;
 
-    // constructor(tabElement: ElementFinder) {
-    //     this.actualTab = tabElement;
-    //     this.tabContentContainer = $('div.tab-content');
-    //     this.title = this.tabContentContainer.$('a.nav-link');
-    //     this.leftArrow = this.tabContentContainer.$('li.pages-prev');
-    //     this.rightArrow = this.tabContentContainer.$('li.pages-next');
-    //
-    //     this.setPages();
-    // }
 
     constructor(private tabElement: ElementFinder) {
 
     }
 
     async initialize(): Promise<void> {
-        console.log("   In 'initialize' for abstract class 'Tab'");
+        // console.log("   In 'initialize' for abstract class 'Tab'");
 
         return new Promise<void>(async (resolve) => {
 
@@ -41,9 +32,9 @@ export abstract class Tab {
 
     // This will clear out the current 'pages' array and then get the array rows
     async setPages(): Promise<any[]> {
-        console.log("   In 'setPages()'");
+        // console.log("   In 'setPages()'");
         return ElementMethods.getCustomElementArray('tab.active li.page-item', 'ElementFinder').then((pagesArray)=> {
-            console.log(`     Found ${pagesArray.length} pagination elements`);
+            // console.log(`     Found ${pagesArray.length} pagination elements`);
             this.leftArrow = pagesArray[0];
             this.rightArrow = pagesArray[-1];
             return this.pages = pagesArray.slice(1, -1);
@@ -81,7 +72,7 @@ export abstract class Tab {
     //     return -1;
     // }
 
-    getNumberOfTotalPages(): Promise<number> {
+    async getNumberOfTotalPages(): Promise<number> {
         /**
          * TODO - Figure out how to determine the total number of pages
          * Return it

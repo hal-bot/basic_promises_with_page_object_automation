@@ -22,7 +22,7 @@ export class GlobalFooter {
         // console.log("   In 'initialize' for 'GlobalFooter'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'GlobalFooter');
+            // ElementMethods.initializationMessage(null, 'GlobalFooter');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.app-footer-container');

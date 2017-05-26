@@ -15,22 +15,26 @@ export let config: Config = {
     restartBrowserBetweenTests: false,                  //Note: setting this to TRUE will slow down test time significantly
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
-    specs: [
-      '../specs/**/*.js'
-    ],
-
     allScriptsTimeout: timeoutMS,                  // how long Protractor will wait for Angular tasks to execute
-    jasmineNodeOpts: {defaultTimeoutInterval: timeoutMS},
-
-    
+    jasmineNodeOpts: {
+        defaultTimeoutInterval: timeoutMS
+    },
 
     useAllAngular2AppRoots: true,
 
     // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
-    baseUrl: "https://qc.sttx40.com/",         // for testing on the QC environment
+    baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+
+    /****
+     *   Add tests in the 'specs' section
+     ****/
+    specs: [
+        '../specs/**/*.js'
+    ],
 
     onPrepare: () => {
         // console.log("  PREPARING TESTS");
+
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
         browser.ignoreSynchronization = true;

@@ -21,7 +21,7 @@ export class ColumnHeader {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.element, 'ColumnHeader');
+            // await ElementMethods.initializationMessage(this.element, 'ColumnHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.headerElement = await this.element;

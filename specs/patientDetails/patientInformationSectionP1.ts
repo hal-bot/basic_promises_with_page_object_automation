@@ -11,7 +11,7 @@ import {isNullOrUndefined} from "util";
 
 
 // TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
-xdescribe('The patient\'s information details', () => {
+describe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;
 
@@ -50,9 +50,11 @@ xdescribe('The patient\'s information details', () => {
     }
 
     beforeAll( (done) => {
-        return NavigationMethods.navigateToAPatientPageQuickly().then(()=> {
-            infoSection = new PatientInformation();
-            return done();
+        return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
+            return NavigationMethods.waitForLoadCompletion('div.primary-content').then(()=> {
+                infoSection = new PatientInformation();
+                return done();
+            });
         });
     });
 

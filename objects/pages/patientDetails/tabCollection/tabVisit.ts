@@ -1,12 +1,13 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
-import { $, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
 import {Tab} from "../class_Tab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {async} from "q";
+import {promise} from "selenium-webdriver";
 
 export class VisitTab extends Tab {
 
@@ -38,7 +39,7 @@ export class VisitTab extends Tab {
         if(!this.initializePromise) {
             await super.initialize();
 
-            await ElementMethods.initializationMessage(null, 'VisitTab');
+            // await ElementMethods.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 return super.initialize().then( async ()=> {
@@ -125,7 +126,7 @@ export class VisitRow {
         // console.log("   In 'initialize' for 'VisitRow'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.element, 'VisitRow');
+            // await ElementMethods.initializationMessage(this.element, 'VisitRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.admissionDate = await this.element.$('td.visit-tableCell-admissionDate');

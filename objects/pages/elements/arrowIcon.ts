@@ -11,22 +11,19 @@ export class ArrowIcon {
     icon;//: ElementFinder;
 
     constructor(private headerElement: ElementFinder) {
-        // console.log("  In constructor for 'ColumnHeader'");
+        // console.log("  In constructor for 'ArrowIcon'");
     }
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for 'ColumnHeader'");
+        // console.log("   In 'initialize' for 'ArrowIcon'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.headerElement, 'ArrowIcon');
+            // await ElementMethods.initializationMessage(this.headerElement, 'ArrowIcon');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
-                // this.icon = this.headerElement.$('');
-                // this.icon = null;
-
                 return browser.executeScript("return window.getComputedStyle(arguments[0], '::after').content;", this.headerElement).then((data) => {
-                    console.log(`   data = ${data}`);
+                    // console.log(`   data = ${data}`);
                     this.icon = data;
                     return resolve();
                 });

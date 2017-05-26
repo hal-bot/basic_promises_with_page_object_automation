@@ -1,4 +1,5 @@
 import {browser,Config} from 'protractor';
+import {LoginPage} from "../objects/pages/login";
 
 export let config: Config = {
 
@@ -8,7 +9,9 @@ export let config: Config = {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
 
+    // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
     baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+
     /****
      *   Add tests in the 'specs' section
      ****/
@@ -17,11 +20,21 @@ export let config: Config = {
     ],
 
     onPrepare: function () {
-        let caps = browser.getCapabilities();
+        // let caps = browser.getCapabilities();
+
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
-        browser.get('/');
         browser.ignoreSynchronization = true;
+
+        // Logs into the site
+        return browser.get('/').then((thisPromise)=> {
+            let loginPage = new LoginPage();
+            return loginPage.initialize().then(()=> {
+                return loginPage.login();
+            }).then(()=> {
+                return thisPromise;
+            });
+        });
     },
 
     /****
