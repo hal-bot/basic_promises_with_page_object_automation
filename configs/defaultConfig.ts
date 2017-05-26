@@ -22,6 +22,8 @@ export let config: Config = {
     allScriptsTimeout: timeoutMS,                  // how long Protractor will wait for Angular tasks to execute
     jasmineNodeOpts: {defaultTimeoutInterval: timeoutMS},
 
+    
+
     useAllAngular2AppRoots: true,
 
     // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
