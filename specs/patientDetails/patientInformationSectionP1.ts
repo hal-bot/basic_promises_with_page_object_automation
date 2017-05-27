@@ -54,6 +54,9 @@ describe('The patient\'s information details', () => {
             return NavigationMethods.waitForLoadCompletion('div.primary-content').then(()=> {
                 infoSection = new PatientInformation();
                 return done();
+            }).then(async (done)=> {
+                await infoSection.initialize();
+                return done;
             });
         });
     });

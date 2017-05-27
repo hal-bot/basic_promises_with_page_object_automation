@@ -39,10 +39,10 @@ export class Dashboard {
                 return resolve();
             }).then(async (resolve)=> {
                 await this.header.initialize();
-                this.patientSearchButton.initialize();
+                await this.patientSearchButton.initialize();
                 this.specimenButton = await ElementFactory.make(DashboardButton,
                     this.container.$('app-dashboard-button.dashboardButton-specimen'));
-                this.selectVisitButton
+                // this.selectVisitButton;
 
                 return resolve;
             });

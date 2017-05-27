@@ -37,29 +37,29 @@ describe('The global header from a P1 level', () => {
         });
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
-    // TODO: Get this working for each page.
-    xit('should be on every page and not change', (done) => {
-        console.log("The Global Header should be on every page and not change");
-
-        let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
-        let pageCount = 0;          // keeps track of how many pages we've tested
-        let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
-
-        for (let page of pages) {
-            // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
-            if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
-                break;
-            } else {
-                browser.get(page).then(()=> {
-                    return expect<any>(header.isPresent()).toBe(true);
-                });
-            }
-            ++pageCount;
-        }
-
-        return done();
-    });
+    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
+    // // TODO: Get this working for each page.
+    // xit('should be on every page and not change', (done) => {
+    //     console.log("The Global Header should be on every page and not change");
+    //
+    //     let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
+    //     let pageCount = 0;          // keeps track of how many pages we've tested
+    //     let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
+    //
+    //     for (let page of pages) {
+    //         // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
+    //         if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
+    //             break;
+    //         } else {
+    //             browser.get(page).then(()=> {
+    //                 return expect<any>(header.isPresent()).toBe(true);
+    //             });
+    //         }
+    //         ++pageCount;
+    //     }
+    //
+    //     return done();
+    // });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/69 **/
     it('should be less than 1200 pixels wide', () => {

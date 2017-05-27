@@ -3,24 +3,30 @@
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-114
  */
 
+import {PatientPageHeader} from "../../objects/pages/patientDetails/header";
+import {GlobalHeader} from "../../objects/pages/global/header";
+import {NavigationMethods} from "../../utils/navigationUtilities";
 
-import { browser } from 'protractor';
-import { PatientPageHeader } from "../../objects/pages/patientDetails/header";
-import { GlobalHeader } from "../../objects/pages/global/header";
 
-
-xdescribe('The global footer from a P1 level', () => {
+describe('The global footer from a P1 level', () => {
 
     let patientHeader: PatientPageHeader;
     let globalHeader: GlobalHeader;
 
-    beforeEach( () => {
-        browser.get('/');
-        patientHeader = new PatientPageHeader();
-        globalHeader = new GlobalHeader();
-
-        globalHeader.patients.click();
+    beforeAll((done) => {
+        return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
+            return NavigationMethods.waitForLoadCompletion('div.primary-content').then(()=> {
+                patientHeader = new PatientPageHeader();
+                globalHeader = new GlobalHeader();
+                return done();
+            }).then(async (done)=> {
+                await patientHeader.initialize();
+                await globalHeader.initialize();
+                return done;
+            });
+        });
     });
+
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/53 **/
     it('should be present', () => {
@@ -29,9 +35,9 @@ xdescribe('The global footer from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/53 **/
     it('should be below the global header', () => {
-        globalHeader.patients.link.getLocation().then(function( globalHeaderLocation ) {
-            patientHeader.container.getLocation().then(function( patientHeaderLocation ) {
-                expect(globalHeaderLocation.y).toBeLessThan(patientHeaderLocation.y)
+        return globalHeader.patients.link.getLocation().then((globalHeaderLocation)=>  {
+            return patientHeader.container.getLocation().then((patientHeaderLocation)=> {
+                return expect(globalHeaderLocation.y).toBeLessThan(patientHeaderLocation.y);
             });
         });
     });

@@ -39,7 +39,7 @@ npm run saucelabs-tests
 ```
 This will:
 - Transpile TypeScript
-- Run the test in whatever has been specified in the "multiCapabilities" section of 'congifs > sauceConfig.ts'
+- Run the test in whatever has been specified in the "multiCapabilities" section of 'configs > sauceConfig.ts'
 - Rerun test files where a test has failed
 
 For more information, see: https://haemoslalom.atlassian.net/wiki/pages/viewpage.action?pageId=5182205#

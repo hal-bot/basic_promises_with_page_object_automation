@@ -1,5 +1,5 @@
 /**
- *  Description: This will test P1 tests for the contents of the Visit modal - Details tab
+ *  Description: This will test P1 tests for the contents of the Visit modal's "Diagnosis" tab
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-77
  */
 
@@ -13,9 +13,9 @@ xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', ()
     let visitTab: VisitTab;
 
     beforeAll( () => {
-        browser.get('/');
-        NavigationMethods.navigateToAPatientPageQuickly();
-        visitTab = new VisitTab();
+        return NavigationMethods.navigateToAPatientPageQuickly().then(()=> {
+            visitTab = new VisitTab();
+        });
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/62 **/
