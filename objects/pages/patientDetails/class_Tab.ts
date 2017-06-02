@@ -10,7 +10,6 @@ export abstract class Tab {
     leftArrow: ElementFinder;
     rightArrow: ElementFinder;
 
-
     constructor(private tabElement: ElementFinder) {
 
     }

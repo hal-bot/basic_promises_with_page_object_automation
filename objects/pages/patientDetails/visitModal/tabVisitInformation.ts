@@ -34,7 +34,7 @@ export class TabVisitInformation {
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
-                this.admissionDate = await ElementFactory.make(TitleValueElement, this.element.$(''));
+                this.admissionDate = await ElementFactory.make(TitleValueElement, this.element.$('visitModal-infoTab-admissionDate'));
                 this.dischargeDate = await ElementFactory.make(TitleValueElement, this.element.$(''));
                 this.visitType = await ElementFactory.make(TitleValueElement, this.element.$(''));
                 this.patientLocation = await ElementFactory.make(TitleValueElement, this.element.$(''));

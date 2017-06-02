@@ -6,6 +6,7 @@ import {TabVisitInformation} from "./tabVisitInformation";
 import {TabDiagnosis} from "./tabDiagnosis";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {async} from "q";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class VisitDetailsModal {
 
@@ -32,6 +33,8 @@ export class VisitDetailsModal {
 
         if(!this.initializePromise) {
             ElementMethods.initializationMessage(null, 'VisitDetailsModal');
+
+            await NavigationMethods.waitForLoadCompletion('div.modal-content');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('modal-content');     // use this to ensure the elements found below are only in the container

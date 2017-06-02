@@ -8,6 +8,7 @@ import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {async} from "q";
 import {promise} from "selenium-webdriver";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class VisitTab extends Tab {
 
@@ -54,22 +55,20 @@ export class VisitTab extends Tab {
                     this.accountNumberHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-accountNo'));
                     this.locationHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-location'));
 
-                    return this.setVisitsArray().then(()=> {
-                        this.visitsModal = new VisitDetailsModal();
+                    // this.visitsModal = new VisitDetailsModal();
+                    this.visitsModal = await ElementFactory.make(VisitDetailsModal, null);
+
+                    return this.setVisitsArray().then(async ()=> {
+                        await this.admissionDateHeader.initialize();
+                        await this.visitTypeHeader.initialize();
+                        await this.mrnHeader.initialize();
+                        await this.serviceProviderHeader.initialize();
+                        await this.visitNoHeader.initialize();
+                        await this.accountNumberHeader.initialize();
+                        await this.locationHeader.initialize();
 
                         return resolve();
-                    });
-
-                }).then(async (resolve)=> {
-                    await this.admissionDateHeader.initialize();
-                    await this.visitTypeHeader.initialize();
-                    await this.mrnHeader.initialize();
-                    await this.serviceProviderHeader.initialize();
-                    await this.visitNoHeader.initialize();
-                    await this.accountNumberHeader.initialize();
-                    await this.locationHeader.initialize();
-
-                    return resolve;
+                    })
                 });
             });
         }
@@ -77,12 +76,37 @@ export class VisitTab extends Tab {
         return this.initializePromise;
     }
 
-
-
-    // This will get the rows and put them into the 'visits' array
+    // This will get the rows, put them into the 'visits' array, and initialize each row to make sure it's usable
     async setVisitsArray(): Promise<any> {
-        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then((visitsArray)=> {
-            return this.visits = visitsArray;
+        // console.log("   In 'setVisitsArray()' for 'VisitTab'");
+        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then(async (visitsArray)=> {
+            let resolvingPromise;
+            this.visits = await visitsArray;
+
+            for (let i = 0; i < this.visits.length; i++) {
+                // console.log("Initializing data row " + i);
+                resolvingPromise = await this.visits[i].initialize();
+            }
+
+            return resolvingPromise;
+        });
+    }
+
+    // will open a Visit modal
+    async openViewModal(): Promise<void> {
+        // console.log("   In 'openViewModal()' for 'VisitTab'");
+
+        // clicking the Visit No twice to ensure the first visit row has a Visit Number that can be clicked (opening the modal)
+        await this.sortBy(this.visitNoHeader);
+        await this.sortBy(this.visitNoHeader);
+        return this.visits[0].clickVisitNo().then(async ()=> {
+            return this.visitsModal.initialize();
+        });
+    }
+
+    private async sortBy(header: ColumnHeader): Promise<void> {
+        return header.click().then(() => {
+            return this.setVisitsArray();
         });
     }
 
@@ -93,7 +117,15 @@ export class VisitTab extends Tab {
     //         browser.driver.navigate().refresh();   // Refreshing the page will git rid of the modal if it's already open
     //     }
     //     let visit = this.visits[0];
-    //     let visitData: {admissionDate: string, type: string, mrn: string, serviceProvider: string, visitNo: string, accountNo: string, location: string} = {
+    //     let visitData: {
+    //          admissionDate: string,
+    //          type: string,
+    //          mrn: string,
+    //          serviceProvider: string,
+    //          visitNo: string,
+    //          accountNo: string,
+    //          location: string
+    //     } = {
     //
     //     }
     //
@@ -173,8 +205,17 @@ export class VisitRow {
         return this.location.getText();
     }
 
-    async click(): Promise<any> {
-        return this.visitNo.click();
+    async clickVisitNo(): Promise<any> {
+        // console.log("   In 'clickVisitNo()' for 'VisitRow'");
+
+        return this.visitNo.getText().then((visitNumber)=> {
+            // console.log(`      ... the visit number is ${visitNumber}`);
+            if (visitNumber === "") {
+                throw "This row does not contain a Visit Number, meaning it cannot be clicked and the modal cannot be opened from here";
+            } else {
+                return this.visitNo.click();
+            }
+        });
     }
 
     // // TODO: Finish this!

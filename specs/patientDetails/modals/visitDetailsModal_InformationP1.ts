@@ -7,39 +7,45 @@ import { VisitTab } from "../../../objects/pages/patientDetails/tabCollection/ta
 import { NavigationMethods } from "../../../utils/navigationUtilities";
 import { VisitDetailsModal } from "../../../objects/pages/patientDetails/visitModal/visitDetailsModal";
 
-xdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
+fdescribe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {
 
     let visitTab: VisitTab;
     let visitModal: VisitDetailsModal;
 
     beforeAll(() => {
-        return NavigationMethods.navigateToAPatientPageQuickly().then(()=> {
-            return visitTab = new VisitTab();
-        }).then(async()=> {
-            await visitTab.initialize();
-            await visitTab.visits[0].visitNo.click();     //opens the Visit modal
-            return visitModal = new VisitDetailsModal();
-        }).then(async()=> {
-            return visitModal.initialize();
+        return NavigationMethods.navigateToAPatientPageQuickly('65858').then(()=> {
+            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(()=> {
+                return visitTab = new VisitTab();
+            }).then(async()=> {
+                return visitTab.initialize().then(async ()=> {
+                    console.log("HERE 2.1");
+                    await visitTab.openViewModal();     //opens the Visit modal
+                    console.log("HERE 2.2");
+                    return visitModal = visitTab.visitsModal;
+                });
+            }).then(async()=> {
+                console.log("HERE 3");
+                return visitModal.initialize();
+            });
         });
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
-    it('should be present, have correct title & date', () => {
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, EC #1 **/
+    fit('should be present', () => {
         expect<any>(visitModal.isPresent()).toBe(true);
+    });
+
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, EC #2-4 **/
+    it('should have correct title & date', () => {
         expect<any>(visitModal.title.getText()).toBe('Visit Details');
         expect<any>(visitModal.visitDate.isPresent()).toBe(true);
+        expect<any>(visitModal.closeButton.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
     // Note: assumes the patient has >6 visits
     it('should have 6 records on the page', () => {
         expect<any>(visitTab.visits.length).toBe(6);
-    });
-
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
-    it('should ', () => {
-
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/

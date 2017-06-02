@@ -47,6 +47,7 @@ export class ColumnHeader {
     }
 
     async click(): Promise<any> {
+        // console.log("  In 'click()' for 'ColumnHeader'");
         return this.headerElement.click();
     }
 }
