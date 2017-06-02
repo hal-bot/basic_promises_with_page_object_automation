@@ -1,4 +1,5 @@
-import { $, $$, ElementFinder } from 'protractor';
+import {$, browser, ElementFinder} from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export abstract class Tab {
 
@@ -9,24 +10,38 @@ export abstract class Tab {
     leftArrow: ElementFinder;
     rightArrow: ElementFinder;
 
-    constructor(tabElement: ElementFinder) {
-        this.actualTab = tabElement;
-        this.tabContentContainer = $('div.tab-content');
-        this.title = this.tabContentContainer.$('a.nav-link');
-        this.leftArrow = this.tabContentContainer.$('li.pages-prev');
-        this.rightArrow = this.tabContentContainer.$('li.pages-next');
 
-        this.setPages();
+    constructor(private tabElement: ElementFinder) {
+
     }
 
-    // This will clear out the current 'pages' array and then get the array rows
-    setPages(): Promise<any> {
-        return this.tabContentContainer.$$('li.page-item').map(function(pages) {
-            return this.pages = pages;
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for abstract class 'Tab'");
+
+        return new Promise<void>(async (resolve) => {
+
+            this.actualTab = await this.tabElement;
+            this.tabContentContainer = await $('div.tab-content');
+            this.title = await this.tabContentContainer.$('span.tab-title');
+
+            return this.setPages().then(()=> {
+                return resolve();
+            });
         });
     }
 
-    getTabTitle(): Promise<string> {
+    // This will clear out the current 'pages' array and then get the array rows
+    async setPages(): Promise<any[]> {
+        // console.log("   In 'setPages()'");
+        return ElementMethods.getCustomElementArray('tab.active li.page-item', 'ElementFinder').then((pagesArray)=> {
+            // console.log(`     Found ${pagesArray.length} pagination elements`);
+            this.leftArrow = pagesArray[0];
+            this.rightArrow = pagesArray[-1];
+            return this.pages = pagesArray.slice(1, -1);
+        });
+    }
+
+    async getTabTitle(): Promise<string> {
         return this.actualTab.getText();
     }
 
@@ -45,52 +60,54 @@ export abstract class Tab {
     //     }
     // }
 
-    getSectionTitle(): Promise<string> {
+    async getSectionTitle(): Promise<string> {
         return this.title.getText();
     }
 
-    getCurrentPageNumber(): number {
-        /**
-         * TODO - Figure out how to determine the current page number
-         * Return it
-         */
-        return -1;
-    }
+    // async getCurrentPageNumber(): number {
+    //     /**
+    //      * TODO - Figure out how to determine the current page number
+    //      * Return it
+    //      */
+    //     return -1;
+    // }
 
-    getNumberOfTotalPages(): number {
+    async getNumberOfTotalPages(): Promise<number> {
         /**
          * TODO - Figure out how to determine the total number of pages
          * Return it
          */
-        return -1;
+        return new Promise<number>((resolve)=> {
+            return resolve(this.pages.length);
+        });
     }
 
-    goToNextPage() {
-        // TODO: write this code
-        /**
-         * If the current page is not the last page
-         * Click the next page
-         */
-    }
+    // async goToNextPage() {
+    //     // TODO: write this code
+    //     /**
+    //      * If the current page is not the last page
+    //      * Click the next page
+    //      */
+    // }
 
-    goToPreviousPage() {
-        // TODO: write this code
-        /**
-         * If the current page is not the first page
-         * Click the previous page
-         */
-    }
+    // async goToPreviousPage() {
+    //     // TODO: write this code
+    //     /**
+    //      * If the current page is not the first page
+    //      * Click the previous page
+    //      */
+    // }
 
-    gotToPageNumber(pageNumber: number) {
-        // TODO: write this code
-        /**
-         * If page to go to is not the current page
-         * and that page number is viable
-         * go to that page
-         */
-    }
+    // async gotToPageNumber(pageNumber: number) {
+    //     // TODO: write this code
+    //     /**
+    //      * If page to go to is not the current page
+    //      * and that page number is viable
+    //      * go to that page
+    //      */
+    // }
 
-    isSelected(): Promise<boolean> {
+    async isSelected(): Promise<boolean> {
         return this.actualTab.getAttribute('class').then( function(tabClass) {
             return tabClass.indexOf('active') >= 0;
         });

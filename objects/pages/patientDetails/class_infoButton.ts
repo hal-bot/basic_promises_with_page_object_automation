@@ -8,7 +8,7 @@ export class InfoButton{
     }
 
     getButtonText(): Promise<string> {
-        return this.buttonElement.getText();
+        return new Promise(()=> { this.buttonElement.getText(); });
     }
 
     isItActivated(): boolean {

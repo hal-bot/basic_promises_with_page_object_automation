@@ -1,10 +1,18 @@
 // Describes the section below the Patient Detail header and the tabs section
 
-import {InfoButton} from "./class_infoButton";
+
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $} from "protractor";
+import {ElementFinder, $, browser} from "protractor";
+import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
+import {async} from "q";
+
 
 export class PatientInformation {
+
+    private container: ElementFinder;
+
+    private initializePromise: Promise<void>;
+    private initializeExtraPromise: Promise<void>;
 
     title: ElementFinder;
     arrowButton: DetailAccordionSection;
@@ -43,138 +51,239 @@ export class PatientInformation {
     // history_Button: InfoButton;
 
     // element will be the section of the site dedicated to the Patient Information section
-    constructor(element) {
-        this.title = element.$('h4');
-        this.arrowButton = new DetailAccordionSection();
-
-        this.mrn = new TitleValueElement(element.$('div.patient-information-mrn'));
-        this.patientID = new TitleValueElement(element.$('div.patient-information-patientId'));
-        this.lastName = new TitleValueElement(element.$('div.patient-information-lastName'));
-        this.firstName = new TitleValueElement(element.$('div.patient-information-firstName'));
-        this.middleName = new TitleValueElement(element.$('div.patient-information-middleName'));
-        this.dateOfBirth = new TitleValueElement(element.$('div.patient-information-dateOfBirth'));
-
-        this.gender = new TitleValueElement(element.$('div.patient-information-'));
-        this.status = new TitleValueElement(element.$('div.patient-information-'));
-        this.weight = new TitleValueElement(element.$('div.patient-information-'));
-        this.ssn = new TitleValueElement(element.$('div.patient-information-'));
-        this.ethnicity = new TitleValueElement(element.$('div.patient-information-'));
-        this.prefix = new TitleValueElement(element.$('div.patient-information-'));
-        this.suffix = new TitleValueElement(element.$('div.patient-information-'));
-        this.enterpriseId = new TitleValueElement(element.$('div.patient-information-'));
-        this.mothersPid = new TitleValueElement(element.$('div.patient-information-'));
-        this.numberOfPregnancies = new TitleValueElement(element.$('div.patient-information-'));
-        this.converted = new TitleValueElement(element.$('div.patient-information-'));
-        this.mergedToId = new TitleValueElement(element.$('div.patient-information-'));
-
-        // THESE HAVE NOT YET BEEN IMPLEMENTED
-        // this.specialNeeds_Button = new InfoButton(element.$(''));
-        // this.notes_Button = new InfoButton(element.$(''));
-        // this.txRx_Button = new InfoButton(element.$(''));
-        // this.adr_Button = new InfoButton(element.$(''));
-        // this.aby_Button = new InfoButton(element.$(''));
-        // this.bloodType_Button = new InfoButton(element.$(''));
-        // this.electronicXM_Button = new InfoButton(element.$(''));
-        // this.specimenExpiration_Button = new InfoButton(element.$(''));
-        // this.labs_Button = new InfoButton(element.$(''));
-        // this.issuedProducts_Button = new InfoButton(element.$(''));
-        // this.history_Button = new InfoButton(element.$(''));
-
+    constructor() {
+        // console.log("  In constructor for 'PatientInformation'");
     }
 
-    getMRN(): Promise<string> {
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'PatientInformation'");
+
+        if(!this.initializePromise) {
+            ElementMethods.initializationMessage(null, 'PatientInformation');
+
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+
+                this.container = await $('div.patient-information');
+                this.title = await this.container.$('h4');
+                this.arrowButton = await new DetailAccordionSection();
+
+                this.mrn = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-mrn'));
+                this.patientID = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-patientId'));
+                this.lastName = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-lastName'));
+                this.firstName = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-firstName'));
+                this.middleName = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-middleName'));
+                this.dateOfBirth = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-dateOfBirth'));
+
+                // THESE HAVE NOT YET BEEN IMPLEMENTED
+                // this.specialNeeds_Button = new InfoButton(element.$(''));
+                // this.notes_Button = new InfoButton(element.$(''));
+                // this.txRx_Button = new InfoButton(element.$(''));
+                // this.adr_Button = new InfoButton(element.$(''));
+                // this.aby_Button = new InfoButton(element.$(''));
+                // this.bloodType_Button = new InfoButton(element.$(''));
+                // this.electronicXM_Button = new InfoButton(element.$(''));
+                // this.specimenExpiration_Button = new InfoButton(element.$(''));
+                // this.labs_Button = new InfoButton(element.$(''));
+                // this.issuedProducts_Button = new InfoButton(element.$(''));
+                // this.history_Button = new InfoButton(element.$(''));
+
+                return resolve();
+            }).then(async (resolve)=> {
+                console.log("\tNow initializing all elements just defined for 'PatientInformation'");
+                await this.arrowButton.initialize();
+                await this.mrn.initialize();
+                await this.patientID.initialize();
+                await this.lastName.initialize();
+                await this.firstName.initialize();
+                await this.middleName.initialize();
+                await this.dateOfBirth.initialize();
+                return resolve;
+            });
+        }
+
+        return this.initializePromise;
+    }
+
+    async initializeExtraDetails(): Promise<void> {
+        // console.log("   In 'initializeExtraDetails()'");
+        if(!this.initializeExtraPromise) {
+            // console.log("     ... Initializing extra details of 'PatientInformation'");
+
+            return this.initializeExtraPromise = new Promise<void>(async (resolve) => {
+                this.gender = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-gender'));
+                this.status = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-status'));
+                this.weight = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-weight'));
+                this.ssn = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-ssn'));
+                this.ethnicity = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-ethnicity'));
+                this.prefix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-prefix'));
+                this.suffix = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-suffix'));
+                this.enterpriseId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-enterpriseId'));
+                this.mothersPid = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-motherPid'));
+                this.numberOfPregnancies = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-numPregnancies'));
+                this.converted = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-converted'));
+                this.mergedToId = await ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-mergedToId'));
+
+                return resolve();
+            }).then(async (resolve)=> {
+                console.log("\tNow initializing all extra elements just defined for 'PatientInformation'");
+                await this.gender.initialize();
+                await this.status.initialize();
+                await this.weight.initialize();
+                await this.ssn.initialize();
+                await this.ethnicity.initialize();
+                await this.prefix.initialize();
+                await this.suffix.initialize();
+                await this.enterpriseId.initialize();
+                await this.mothersPid.initialize();
+                await this.numberOfPregnancies.initialize();
+                await this.converted.initialize();
+                await this.mergedToId.initialize();
+                return resolve;
+            });
+        }
+        return this.initializeExtraPromise;
+    }
+
+    async isPresent(): Promise<boolean> {
+        console.log("   In 'isPresent' for 'PatientInformation'");
+        await this.initialize();
+        return this.title.isPresent();
+    }
+
+    async expand(): Promise<void> {
+        console.log("   In 'expand' for 'PatientInformation'");
+
+        await this.initialize();
+        return this.arrowButton.isExpanded().then((isOpen) => {
+            if (!isOpen) {
+                return this.arrowButton.click().then((promise)=> {
+                    console.log("almost done");
+                    return this.initializeExtraDetails().then(()=> {
+                        console.log("DONE!");
+                        return promise;
+                    });
+                });
+            } else {
+              return new Promise<void>((resolve)=> resolve());
+            }
+        });
+    }
+
+    async contract(): Promise<void> {
+        console.log("   In 'contract' for 'PatientInformation'");
+        await this.initialize();
+        return this.arrowButton.isExpanded().then( (isOpen) => {
+            if (isOpen) {
+                return this.arrowButton.click();
+            } else {
+                return new Promise<void>((resolve)=> resolve());
+            }
+        });
+    }
+
+    async isExpanded(): Promise<boolean> {
+        console.log("   In 'isExpanded' for 'PatientInformation'");
+        await this.initialize();
+        return this.arrowButton.isExpanded();
+    }
+
+    async getMRN(): Promise<string> {
+        await this.initialize();
         return this.mrn.getTitle();
     }
 
-    getPatientNumber(): Promise<string> {
+    async getPatientNumber(): Promise<string> {
+        await this.initialize();
         return this.patientID.getTitle();
     }
 
-    getLastName(): Promise<string> {
+    async getLastName(): Promise<string> {
+        await this.initialize();
         return this.lastName.getTitle();
     }
 
-    getFirstName(): Promise<string> {
+    async getFirstName(): Promise<string> {
+        await this.initialize();
         return this.firstName.getTitle();
     }
 
-    getMiddleName(): Promise<string> {
+    async getMiddleName(): Promise<string> {
+        await this.initialize();
         return this.middleName.getTitle();
     }
 
-    getFullName(): Promise<string> {
+    async getFullName(): Promise<string> {
+        await this.initialize();
+
         return this.getFirstName().then(function(firstName) {
             return this.getMiddleName().then(function(middleName) {
                 return this.getLastName().then(function(lastName) {
                     return firstName +' '+ middleName +' '+ lastName;
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
-    getDateOfBirth(): Promise<string> {
+    async getDateOfBirth(): Promise<string> {
+        await this.initialize();
         return this.dateOfBirth.getTitle();
     }
-
-    showMoreDetails() {
-        return this.arrowButton.isExpanded()
-            ? true
-            : this.arrowButton.click();
-    }
-
-    showLessDetails() {
-        return this.arrowButton.isExpanded()
-            ? this.arrowButton.click()
-            : true
-    }
-
-    isPresent(): Promise<boolean> {
-        return this.title.isPresent();
-    }
-
-    expand(): Promise<any> {
-        return this.isExpanded().then(function(isOpen) {
-            return isOpen
-                ? true
-                :this.arrowButton.click();
-        })
-    }
-
-    contract(): Promise<any> {
-        return this.isExpanded().then(function(isOpen) {
-            return isOpen
-                ? this.arrowButton.click()
-                : true;
-        })
-    }
-
-    isExpanded(): Promise<boolean> {
-        return this.arrowButton.isExpanded();
-    }
-
 }
 
 
 class DetailAccordionSection {
 
     private container: ElementFinder;
+    private directionalButton: ElementFinder;
     label: ElementFinder;
-    private arrowButton: ElementFinder;
+
+    private initializePromise: Promise<void>;
 
     constructor() {
-        this.container = $('div.titlebar div.detail-menu');
-        this.label = this.container.$('div.accordion-label');
-        this.arrowButton = this.container.$('span.glyphicon');
+        // console.log("     In 'DetailAccordionSection' constructor");
     }
 
-    click(): Promise<any> {
-        return this.arrowButton.click();
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'DetailAccordionSection'");
+
+        if(!this.initializePromise) {
+            ElementMethods.initializationMessage(null, 'DetailAccordionSection');
+
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+                this.container = await $('div.titlebar div.detail-menu');
+                this.label = await this.container.$('div.accordion-label');
+                this.directionalButton = await this.container.$('span.glyphicon');
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
     }
 
-    isExpanded(): Promise<boolean> {
-        return this.arrowButton.getAttribute('class').then(function(arrowButtonClass) {
-            return arrowButtonClass.indexOf('up') >= 0;
+    async click(): Promise<void> {
+        console.log("  Gonna click the arrow button");
+        await this.initialize();
+        return this.directionalButton.click().then((promise)=> {
+            console.log("    BUTTON CLICKED!");
+            return promise;
         });
+    }
+
+    async isExpanded(): Promise<boolean> {
+        console.log("     In 'isExpanded' for 'DetailAccordionSection'");
+        await this.initialize();
+        return new Promise<boolean>((resolve) => {
+            return this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {
+                // console.log("  class of the 'directionalButton' = " + directionalButtonClass);
+                return resolve(directionalButtonClass.indexOf('up') >= 0);
+            });
+        });
+    }
+
+    async getText():Promise<string> {
+        await this.initialize();
+        return this.label.getText();
     }
 
 }

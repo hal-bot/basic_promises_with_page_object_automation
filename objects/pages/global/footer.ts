@@ -1,9 +1,10 @@
-import { ElementFinder, $, $$ } from 'protractor';
+import { ElementFinder, $ } from 'protractor';
+import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class GlobalFooter {
 
     // the whole header object
-    container: ElementFinder;
+    private container: ElementFinder;
 
     name: ElementFinder;
     location: ElementFinder;
@@ -11,18 +12,37 @@ export class GlobalFooter {
     safetraceLogo: ElementFinder;
     haemoneticsLogo: ElementFinder;
 
-    constructor() {
-        this.container = $('div.app-footer-container');
+    private initializePromise: Promise<void>;
 
-        this.name = this.container.$('div.userName');
-        this.location = this.container.$('div.app-footer-copyright');
-        this.copyright = this.container.$('li.year_companyName');
-        // TODO: Use REGEX to only return the years
-        this.safetraceLogo = this.container.$('img.safetracetxLogo');
-        this.haemoneticsLogo = this.container.$('img.haemoneticsLogo');
+    constructor() {
+        // console.log("  In constructor for 'GlobalFooter'");
     }
 
-    isPresent(): Promise<boolean> {
+    async initialize(): Promise<void> {
+        // console.log("   In 'initialize' for 'GlobalFooter'");
+
+        if(!this.initializePromise) {
+            // ElementMethods.initializationMessage(null, 'GlobalFooter');
+
+            return this.initializePromise = new Promise<void>(async (resolve) => {
+                this.container = await $('div.app-footer-container');
+
+                this.name = await this.container.$('div.userName');
+                this.location = await this.container.$('div.app-footer-copyright');
+                this.copyright = await this.container.$('li.year_companyName');
+                // TODO: Use REGEX to only return the years
+                this.safetraceLogo = await this.container.$('img.safetracetxLogo');
+                this.haemoneticsLogo = await this.container.$('img.haemoneticsLogo');
+
+                return resolve();
+            });
+        }
+
+        return this.initializePromise;
+    }
+
+    async isPresent(): Promise<boolean> {
+        await this.initialize();
         return this.container.isPresent();
     }
 

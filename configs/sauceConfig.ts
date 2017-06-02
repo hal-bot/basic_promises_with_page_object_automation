@@ -1,4 +1,5 @@
 import {browser,Config} from 'protractor';
+import {LoginPage} from "../objects/pages/login";
 
 export let config: Config = {
 
@@ -8,15 +9,32 @@ export let config: Config = {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
 
+    // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
+    baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+
     /****
      *   Add tests in the 'specs' section
      ****/
     specs: [
-        '../specs/*.js'
+        '../specs/**/*.js'
     ],
 
     onPrepare: function () {
-        let caps = browser.getCapabilities();
+        // let caps = browser.getCapabilities();
+
+        browser.manage().window().maximize();
+        browser.manage().timeouts().implicitlyWait(5000);
+        browser.ignoreSynchronization = true;
+
+        // Logs into the site
+        return browser.get('/').then((thisPromise)=> {
+            let loginPage = new LoginPage();
+            return loginPage.initialize().then(()=> {
+                return loginPage.login();
+            }).then(()=> {
+                return thisPromise;
+            });
+        });
     },
 
     /****
@@ -25,9 +43,9 @@ export let config: Config = {
      *        It is not meant to be a test for an actual iPad.
      ****/
     multiCapabilities: [{
-        name: "win10-chrome56-tests",
+        name: "win10-chrome57-tests",
         browserName: 'chrome',
-        version: '56',
+        version: '57',
         platform: 'Windows 10',
         shardTestFiles: true,
         maxInstances: 25

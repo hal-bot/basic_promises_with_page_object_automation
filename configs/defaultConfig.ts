@@ -1,6 +1,9 @@
 //// Ref: https://github.com/angular/protractor/blob/master/lib/config.ts
 
 import {Config, browser} from 'protractor';
+import {LoginPage} from "../objects/pages/login";
+
+let timeoutMS = 59000;
 
 export let config: Config = {
 
@@ -12,17 +15,39 @@ export let config: Config = {
     restartBrowserBetweenTests: false,                  //Note: setting this to TRUE will slow down test time significantly
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
-    specs: [
-      '../specs/**/*.js'
-    ],
+    allScriptsTimeout: timeoutMS,                  // how long Protractor will wait for Angular tasks to execute
+    jasmineNodeOpts: {
+        defaultTimeoutInterval: timeoutMS
+    },
 
-    baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
-    // baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+    useAllAngular2AppRoots: true,
+
+    // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
+    baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
+
+    /****
+     *   Add tests in the 'specs' section
+     ****/
+    specs: [
+        '../specs/**/*.js'
+    ],
 
     onPrepare: () => {
         // console.log("  PREPARING TESTS");
+
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
+        browser.ignoreSynchronization = true;
+
+        // Logs into the site
+        return browser.get('/').then((thisPromise)=> {
+            let loginPage = new LoginPage();
+            return loginPage.initialize().then(()=> {
+                return loginPage.login();
+            }).then(()=> {
+                return thisPromise;
+            });
+        });
     },
 
     onComplete: () => {
