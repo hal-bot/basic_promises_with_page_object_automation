@@ -3,7 +3,7 @@
  */
 
 
-import {ElementFinder, $} from "protractor";
+import {ElementFinder, $, browser} from "protractor";
 
 export abstract class ModalTab {
 
@@ -16,9 +16,8 @@ export abstract class ModalTab {
         // console.log("  In constructor for abstract class 'ModalTab'");
     }
 
-    async initialize(): Promise<void> {
-        console.log("   In 'initialize()' for abstract class 'ModalTab'");
-
+    async baseInitialize(): Promise<void> {
+        // console.log("   In 'baseInitialize()' for abstract class 'ModalTab'");
         return new Promise<void>(async (resolve) => {
             this.actualTab = await this.tabElement;
             this.contentContainer = await $('div.modal-content div.tab-content');
@@ -27,17 +26,16 @@ export abstract class ModalTab {
     }
 
     // abstract async clickTab();
-    async clickTab(): Promise<{}> {
-        console.log("  In 'clickTab()' for abstract class 'ModalTab'");
-        return this.actualTab.click().then(()=> {
-            console.log("    MODAL TAB CLICKED");
-            this.initializePromise = null;
-            return new Promise(()=> { return this.initialize(); });
+    public async baseClickTab(): Promise<{}> {
+        // console.log("  In 'baseClickTab()' for abstract class 'ModalTab'");
+        return this.actualTab.click().then(async ()=> {
+            await browser.sleep(250);
+            return this.initializePromise = null;           // doing this so that the page can be reinitialized, which should happen after this is called
         });
     }
 
     async isPresent(): Promise<boolean> {
-        console.log("  In 'isPresent()' for abstract class 'ModalTab'");
+        // console.log("  In 'isPresent()' for abstract class 'ModalTab'");
         return this.actualTab.isPresent();
     }
 }

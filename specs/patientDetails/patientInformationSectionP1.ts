@@ -60,10 +60,6 @@ describe('The patient\'s information details', () => {
         });
     });
 
-    afterAll( () => {
-        // console.log("~~~** DONE WITH P1 Patient Information section TESTS!**~~~~");
-    });
-
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
     it('should be present, be collapsed on load, display default fields', (done) => {
         console.log("The Patient Information section should be present, be collapsed on load, & display default fields");

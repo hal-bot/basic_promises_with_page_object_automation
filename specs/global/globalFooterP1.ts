@@ -63,6 +63,7 @@ describe('The global footer from a P1 level', () => {
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/67 **/
     it('should match the current year', ()=> {
+        console.log("The Global Footer should match the current year");
         let currentYear = new Date().getFullYear();
         return footer.copyright.getText().then((elementText)=> {
             return expect<any>(elementText.includes(currentYear.toString())).toBe(true);

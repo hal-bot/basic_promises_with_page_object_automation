@@ -14,7 +14,7 @@ describe('The global header from a P1 level', () => {
 
     beforeAll( (done) => {
         // console.log("In 'beforeEach' for GlobalHeader");
-        browser.get('/');
+        // browser.get('/');
         header = new GlobalHeader();
         return done();
     });

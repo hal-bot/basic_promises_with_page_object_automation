@@ -4,6 +4,7 @@ import { ColumnHeader } from "../../elements/columnHeader";
 import { ElementFinder, $ } from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class TabDiagnosis extends ModalTab{
 
@@ -17,21 +18,25 @@ export class TabDiagnosis extends ModalTab{
 
     diagnoses: DiagnosisRow[];
 
+    private diagnosisColumnHeaderCSSstring: string;
+
     constructor(tab: ElementFinder) {
         // console.log("  In constructor for 'TabDiagnosis'");
         super(tab);
+        this.diagnosisColumnHeaderCSSstring = 'th.visitModal-diagnosisTab-tableHeader-DiagnosisId';
     }
 
     async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'TabDiagnosis'");
 
         if(!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.actualTab, 'TabDiagnosis');
+
+            await super.baseInitialize();
+            // await ElementMethods.initializationMessage(this.actualTab, 'TabDiagnosis');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                await super.initialize();
 
-                this.diagnosisHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-DiagnosisId'));
+                this.diagnosisHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$(this.diagnosisColumnHeaderCSSstring));
                 this.codeHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-Code'));
                 this.startDateHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-StartDate'));
                 this.endDateHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-EndDate'));
@@ -71,13 +76,13 @@ export class TabDiagnosis extends ModalTab{
         });
     }
 
-    // async clickTab(): Promise<{}> {
-    //     console.log("  In 'clickTab()' for abstract class 'ModalTab'");
-    //     return this.actualTab.click().then(()=> {
-    //         this.initializePromise = null;
-    //         return new Promise(()=> { return this.initialize(); });
-    //     });
-    // }
+    async clickTab(): Promise<void> {
+        // console.log("   In 'clickTab()' for 'TabDiagnosis'");
+        return super.baseClickTab().then(async ()=> {
+            await NavigationMethods.waitForLoadCompletion(this.diagnosisColumnHeaderCSSstring);
+            return this.initialize();
+        })
+    }
 }
 
 export class DiagnosisRow {

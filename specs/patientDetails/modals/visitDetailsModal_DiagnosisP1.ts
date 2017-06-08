@@ -5,27 +5,25 @@
 
 import {VisitTab} from "../../../objects/pages/patientDetails/tabCollection/tabVisit";
 import {VisitDetailsModal} from "../../../objects/pages/patientDetails/visitModal/visitDetailsModal";
-import {browser} from "protractor";
 
 
-fdescribe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Details page) P1 level tests ', () => {
+describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Details page) P1 level tests ', () => {
 
     let visitModal: VisitDetailsModal;  // the modal that opens by clicking a Visit No in the "Visits" tab
 
     beforeAll( ()=> {
         return VisitTab.UniversalOpenVisitsModal('25472').then(async (modal)=> {
             visitModal = modal;
-            await visitModal.initialize();
             return visitModal.diagnosisSection.clickTab();
         });
     });
 
     afterAll( ()=> {
-        // return visitModal.closeModal();
+        return visitModal.closeModal();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/59 **/
-    fit('should be showing the correct diagnosis grid headers and show diagnosis records', () => {
+    it('should be showing the correct diagnosis grid headers and show diagnosis records', () => {
         console.log("The 'Visit Details' modal should be showing the correct diagnosis grid headers and show diagnosis records");
 
         expect<any>(visitModal.diagnosisSection.diagnoses.length).toBeGreaterThan(0);

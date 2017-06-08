@@ -180,7 +180,7 @@ export class PatientInformation {
     }
 
     async isExpanded(): Promise<boolean> {
-        console.log("   In 'isExpanded' for 'PatientInformation'");
+        // console.log("   In 'isExpanded' for 'PatientInformation'");
         await this.initialize();
         return this.arrowButton.isExpanded();
     }

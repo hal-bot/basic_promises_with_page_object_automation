@@ -1,7 +1,7 @@
 // Describes the "Visit Information" tabbed section of the 'Visit Details' pop-up modal
 
 import {TitleValueElement} from "../../elements/titleValueElement";
-import {ElementFinder, $} from "protractor";
+import {ElementFinder, $, browser} from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
 
@@ -28,13 +28,13 @@ export class TabVisitInformation extends ModalTab {
     }
 
     async initialize(): Promise<void> {
-        console.log("   In 'initialize' for 'VisitTab'");
 
         if (!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.actualTab, 'TabVisitInformation');
+
+            await super.baseInitialize();
+            // await ElementMethods.initializationMessage(this.actualTab, 'TabVisitInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                await super.initialize();
 
                 this.admissionDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$('.visitModal-infoTab-admissionDate'));
                 this.dischargeDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
@@ -52,7 +52,7 @@ export class TabVisitInformation extends ModalTab {
 
                 return resolve();
             }).then(async (resolve) => {
-                console.log("\tNow initializing all elements just defined for 'TabVisitInformation'");
+                // console.log("\tNow initializing all elements just defined for 'TabVisitInformation'");
                 await this.admissionDate.initialize();
                 await this.dischargeDate.initialize();
                 await this.visitType.initialize();
@@ -73,12 +73,10 @@ export class TabVisitInformation extends ModalTab {
         return this.initializePromise;
     }
 
-    // async clickTab(): Promise<{}> {
-    //     console.log("  In 'clickTab()' for abstract class 'ModalTab'");
-    //     return this.actualTab.click().then(()=> {
-    //         this.initializePromise = null;
-    //         return new Promise(()=> { return this.initialize(); });
-    //     });
-    // }
+    async clickTab(): Promise<void> {
+        return super.baseClickTab().then(()=> {
+            return this.initialize();
+        })
+    }
 
 }
