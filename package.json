@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Automated tests for the Haemonetics SafeTrace TX site",
   "scripts": {
-    "removeTmpDirectory": "rm -r tmp",
+    "removeTmpDirectory": "rimraf tmp",
     "pretest": "tsc && npm run removeTmpDirectory && tsc",
     "default-tests": "npm run pretest && protractor-flake --max-attempts=1 -- tmp/configs/defaultConfig.js",
     "saucelabs-tests": "npm run pretest && protractor-flake --max-attempts=1 --  tmp/configs/sauceConfig.js",
