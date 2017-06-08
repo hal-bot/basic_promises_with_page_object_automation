@@ -1,18 +1,14 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
-import {$, browser, ElementFinder} from 'protractor';
+import {$, ElementFinder} from 'protractor';
 import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
-import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
+import {VisitDetailsModal} from "./visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
-import {async} from "q";
-import {promise} from "selenium-webdriver";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class VisitTab extends PageTab {
-
-    private initializePromise: Promise<void>;
 
     showDischargedVisits_checkbox: Checkbox;
     createVisit_button: ElementFinder;            // not yet implemented
@@ -38,12 +34,12 @@ export class VisitTab extends PageTab {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if(!this.initializePromise) {
-            await super.initialize();
+            await super.baseInitialize();
 
             // await ElementMethods.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                return super.initialize().then( async ()=> {
+                // return super.initialize().then( async ()=> {
                     this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
                     // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
 
@@ -69,7 +65,7 @@ export class VisitTab extends PageTab {
 
                         return resolve();
                     })
-                });
+                // });
             });
         }
 

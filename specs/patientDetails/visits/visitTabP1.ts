@@ -3,7 +3,7 @@
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-55
  */
 
-import {VisitTab} from "../../../objects/pages/patientDetails/tabCollection/tabVisit";
+import {VisitTab} from "../../../objects/pages/patientDetails/visits/tabVisit";
 import {NavigationMethods} from "../../../utils/navigationUtilities";
 
 describe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () => {

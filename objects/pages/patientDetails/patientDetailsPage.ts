@@ -1,9 +1,9 @@
 // Describes the whole Patient Details page.  Anything on that page should be accessible through this
 
 import {PatientInformation} from "./patientInformation";
-import {VisitTab} from "./tabCollection/tabVisit";
-import {OrdersTab} from "./tabCollection/tabOrders";
-import {ProductsTab} from "./tabCollection/tabProducts";
+import {VisitTab} from "./visits/tabVisit";
+import {OrdersTab} from "./orders/tabOrders";
+import {ProductsTab} from "./products/tabProducts";
 
 export class PatientDetailsPage {
 

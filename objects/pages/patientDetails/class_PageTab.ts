@@ -3,6 +3,8 @@ import {ElementMethods} from "../../../utils/elementUtilities";
 
 export abstract class PageTab {
 
+    protected initializePromise: Promise<void>;
+
     actualTab: ElementFinder;           // the actual tab that is selected      Ex: Visit
     tabContentContainer: ElementFinder; // the container for the tab content
     title: ElementFinder;               // the title of the tab                 Ex: Visit Information
@@ -14,7 +16,7 @@ export abstract class PageTab {
 
     }
 
-    async initialize(): Promise<void> {
+    async baseInitialize(): Promise<void> {
         // console.log("   In 'initialize' for abstract class 'PageTab'");
 
         return new Promise<void>(async (resolve) => {
