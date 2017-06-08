@@ -1,16 +1,16 @@
 // Describes the "Visit Information" tabbed section of the 'Visit Details' pop-up modal
 
 import {TitleValueElement} from "../../elements/titleValueElement";
-import {ElementFinder} from "protractor";
+import {ElementFinder, $} from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {ModalTab} from "../../global/class_ModalTab";
 
-export class TabVisitInformation {
-
-    private initializePromise: Promise<void>;
+export class TabVisitInformation extends ModalTab {
 
     admissionDate: TitleValueElement;
     dischargeDate: TitleValueElement;
     visitType: TitleValueElement;
+    visitNumber: TitleValueElement;
     patientLocation: TitleValueElement;
     patientSublocation: TitleValueElement;
 
@@ -22,30 +22,33 @@ export class TabVisitInformation {
     payerProvider: TitleValueElement;
 
     // element will be the container which has all the data for the tab
-    constructor(private element: ElementFinder) {
+    constructor(tab: ElementFinder) {
         // console.log("  In constructor for 'TabVisitInformation'");
+        super(tab);
     }
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for 'VisitTab'");
+        console.log("   In 'initialize' for 'VisitTab'");
 
         if (!this.initializePromise) {
-            await ElementMethods.initializationMessage(this.element, 'TabVisitInformation');
+            await ElementMethods.initializationMessage(this.actualTab, 'TabVisitInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
+                await super.initialize();
 
-                this.admissionDate = await ElementFactory.make(TitleValueElement, this.element.$('visitModal-infoTab-admissionDate'));
-                this.dischargeDate = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.visitType = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.patientLocation = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.patientSublocation = await ElementFactory.make(TitleValueElement, this.element.$(''));
+                this.admissionDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$('.visitModal-infoTab-admissionDate'));
+                this.dischargeDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.visitType = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.visitNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.patientLocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.patientSublocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
 
-                this.accountNumber = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.mrNo = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.admitPhysician = await ElementFactory.make(TitleValueElement, this.element.$(''));
+                this.accountNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.mrNo = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.admitPhysician = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
 
-                this.serviceProvider = await ElementFactory.make(TitleValueElement, this.element.$(''));
-                this.payerProvider = await ElementFactory.make(TitleValueElement, this.element.$(''));
+                this.serviceProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.payerProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
 
                 return resolve();
             }).then(async (resolve) => {
@@ -66,6 +69,16 @@ export class TabVisitInformation {
                 return resolve;
             });
         }
+
+        return this.initializePromise;
     }
+
+    // async clickTab(): Promise<{}> {
+    //     console.log("  In 'clickTab()' for abstract class 'ModalTab'");
+    //     return this.actualTab.click().then(()=> {
+    //         this.initializePromise = null;
+    //         return new Promise(()=> { return this.initialize(); });
+    //     });
+    // }
 
 }

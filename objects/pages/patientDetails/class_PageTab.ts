@@ -1,7 +1,7 @@
-import {$, browser, ElementFinder} from 'protractor';
+import {$, ElementFinder} from 'protractor';
 import {ElementMethods} from "../../../utils/elementUtilities";
 
-export abstract class Tab {
+export abstract class PageTab {
 
     actualTab: ElementFinder;           // the actual tab that is selected      Ex: Visit
     tabContentContainer: ElementFinder; // the container for the tab content
@@ -15,7 +15,7 @@ export abstract class Tab {
     }
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for abstract class 'Tab'");
+        // console.log("   In 'initialize' for abstract class 'PageTab'");
 
         return new Promise<void>(async (resolve) => {
 

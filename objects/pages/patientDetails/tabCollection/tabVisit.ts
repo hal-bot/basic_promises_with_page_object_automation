@@ -1,7 +1,7 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
 import {$, browser, ElementFinder} from 'protractor';
-import {Tab} from "../class_Tab";
+import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
@@ -10,7 +10,7 @@ import {async} from "q";
 import {promise} from "selenium-webdriver";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
-export class VisitTab extends Tab {
+export class VisitTab extends PageTab {
 
     private initializePromise: Promise<void>;
 
@@ -110,31 +110,23 @@ export class VisitTab extends Tab {
         });
     }
 
-    // this will return the admission date of the visit that's being opened.  The date is needed to verify the date in the Modal
-    // TODO: FINISH THIS!
-    // openTheVisitsModal(): Promise<any> {
-    //     if (this.visitsModal.isPresent()) {
-    //         browser.driver.navigate().refresh();   // Refreshing the page will git rid of the modal if it's already open
-    //     }
-    //     let visit = this.visits[0];
-    //     let visitData: {
-    //          admissionDate: string,
-    //          type: string,
-    //          mrn: string,
-    //          serviceProvider: string,
-    //          visitNo: string,
-    //          accountNo: string,
-    //          location: string
-    //     } = {
-    //
-    //     }
-    //
-    //     return visit.getAdmissionDate().then(function(date) {
-    //         return visit.click().then(function() {
-    //             return date;
-    //         });
-    //     })
-    // }
+    // Navigates to a patient info page and opens a Visit Details modal.  It returns the modal object for further use.
+    static async UniversalOpenVisitsModal(patientID: string = '65858'): Promise<VisitDetailsModal> {
+        // console.log("   In 'UniversalOpenVisitsModal()' for 'VisitTab'");
+        let visitTab: VisitTab;             // the tab on the patient's details page
+
+        return NavigationMethods.navigateToAPatientPageQuickly(patientID).then(()=> {
+            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(()=> {
+                return visitTab = new VisitTab();
+            }).then(async()=> {
+                return visitTab.initialize().then(async ()=> {
+                    await visitTab.openViewModal();     //opens the Visit modal
+                    return visitTab.visitsModal;
+                });
+            });
+        });
+    }
+
 }
 
 

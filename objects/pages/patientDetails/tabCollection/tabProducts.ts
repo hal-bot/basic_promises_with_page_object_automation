@@ -1,11 +1,11 @@
 // Describes the "Products" tab section seen on the Patient Details page
 
 import { $, ElementFinder } from 'protractor';
-import {Tab} from "../class_Tab";
+import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {ElementMethods} from "../../../../utils/elementUtilities";
 
-export class ProductsTab extends Tab {
+export class ProductsTab extends PageTab {
 
     adrOnlyCheckbox: ElementFinder;
 

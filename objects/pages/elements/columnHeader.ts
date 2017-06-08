@@ -28,10 +28,10 @@ export class ColumnHeader {
                 // this.arrow = await ElementFactory.make(ArrowIcon, this.element);
 
                 return resolve();
-            }).then(async (resolve)=> {
-                // console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
-                // await this.arrow.initialize();
-                return resolve;
+            // }).then(async (resolve)=> {
+            //     // console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
+            //     // await this.arrow.initialize();
+            //     return resolve;
             });
         }
 
@@ -49,5 +49,14 @@ export class ColumnHeader {
     async click(): Promise<any> {
         // console.log("  In 'click()' for 'ColumnHeader'");
         return this.headerElement.click();
+    }
+
+    // Will return TRUE if the column header is currently being used for sorting, FALSE if not
+    async isBeingUsedForSorting(): Promise<boolean> {
+        // console.log("  In 'isBeingUsedForSorting()' for 'ColumnHeader'");
+        return this.headerElement.getAttribute('class').then((headerClass)=> {
+            // console.log(`\tThe header's class is '${headerClass}'`);
+            return headerClass.includes('sorted');
+        });
     }
 }

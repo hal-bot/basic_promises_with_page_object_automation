@@ -73,6 +73,7 @@ export class ElementMethods {
 export class ElementFactory {
 
     static make<T>(clazz: { new(ElementFinder): T; }, input: ElementFinder): Promise<T> {
+        // console.log("\tIn 'ElementFactory'");
         return new Promise(resolve => {
             return resolve(new clazz(input));
         });
