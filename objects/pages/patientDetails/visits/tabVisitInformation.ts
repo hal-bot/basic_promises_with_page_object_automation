@@ -15,7 +15,7 @@ export class TabVisitInformation extends ModalTab {
     patientSublocation: TitleValueElement;
 
     accountNumber: TitleValueElement;
-    mrNo: TitleValueElement;
+    mrn: TitleValueElement;
     admitPhysician: TitleValueElement;
 
     serviceProvider: TitleValueElement;
@@ -36,19 +36,19 @@ export class TabVisitInformation extends ModalTab {
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
-                this.admissionDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$('.visitModal-infoTab-admissionDate'));
-                this.dischargeDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.visitType = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.visitNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.patientLocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.patientSublocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.admissionDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-admissionDate'));
+                this.dischargeDate = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-dischargeDate'));
+                this.visitType = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-visitType'));
+                this.visitNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-externalVistNumber'));
+                this.patientLocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-patientLocation'));
+                this.patientSublocation = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-patientSublocation'));
 
-                this.accountNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.mrNo = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.admitPhysician = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.accountNumber = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-accountNumber'));
+                this.mrn = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-mrn'));
+                this.admitPhysician = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-admitPhysician'));
 
-                this.serviceProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
-                this.payerProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$(''));
+                this.serviceProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-serviceProvider'));
+                this.payerProvider = await ElementFactory.make(TitleValueElement, this.contentContainer.$('div.visitModal-infoTab-payerProvider'));
 
                 return resolve();
             }).then(async (resolve) => {
@@ -60,7 +60,7 @@ export class TabVisitInformation extends ModalTab {
                 await this.patientSublocation.initialize();
                 await this.accountNumber.initialize();
 
-                await this.mrNo.initialize();
+                await this.mrn.initialize();
                 await this.admitPhysician.initialize();
 
                 await this.serviceProvider.initialize();

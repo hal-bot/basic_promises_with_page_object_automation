@@ -39,33 +39,33 @@ export class VisitTab extends PageTab {
             // await ElementMethods.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                // return super.initialize().then( async ()=> {
-                    this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
-                    // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
+                this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
+                // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
 
-                    this.admissionDateHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-admissionDate'));
-                    this.visitTypeHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-type'));
-                    this.mrnHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-mrn'));
-                    this.serviceProviderHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-serviceProvider'));
-                    this.visitNoHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-externalVisitNumber'));
-                    this.accountNumberHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-accountNo'));
-                    this.locationHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-location'));
+                this.admissionDateHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-admissionDate'));
+                this.visitTypeHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-type'));
+                this.mrnHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-mrn'));
+                this.serviceProviderHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-serviceProvider'));
+                this.visitNoHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-externalVisitNumber'));
+                this.accountNumberHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-accountNo'));
+                this.locationHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-location'));
 
-                    // this.visitsModal = new VisitDetailsModal();
-                    this.visitsModal = await ElementFactory.make(VisitDetailsModal, null);
+                // this.visitsModal = new VisitDetailsModal();
+                this.visitsModal = await ElementFactory.make(VisitDetailsModal, null);
 
-                    return this.setVisitsArray().then(async ()=> {
-                        await this.admissionDateHeader.initialize();
-                        await this.visitTypeHeader.initialize();
-                        await this.mrnHeader.initialize();
-                        await this.serviceProviderHeader.initialize();
-                        await this.visitNoHeader.initialize();
-                        await this.accountNumberHeader.initialize();
-                        await this.locationHeader.initialize();
+                return this.setVisitsArray().then(async ()=> {
+                    await this.showDischargedVisits_checkbox.initialize();
 
-                        return resolve();
-                    })
-                // });
+                    await this.admissionDateHeader.initialize();
+                    await this.visitTypeHeader.initialize();
+                    await this.mrnHeader.initialize();
+                    await this.serviceProviderHeader.initialize();
+                    await this.visitNoHeader.initialize();
+                    await this.accountNumberHeader.initialize();
+                    await this.locationHeader.initialize();
+
+                    return resolve();
+                })
             });
         }
 

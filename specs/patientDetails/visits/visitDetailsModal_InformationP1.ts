@@ -25,7 +25,7 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #1 **/
     it('should be present', () => {
         console.log("The 'Visit Details' modal should be present");
-        return expect<any>(visitModal.isPresent()).toBe(true);
+        expect<any>(visitModal.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #2-4 **/
@@ -34,11 +34,11 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
         expect<any>(visitModal.title.getText()).toBe('Visit Details');
         expect<any>(visitModal.visitDate.isPresent()).toBe(true);
         expect<any>(visitModal.visitInformationSection.isPresent()).toBe(true);
-        return expect<any>(visitModal.diagnosisSection.isPresent()).toBe(true);
+        expect<any>(visitModal.diagnosisSection.isPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/58 **/
-    xit('should be showing the correct visit information fields (ELEMENTS NEED TO BE IMPLEMENTED)', () => {
+    it('should be showing the correct visit information fields (ELEMENTS NEED TO BE IMPLEMENTED)', () => {
         console.log("The 'Visit Details' modal should be showing the correct visit information fields");
 
         expect<any>(visitModal.visitInformationSection.admissionDate.getTitle()).toBe('Admission Date');
@@ -53,11 +53,11 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
         expect<any>(visitModal.visitInformationSection.patientSublocation.getValue()).not.toBe('');
         expect<any>(visitModal.visitInformationSection.accountNumber.getTitle()).toBe('Account Number');
         expect<any>(visitModal.visitInformationSection.accountNumber.getValue()).not.toBe('');
-        expect<any>(visitModal.visitInformationSection.mrNo.getTitle()).toBe('MRN');
-        expect<any>(visitModal.visitInformationSection.mrNo.getValue()).not.toBe('');
+        expect<any>(visitModal.visitInformationSection.mrn.getTitle()).toBe('MRN');
+        expect<any>(visitModal.visitInformationSection.mrn.getValue()).not.toBe('');
         expect<any>(visitModal.visitInformationSection.admitPhysician.getTitle()).toBe('Admit. Physician');
         expect<any>(visitModal.visitInformationSection.serviceProvider.getTitle()).toBe('Service Provider');
-        return expect<any>(visitModal.visitInformationSection.payerProvider.getTitle()).toBe('Payer Provider');
+        expect<any>(visitModal.visitInformationSection.payerProvider.getTitle()).toBe('Payer Provider');
     });
 
 });

@@ -36,7 +36,7 @@ export class TitleValueElement {
 
     async getValue(): Promise<string> {
         await this.initialize();
-        return this.value.getTitle();
+        return this.value.getAttribute('value');
     }
 
     async isPresent(): Promise<boolean> {

@@ -6,7 +6,7 @@
 import {NavigationMethods} from "../../../utils/navigationUtilities";
 import {OrdersTab} from "../../../objects/pages/patientDetails/orders/tabOrders";
 
-fdescribe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', () => {
+describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', () => {
 
     let ordersTab: OrdersTab;
 
@@ -66,12 +66,19 @@ fdescribe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', (
         expect(ordersTab.orders.length).toBe(6);
     });
 
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226, ER #2 **/
+    it('should have pagination present', () => {
+        console.log("The 'Orders' tab on the Patients Details page should have pagination present");
+        expect(ordersTab.leftArrow.isPresent()).toBeTruthy();
+        expect(ordersTab.rightArrow.isPresent()).toBeTruthy();
+        expect(ordersTab.pages.length).toBeGreaterThanOrEqual(1);
+    });
+
 
 
     /**
      *  TODO...
      *  - Case 225, ERs #2 & #3 -> Verifying sorting on all headers, sorting arrows
-     *  - Case 226, ER #2 -> Haven't yet implemented pagination
      *  - Case 227 -> cannot implement until the count has been implemented in the tab
      */
 
