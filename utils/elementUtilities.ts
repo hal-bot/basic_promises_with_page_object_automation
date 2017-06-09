@@ -1,7 +1,7 @@
 /** This file will be used to store misc. methods used for element manipulation */
 
 import { $$, ElementFinder } from "protractor";
-import {VisitRow} from "../objects/pages/patientDetails/visits/tabVisit";
+import {VisitRow} from "../objects/pages/patientDetails/visits/tabVisits";
 import {ProductRow} from "../objects/pages/patientDetails/products/tabProducts";
 import {OrderRow} from "../objects/pages/patientDetails/orders/tabOrders";
 import {DiagnosisRow} from "../objects/pages/patientDetails/visits/tabDiagnosis";

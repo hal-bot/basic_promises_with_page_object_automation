@@ -13,7 +13,7 @@ export abstract class PageTab {
     rightArrow: ElementFinder;
 
     constructor(private tabElement: ElementFinder) {
-
+        // console.log("   In constructor for abstract class 'PageTab'");
     }
 
     async baseInitialize(): Promise<void> {
@@ -22,7 +22,7 @@ export abstract class PageTab {
         return new Promise<void>(async (resolve) => {
 
             this.actualTab = await this.tabElement;
-            this.tabContentContainer = await $('div.tab-content');
+            this.tabContentContainer = await $('div.tab-content tab.active');
             this.title = await this.tabContentContainer.$('span.tab-title');
 
             return this.setPages().then(()=> {

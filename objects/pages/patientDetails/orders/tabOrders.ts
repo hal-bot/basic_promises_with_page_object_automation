@@ -3,7 +3,7 @@
 import { $, ElementFinder } from 'protractor';
 import { PageTab } from "../class_PageTab";
 import { ColumnHeader } from "../../elements/columnHeader";
-import {ElementMethods} from "../../../../utils/elementUtilities";
+import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 
 export class OrdersTab extends PageTab {
 
@@ -22,20 +22,21 @@ export class OrdersTab extends PageTab {
     };
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for 'VisitTab'");
+        // console.log("   In 'initialize' for 'OrdersTab'");
 
         if(!this.initializePromise) {
             await super.baseInitialize();
 
-            // await ElementMethods.initializationMessage(null, 'VisitTab');
+            // await ElementMethods.initializationMessage(null, 'OrdersTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                this.statusHeader = new ColumnHeader($('th.order-tableHeader-status'));
-                this.orderIdHeader = new ColumnHeader($('th.order-tableHeader-orderID'));
-                this.orderDateTimeHeader = new ColumnHeader($('th.order-tableHeader-orderDateTime'));
-                this.specimenHeader = new ColumnHeader($('th.order-tableHeader-specimen'));
-                this.locationSublocationHeader = new ColumnHeader($('th.order-tableHeader-locationSubLocation'));
-                this.priorityHeader = new ColumnHeader($('th.order-tableHeader-priority'));
+
+                this.statusHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-status'));
+                this.orderIdHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-orderID'));
+                this.orderDateTimeHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-orderDateTime'));
+                this.specimenHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-specimen'));
+                this.locationSublocationHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-locationSubLocation'));
+                this.priorityHeader = await ElementFactory.make(ColumnHeader, $('th.order-tableHeader-priority'));
 
                 return this.setOrdersArray().then(async ()=> {
                     await this.statusHeader.initialize();
@@ -44,6 +45,8 @@ export class OrdersTab extends PageTab {
                     await this.specimenHeader.initialize();
                     await this.locationSublocationHeader.initialize();
                     await this.priorityHeader.initialize();
+
+                    return resolve();
                 });
             });
         }
@@ -52,6 +55,7 @@ export class OrdersTab extends PageTab {
     }
 
     async setOrdersArray(): Promise<any> {
+        // console.log("  In 'setOrdersArray()' for 'OrdersTab'");
         return ElementMethods.getCustomElementArray('tr.order-tableRow', 'OrderRow').then(async (orderArray)=> {
             let resolvingPromise;
             this.orders = orderArray;
@@ -80,14 +84,14 @@ export class OrderRow {
     priority: ElementFinder;
 
     constructor(private element: ElementFinder) {
-        // console.log("  In constructor for 'VisitRow'");
+        // console.log("  In constructor for 'OrderRow'");
     };
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for 'VisitRow'");
+        // console.log("   In 'initialize' for 'OrderRow'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'VisitRow');
+            // await ElementMethods.initializationMessage(this.element, 'OrderRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.status = await this.element.$('td.order-tableRow-statusCode');

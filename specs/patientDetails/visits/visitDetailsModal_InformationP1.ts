@@ -3,7 +3,7 @@
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-77
  */
 
-import { VisitTab } from "../../../objects/pages/patientDetails/visits/tabVisit";
+import { VisitTab } from "../../../objects/pages/patientDetails/visits/tabVisits";
 import { VisitDetailsModal } from "../../../objects/pages/patientDetails/visits/visitDetailsModal";
 
 describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'s Details page) P1 level tests', () => {

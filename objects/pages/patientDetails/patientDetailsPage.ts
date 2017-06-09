@@ -1,7 +1,7 @@
 // Describes the whole Patient Details page.  Anything on that page should be accessible through this
 
 import {PatientInformation} from "./patientInformation";
-import {VisitTab} from "./visits/tabVisit";
+import {VisitTab} from "./visits/tabVisits";
 import {OrdersTab} from "./orders/tabOrders";
 import {ProductsTab} from "./products/tabProducts";
 

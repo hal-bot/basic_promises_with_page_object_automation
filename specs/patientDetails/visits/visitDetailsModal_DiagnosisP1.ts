@@ -3,7 +3,7 @@
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-77
  */
 
-import {VisitTab} from "../../../objects/pages/patientDetails/visits/tabVisit";
+import {VisitTab} from "../../../objects/pages/patientDetails/visits/tabVisits";
 import {VisitDetailsModal} from "../../../objects/pages/patientDetails/visits/visitDetailsModal";
 
 
