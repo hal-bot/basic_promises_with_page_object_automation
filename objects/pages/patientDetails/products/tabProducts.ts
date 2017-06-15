@@ -4,10 +4,11 @@ import { $, ElementFinder } from 'protractor';
 import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {Checkbox} from "../../elements/checkbox";
 
 export class ProductsTab extends PageTab {
 
-    adrOnlyCheckbox: ElementFinder;
+    private adrOnlyCheckbox: Checkbox;
 
     allComponentsFilter: ProductsFilter;
     workInProgressFilter: ProductsFilter;
@@ -41,25 +42,26 @@ export class ProductsTab extends PageTab {
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
-                this.adrOnlyCheckbox = await $('div.tab-actions');
+                this.adrOnlyCheckbox = await await ElementFactory.make(Checkbox, $('tab.active div.tab-header div.tab-actions'));
 
-                this.allComponentsFilter = await ElementFactory.make(ProductsFilter, $('a.filterHeader-all'));
-                this.workInProgressFilter = await ElementFactory.make(ProductsFilter, $('a.filterHeader-anchor-WorkinProgress'));
-                this.readyToIssueFilter = await ElementFactory.make(ProductsFilter, $('a.filterHeader-anchor-ReadytoIssue'));
-                this.issuedFilter = await ElementFactory.make(ProductsFilter, $('a.filterHeader-anchor-Issued'));
-                this.transfusedFilter = await ElementFactory.make(ProductsFilter, $('a.filterHeader-anchor-Transfused'));
+                this.allComponentsFilter = await ElementFactory.make(ProductsFilter, this.tabContentContainer.$('a.filterHeader-all'));
+                this.workInProgressFilter = await ElementFactory.make(ProductsFilter, this.tabContentContainer.$('a.filterHeader-anchor-WorkinProgress'));
+                this.readyToIssueFilter = await ElementFactory.make(ProductsFilter, this.tabContentContainer.$('a.filterHeader-anchor-ReadytoIssue'));
+                this.issuedFilter = await ElementFactory.make(ProductsFilter, this.tabContentContainer.$('a.filterHeader-anchor-Issued'));
+                this.transfusedFilter = await ElementFactory.make(ProductsFilter, this.tabContentContainer.$('a.filterHeader-anchor-Transfused'));
 
-                this.statusHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-statusCode'));
-                this.unitNoHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-unitNumber'));
-                this.productCodeHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-productCode'));
-                this.productHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-standardProductTypeCode'));
-                this.abo_rhHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-aboRh'));
-                this.expirationDateTimeHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-expirationDateTimeObj'));
-                this.specimenHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-specimenId'));
-                this.adrHeader = await ElementFactory.make(ColumnHeader, $('th.columnHeader-adr'));
-
+                this.statusHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-statusLiteral'));
+                this.unitNoHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-unitNumber'));
+                this.productCodeHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-productCode'));
+                this.productHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-standardProductTypeCode'));
+                this.abo_rhHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-aboRh'));
+                this.expirationDateTimeHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-expirationDateTimeObj'));
+                this.specimenHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-specimenObj'));
+                this.adrHeader = await ElementFactory.make(ColumnHeader, this.tabContentContainer.$('th.columnHeader-adr'));
 
                 return this.setProductsArray().then(async ()=> {
+                    await this.adrOnlyCheckbox.initialize();
+
                     await this.allComponentsFilter.initialize();
                     await this.workInProgressFilter.initialize();
                     await this.readyToIssueFilter.initialize();
@@ -97,12 +99,31 @@ export class ProductsTab extends PageTab {
         });
     }
 
+    async sortBy(header: ColumnHeader): Promise<void> {
+        await header.click();
+        return header.click().then(() => {
+            return this.setProductsArray();
+        });
+    }
+
+    async selectADRcheckbox(): Promise<void> {
+        return this.adrOnlyCheckbox.select().then(() => {
+            return this.setProductsArray();
+        });
+    }
+
+    async deselectADRcheckbox(): Promise<void> {
+        return this.adrOnlyCheckbox.deselect().then(() => {
+            return this.setProductsArray();
+        });
+    }
+
 }
 
 class ProductsFilter {
 
-    title: ElementFinder;
-    count: ElementFinder;
+    private title: ElementFinder;
+    private count: ElementFinder;
 
     constructor(private element: ElementFinder) {
         // console.log("  In constructor for 'ProductsFilter'");
@@ -128,7 +149,9 @@ class ProductsFilter {
     }
 
     async getCount(): Promise<number> {
-        return Number(this.count.getText());
+        return this.count.getText().then((txt)=> {
+            return Number(txt);
+        });
     }
 }
 
@@ -143,10 +166,8 @@ export class ProductRow {
     specimen: ElementFinder;
     adr: ElementFinder;
 
-
     constructor(private element: ElementFinder) {
         // console.log("  In constructor for 'ProductRow'");
-
     };
 
     async initialize(): Promise<void> {
