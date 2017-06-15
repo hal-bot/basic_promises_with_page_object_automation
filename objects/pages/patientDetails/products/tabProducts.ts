@@ -118,6 +118,18 @@ class ProductsFilter {
             return resolve();
         });
     }
+
+    async isPresent(): Promise<boolean> {
+        return this.element.isPresent();
+    }
+
+    async getTitle(): Promise<string> {
+        return this.title.getText();
+    }
+
+    async getCount(): Promise<number> {
+        return Number(this.count.getText());
+    }
 }
 
 export class ProductRow {

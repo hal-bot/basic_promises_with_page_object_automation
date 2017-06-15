@@ -55,7 +55,7 @@ export abstract class PageTab {
     //         // deferred.promise = -1;
     //         // return deferred.promise;
     //     } else {
-    //         return this.pages.getText().then(function(count) {
+    //         return this.pages.getText().then((count)=> {
     //             return Number(count);
     //         });
     //     }
