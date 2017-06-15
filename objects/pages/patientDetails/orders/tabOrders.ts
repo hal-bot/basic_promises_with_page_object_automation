@@ -54,7 +54,7 @@ export class OrdersTab extends PageTab {
         return this.initializePromise;
     }
 
-    async setOrdersArray(): Promise<any> {
+    async setOrdersArray(): Promise<void> {
         // console.log("  In 'setOrdersArray()' for 'OrdersTab'");
         return ElementMethods.getCustomElementArray('tr.order-tableRow', 'OrderRow').then(async (orderArray)=> {
             let resolvingPromise;
