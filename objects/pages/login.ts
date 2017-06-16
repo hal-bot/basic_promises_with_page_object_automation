@@ -28,9 +28,9 @@ export class LoginPage {
                 this.loginTitle = await $('div.login-header');
                 this.loginIcon = await $('div.login-icon img');
                 this.usernameTitle = await $('label.login-username');
-                this.usernameInputBox = await this.usernameTitle.$('input');
+                this.usernameInputBox = await $("#username");
                 this.passwordTitle = await $('label.login-password');
-                this.passwordInputBox = await this.passwordTitle.$('input');
+                this.passwordInputBox = await $("#password");
                 this.loginButton = await $('div.login-footer button');
 
                 return resolve();

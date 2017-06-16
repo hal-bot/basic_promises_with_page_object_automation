@@ -1,17 +1,14 @@
 // Describes the "Visit" tab section seen on the Patient Details page
 
-import {$, browser, ElementFinder} from 'protractor';
-import {Tab} from "../class_Tab";
+import {$, ElementFinder} from 'protractor';
+import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
-import {VisitDetailsModal} from "../visitModal/visitDetailsModal";
+import {VisitDetailsModal} from "./visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
-import {async} from "q";
-import {promise} from "selenium-webdriver";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
-export class VisitTab extends Tab {
-
-    private initializePromise: Promise<void>;
+export class VisitTab extends PageTab {
 
     showDischargedVisits_checkbox: Checkbox;
     createVisit_button: ElementFinder;            // not yet implemented
@@ -37,30 +34,28 @@ export class VisitTab extends Tab {
         // console.log("   In 'initialize' for 'VisitTab'");
 
         if(!this.initializePromise) {
-            await super.initialize();
+            await super.baseInitialize();
 
             // await ElementMethods.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                return super.initialize().then( async ()=> {
-                    this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
-                    // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
+                this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
+                // this.createVisit_button = this.tabContentContainer.$('');            // not yet implemented
 
-                    this.admissionDateHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-admissionDate'));
-                    this.visitTypeHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-type'));
-                    this.mrnHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-mrn'));
-                    this.serviceProviderHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-serviceProvider'));
-                    this.visitNoHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-externalVisitNumber'));
-                    this.accountNumberHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-accountNo'));
-                    this.locationHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-location'));
+                this.admissionDateHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-admissionDate'));
+                this.visitTypeHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-type'));
+                this.mrnHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-mrn'));
+                this.serviceProviderHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-serviceProvider'));
+                this.visitNoHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-externalVisitNumber'));
+                this.accountNumberHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-accountNo'));
+                this.locationHeader = await ElementFactory.make(ColumnHeader, $('th.visit-tableHeader-location'));
 
-                    return this.setVisitsArray().then(()=> {
-                        this.visitsModal = new VisitDetailsModal();
+                // this.visitsModal = new VisitDetailsModal();
+                this.visitsModal = await ElementFactory.make(VisitDetailsModal, null);
 
-                        return resolve();
-                    });
+                return this.setVisitsArray().then(async ()=> {
+                    await this.showDischargedVisits_checkbox.initialize();
 
-                }).then(async (resolve)=> {
                     await this.admissionDateHeader.initialize();
                     await this.visitTypeHeader.initialize();
                     await this.mrnHeader.initialize();
@@ -69,40 +64,65 @@ export class VisitTab extends Tab {
                     await this.accountNumberHeader.initialize();
                     await this.locationHeader.initialize();
 
-                    return resolve;
-                });
+                    return resolve();
+                })
             });
         }
 
         return this.initializePromise;
     }
 
-
-
-    // This will get the rows and put them into the 'visits' array
+    // This will get the rows, put them into the 'visits' array, and initialize each row to make sure it's usable
     async setVisitsArray(): Promise<any> {
-        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then((visitsArray)=> {
-            return this.visits = visitsArray;
+        // console.log("   In 'setVisitsArray()' for 'VisitTab'");
+        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then(async (visitsArray)=> {
+            let resolvingPromise;
+            this.visits = await visitsArray;
+
+            for (let i = 0; i < this.visits.length; i++) {
+                // console.log("Initializing data row " + i);
+                resolvingPromise = await this.visits[i].initialize();
+            }
+
+            return resolvingPromise;
         });
     }
 
-    // this will return the admission date of the visit that's being opened.  The date is needed to verify the date in the Modal
-    // TODO: FINISH THIS!
-    // openTheVisitsModal(): Promise<any> {
-    //     if (this.visitsModal.isPresent()) {
-    //         browser.driver.navigate().refresh();   // Refreshing the page will git rid of the modal if it's already open
-    //     }
-    //     let visit = this.visits[0];
-    //     let visitData: {admissionDate: string, type: string, mrn: string, serviceProvider: string, visitNo: string, accountNo: string, location: string} = {
-    //
-    //     }
-    //
-    //     return visit.getAdmissionDate().then(function(date) {
-    //         return visit.click().then(function() {
-    //             return date;
-    //         });
-    //     })
-    // }
+    // will open a Visit modal
+    async openViewModal(): Promise<void> {
+        // console.log("   In 'openViewModal()' for 'VisitTab'");
+
+        // clicking the Visit No twice to ensure the first visit row has a Visit Number that can be clicked (opening the modal)
+        await this.sortBy(this.visitNoHeader);
+        await this.sortBy(this.visitNoHeader);
+        return this.visits[0].clickVisitNo().then(async ()=> {
+            return this.visitsModal.initialize();
+        });
+    }
+
+    private async sortBy(header: ColumnHeader): Promise<void> {
+        return header.click().then(() => {
+            return this.setVisitsArray();
+        });
+    }
+
+    // Navigates to a patient info page and opens a Visit Details modal.  It returns the modal object for further use.
+    static async UniversalOpenVisitsModal(patientID: string = '65858'): Promise<VisitDetailsModal> {
+        // console.log("   In 'UniversalOpenVisitsModal()' for 'VisitTab'");
+        let visitTab: VisitTab;             // the tab on the patient's details page
+
+        return NavigationMethods.navigateToAPatientPageQuickly(patientID).then(()=> {
+            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(()=> {
+                return visitTab = new VisitTab();
+            }).then(async()=> {
+                return visitTab.initialize().then(async ()=> {
+                    await visitTab.openViewModal();     //opens the Visit modal
+                    return visitTab.visitsModal;
+                });
+            });
+        });
+    }
+
 }
 
 
@@ -173,8 +193,17 @@ export class VisitRow {
         return this.location.getText();
     }
 
-    async click(): Promise<any> {
-        return this.visitNo.click();
+    async clickVisitNo(): Promise<any> {
+        // console.log("   In 'clickVisitNo()' for 'VisitRow'");
+
+        return this.visitNo.getText().then((visitNumber)=> {
+            // console.log(`      ... the visit number is ${visitNumber}`);
+            if (visitNumber === "") {
+                throw "This row does not contain a Visit Number, meaning it cannot be clicked and the modal cannot be opened from here";
+            } else {
+                return this.visitNo.click();
+            }
+        });
     }
 
     // // TODO: Finish this!

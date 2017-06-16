@@ -16,14 +16,13 @@ describe('The patient\'s information details', () => {
     let infoSection: PatientInformation;
 
     function validateExtendedPropertyPresenceToBe(expectation: boolean): Promise<void> {
-        console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
+        // console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
 
         // browser.isElementPresent(infoSection.gender.getTitleElement()).then((isPresent)=> {
         //     console.log(`   browser.isElementPresent(infoSection.gender.getTitleElement()) = ${isPresent}`);
         // });
 
         return new Promise<void>((resolve)=> {
-            console.log("   In the promise");
             if (expectation === false) {
                 // TODO - get this working!! For some reason, the element below continues to time-out and throw an error.  Need to move on for the mean time
                 // console.log("Checking a specific element");
@@ -59,10 +58,6 @@ describe('The patient\'s information details', () => {
                 return done;
             });
         });
-    });
-
-    afterAll( () => {
-        // console.log("~~~** DONE WITH P1 Patient Information section TESTS!**~~~~");
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/

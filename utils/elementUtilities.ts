@@ -1,10 +1,10 @@
 /** This file will be used to store misc. methods used for element manipulation */
 
 import { $$, ElementFinder } from "protractor";
-import {VisitRow} from "../objects/pages/patientDetails/tabCollection/tabVisit";
-import {ProductRow} from "../objects/pages/patientDetails/tabCollection/tabProducts";
-import {OrderRow} from "../objects/pages/patientDetails/tabCollection/tabOrders";
-import {DiagnosisRow} from "../objects/pages/patientDetails/visitModal/tabDiagnosis";
+import {VisitRow} from "../objects/pages/patientDetails/visits/tabVisits";
+import {ProductRow} from "../objects/pages/patientDetails/products/tabProducts";
+import {OrderRow} from "../objects/pages/patientDetails/orders/tabOrders";
+import {DiagnosisRow} from "../objects/pages/patientDetails/visits/tabDiagnosis";
 import {promise} from "selenium-webdriver";
 import {PatientSearchResultRow} from "../objects/pages/patientSearch";
 
@@ -73,6 +73,7 @@ export class ElementMethods {
 export class ElementFactory {
 
     static make<T>(clazz: { new(ElementFinder): T; }, input: ElementFinder): Promise<T> {
+        // console.log("\tIn 'ElementFactory'");
         return new Promise(resolve => {
             return resolve(new clazz(input));
         });

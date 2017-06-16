@@ -33,6 +33,10 @@ export class Checkbox {
         return this.box.isPresent();
     }
 
+    async getText(): Promise<string> {
+        return this.label.getText();
+    }
+
     async select() {
         return this.box.isSelected()
             ? true
