@@ -213,9 +213,9 @@ export class PatientInformation {
     async getFullName(): Promise<string> {
         await this.initialize();
 
-        return this.getFirstName().then(function(firstName) {
-            return this.getMiddleName().then(function(middleName) {
-                return this.getLastName().then(function(lastName) {
+        return this.getFirstName().then((firstName)=> {
+            return this.getMiddleName().then((middleName)=> {
+                return this.getLastName().then((lastName)=> {
                     return firstName +' '+ middleName +' '+ lastName;
                 });
             });

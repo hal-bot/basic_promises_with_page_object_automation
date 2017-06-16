@@ -38,17 +38,17 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
     it('should display the correct column headers, show order records', () => {
         console.log("The 'Orders' tab on the Patients Details page should display the correct column headers, show order records");
         expect<any>(ordersTab.statusHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.statusHeader.getHeaderTitle()).toBe('Status');
+        expect<any>(ordersTab.statusHeader.getTitle()).toBe('Status');
         expect<any>(ordersTab.orderIdHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.orderIdHeader.getHeaderTitle()).toBe('Order ID');
+        expect<any>(ordersTab.orderIdHeader.getTitle()).toBe('Order ID');
         expect<any>(ordersTab.orderDateTimeHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.orderDateTimeHeader.getHeaderTitle()).toBe('Order Date & Time');
+        expect<any>(ordersTab.orderDateTimeHeader.getTitle()).toBe('Order Date & Time');
         expect<any>(ordersTab.specimenHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.specimenHeader.getHeaderTitle()).toBe('Specimen');
+        expect<any>(ordersTab.specimenHeader.getTitle()).toBe('Specimen');
         expect<any>(ordersTab.locationSublocationHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.locationSublocationHeader.getHeaderTitle()).toBe('Location/Sublocation');
+        expect<any>(ordersTab.locationSublocationHeader.getTitle()).toBe('Location/Sublocation');
         expect<any>(ordersTab.priorityHeader.isPresent()).toBe(true);
-        expect<any>(ordersTab.priorityHeader.getHeaderTitle()).toBe('Priority');
+        expect<any>(ordersTab.priorityHeader.getTitle()).toBe('Priority');
 
         expect<any>(ordersTab.orders.length).toBeGreaterThan(0);
     });

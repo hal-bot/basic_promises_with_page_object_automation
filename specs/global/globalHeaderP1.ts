@@ -67,7 +67,7 @@ describe('The global header from a P1 level', () => {
 
         let largeWidth = 1200;
 
-        return header.container.getSize().then(function(elementSize) {
+        return header.container.getSize().then((elementSize)=> {
             return expect(elementSize.width).toBeLessThan(largeWidth);
         });
     });

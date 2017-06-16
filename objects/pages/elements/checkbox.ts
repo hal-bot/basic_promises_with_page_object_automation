@@ -37,10 +37,15 @@ export class Checkbox {
         return this.label.getText();
     }
 
-    async select() {
-        return this.box.isSelected()
-            ? true
-            : this.box.click();
+    async select(): Promise<boolean|void> {
+        return this.box.isSelected().then((selected)=> {
+            // console.log(`\tIs the checkbox checked?  ...  ${selected}`);
+            if (selected) {
+                // return new Promise<boolean>( (resolve) => { return resolve(true); });
+            } else {
+                return this.box.click();
+            }
+        });
     }
 
     async deselect() {

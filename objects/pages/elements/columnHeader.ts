@@ -38,7 +38,7 @@ export class ColumnHeader {
         return this.initializePromise;
     }
 
-    async getHeaderTitle(): Promise<string> {
+    async getTitle(): Promise<string> {
         return this.headerElement.getText();
     }
 

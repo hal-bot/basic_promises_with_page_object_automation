@@ -26,25 +26,84 @@ export abstract class PageTab {
             this.tabContentContainer = await $('div.tab-content tab.active');
             this.title = await this.tabContentContainer.$('span.tab-title');
 
+            this.leftArrow = await $('li.pagination-prev');
+            this.rightArrow = await $('li.pagination-next');
+
             await this.setPages();
             return resolve();
         });
     }
 
     // This will clear out the current 'pages' array and then get the array rows
-    async setPages(): Promise<any[]> {
-        // console.log("   In 'setPages()' for abstract class 'PageTab'");
-        return ElementMethods.getCustomElementArray('tab.active li.page-item', 'ElementFinder').then(async (pagesArray)=> {
+    async setPages(): Promise<void[]> {
+        return ElementMethods.getCustomElementArray('tab.active li.pagination-page', 'ElementFinder').then(async (pagesArray)=> {
             // console.log(`     Found ${pagesArray.length} pagination elements`);
-            this.leftArrow = await pagesArray[0];
-            this.rightArrow = await pagesArray[pagesArray.length-1];
-            return this.pages = await pagesArray.slice(1, pagesArray.length-1);
+            return this.pages = await pagesArray;
         });
     }
 
     async getTabTitle(): Promise<string> {
         return this.actualTab.getText();
     }
+
+    async getSectionTitle(): Promise<string> {
+        return this.title.getText();
+    }
+
+    async getCurrentPageNumber(): Promise<number> {
+        for (let i = 0; i < this.pages.length; i++) {
+            // console.log("Examining page " + i);
+            await this.pages[i].getAttribute('class').then((pageClass)=> {
+               if (pageClass.includes('active')) {
+                   return i;
+               }
+            });
+        }
+        return -1;
+    }
+
+    async getNumberOfTotalPages(): Promise<number> {
+        return new Promise<number>((resolve)=> {
+            return resolve(this.pages.length);
+        });
+    }
+
+    async goToNextPage(): Promise<void> {
+        this.rightArrow.getAttribute('class').then((arrowClass)=> {
+            if (arrowClass.includes('disabled')) {
+                return new Promise((resolve)=> {
+                    return resolve();
+                });
+            }
+        });
+        return this.rightArrow.click();
+    }
+
+    async goToPreviousPage(): Promise<void> {
+        this.leftArrow.getAttribute('class').then((arrowClass)=> {
+            if (arrowClass.includes('disabled')) {
+                return new Promise((resolve)=> {
+                    return resolve();
+                });
+            }
+        });
+        return this.leftArrow.click();
+    }
+
+    async goToPageNumber(pageNumber: number): Promise<void> {
+        if (pageNumber > this.pages.length) {
+            throw `Attempting to click page ${pageNumber} when there are only ${this.pages.length} pages`
+        } else {
+            return this.pages[pageNumber-1].click();
+        }
+    }
+
+    async isSelected(): Promise<boolean> {
+        return this.actualTab.getAttribute('class').then( function(tabClass) {
+            return tabClass.indexOf('active') >= 0;
+        });
+    }
+
 
     // Some tabs have a number next to the title.  Return only that.  If there is no number, return -1
     // getTabCount() {
@@ -55,58 +114,9 @@ export abstract class PageTab {
     //         // deferred.promise = -1;
     //         // return deferred.promise;
     //     } else {
-    //         return this.pages.getText().then(function(count) {
+    //         return this.pages.getText().then((count)=> {
     //             return Number(count);
     //         });
     //     }
     // }
-
-    async getSectionTitle(): Promise<string> {
-        return this.title.getText();
-    }
-
-    // async getCurrentPageNumber(): number {
-    //     /**
-    //      * TODO - Figure out how to determine the current page number
-    //      * Return it
-    //      */
-    //     return -1;
-    // }
-
-    async getNumberOfTotalPages(): Promise<number> {
-        return new Promise<number>((resolve)=> {
-            return resolve(this.pages.length);
-        });
-    }
-
-    // async goToNextPage() {
-    //     // TODO: write this code
-    //     /**
-    //      * If the current page is not the last page
-    //      * Click the next page
-    //      */
-    // }
-
-    // async goToPreviousPage() {
-    //     // TODO: write this code
-    //     /**
-    //      * If the current page is not the first page
-    //      * Click the previous page
-    //      */
-    // }
-
-    // async gotToPageNumber(pageNumber: number) {
-    //     // TODO: write this code
-    //     /**
-    //      * If page to go to is not the current page
-    //      * and that page number is viable
-    //      * go to that page
-    //      */
-    // }
-
-    async isSelected(): Promise<boolean> {
-        return this.actualTab.getAttribute('class').then( function(tabClass) {
-            return tabClass.indexOf('active') >= 0;
-        });
-    }
 }

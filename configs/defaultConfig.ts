@@ -4,6 +4,7 @@ import {Config, browser} from 'protractor';
 import {LoginPage} from "../objects/pages/login";
 
 let timeoutMS = 59000;
+declare let testRails;
 
 export let config: Config = {
 

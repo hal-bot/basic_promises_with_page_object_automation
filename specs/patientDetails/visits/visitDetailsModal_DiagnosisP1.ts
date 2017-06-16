@@ -27,11 +27,11 @@ describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Detail
         console.log("The 'Visit Details' modal should be showing the correct diagnosis grid headers and show diagnosis records");
 
         expect<any>(visitModal.diagnosisSection.diagnoses.length).toBeGreaterThan(0);
-        expect<any>(visitModal.diagnosisSection.diagnosisHeader.getHeaderTitle()).toBe('Diagnosis');
-        expect<any>(visitModal.diagnosisSection.codeHeader.getHeaderTitle()).toBe('Code');
-        expect<any>(visitModal.diagnosisSection.startDateHeader.getHeaderTitle()).toBe('Start Date');
-        expect<any>(visitModal.diagnosisSection.endDateHeader.getHeaderTitle()).toBe('End Date');
-        return expect<any>(visitModal.diagnosisSection.commentHeader.getHeaderTitle()).toBe('Comment');
+        expect<any>(visitModal.diagnosisSection.diagnosisHeader.getTitle()).toBe('Diagnosis');
+        expect<any>(visitModal.diagnosisSection.codeHeader.getTitle()).toBe('Code');
+        expect<any>(visitModal.diagnosisSection.startDateHeader.getTitle()).toBe('Start Date');
+        expect<any>(visitModal.diagnosisSection.endDateHeader.getTitle()).toBe('End Date');
+        return expect<any>(visitModal.diagnosisSection.commentHeader.getTitle()).toBe('Comment');
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/60 **/

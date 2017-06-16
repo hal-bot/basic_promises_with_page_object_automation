@@ -49,7 +49,7 @@ export class GlobalFooter {
     // // Will return the address w/out the copyright info and extra characters
     // //TODO: Address this when it's needed
     // address(): Promise<string> {
-    //     return $('div.app-footer-copyright').getText().then(function(txt) {
+    //     return $('div.app-footer-copyright').getText().then((txt)=> {
     //         let regex = /Haemonetics.+/g;
     //         return regex.txt(2);
     //     });
