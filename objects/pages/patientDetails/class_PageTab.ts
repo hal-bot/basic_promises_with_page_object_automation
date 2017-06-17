@@ -35,7 +35,13 @@ export abstract class PageTab {
     }
 
     // This will clear out the current 'pages' array and then get the array rows
-    async setPages(): Promise<void[]> {
+    // async setPages(): Promise<void[]> {
+    //     return ElementMethods.getCustomElementArray('tab.active li.pagination-page', 'ElementFinder').then(async (pagesArray)=> {
+    //         // console.log(`     Found ${pagesArray.length} pagination elements`);
+    //         return this.pages = await pagesArray;
+    //     });
+    // }
+    async setPages() {
         return ElementMethods.getCustomElementArray('tab.active li.pagination-page', 'ElementFinder').then(async (pagesArray)=> {
             // console.log(`     Found ${pagesArray.length} pagination elements`);
             return this.pages = await pagesArray;

@@ -62,6 +62,8 @@ export class LoginPage {
             return $('div.error-message').isPresent().then((errorMessagePresent)=> {
                 if (errorMessagePresent) {
                     throw "Credentials for login didn't work - CANNOT PROCEED!";
+                } else {
+                    // return console.log("Done logging in...");
                 }
             });
         });

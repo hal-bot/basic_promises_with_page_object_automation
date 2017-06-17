@@ -4,7 +4,6 @@ import {TitleValueElement} from "./elements/titleValueElement";
 import {ArrowIcon} from "./elements/arrowIcon";
 import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
 import {ColumnHeader} from "./elements/columnHeader";
-import {VisitTab} from "./patientDetails/visits/tabVisits";
 
 export class PatientSearch {
 

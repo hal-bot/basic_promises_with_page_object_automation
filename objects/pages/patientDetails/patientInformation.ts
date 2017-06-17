@@ -2,9 +2,8 @@
 
 
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $, browser} from "protractor";
+import {ElementFinder, $} from "protractor";
 import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
 
 
 export class PatientInformation {

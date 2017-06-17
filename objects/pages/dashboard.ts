@@ -1,7 +1,6 @@
 import { ElementFinder, $ } from 'protractor';
 import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
 import {PageHeader} from "./elements/pageHeader";
-import {async} from "q";
 
 export class Dashboard {
 

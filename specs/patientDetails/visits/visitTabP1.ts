@@ -10,16 +10,22 @@ describe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () 
 
     let visitTab: VisitTab;
 
-    beforeAll( (done) => {
-        return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
-            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(()=> {
-                return visitTab = new VisitTab();
-            });
-        }).then(()=> {
-            return visitTab.initialize().then(()=> {
-                return done();
-            });
-        });
+    // beforeAll(() => {
+    //     console.log("HERE A");
+    //     return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
+    //         return NavigationMethods.waitForLoadCompletion('table.visit-table').then(async ()=> {
+    //             return visitTab = await new VisitTab();
+    //         });
+    //     }).then(()=> {
+    //         // return visitTab.initialize();
+    //     });
+    // });
+
+    beforeAll(async () => {
+        await NavigationMethods.navigateToAPatientPageLikeAUser();
+        await NavigationMethods.waitForLoadCompletion('table.visit-table');
+        visitTab = await new VisitTab();
+        return visitTab.initialize();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/62 **/

@@ -7,7 +7,6 @@ import {PatientPageHeader} from "../../objects/pages/patientDetails/header";
 import {GlobalHeader} from "../../objects/pages/global/header";
 import {NavigationMethods} from "../../utils/navigationUtilities";
 
-
 describe('The global footer from a P1 level', () => {
 
     let patientHeader: PatientPageHeader;

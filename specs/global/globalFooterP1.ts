@@ -4,7 +4,6 @@
  */
 
 
-import { browser } from 'protractor';
 import { GlobalFooter } from "../../objects/pages/global/footer";
 
 describe('The global footer from a P1 level', () => {

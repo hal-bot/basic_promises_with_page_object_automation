@@ -3,16 +3,16 @@
 import { $$, ElementFinder } from "protractor";
 import {VisitRow} from "../objects/pages/patientDetails/visits/tabVisits";
 import {ProductRow} from "../objects/pages/patientDetails/products/tabProducts";
-import {OrderRow} from "../objects/pages/patientDetails/orders/tabOrders";
 import {DiagnosisRow} from "../objects/pages/patientDetails/visits/tabDiagnosis";
-import {promise} from "selenium-webdriver";
 import {PatientSearchResultRow} from "../objects/pages/patientSearch";
+import {OrderRow} from "../objects/pages/patientDetails/orders/tabOrders";
 
 export class ElementMethods {
 
     // This will find an element by the identifier and will create an array of that elementType
-    static getCustomElementArray(identifier: string, elementType: string): Promise<any[]> {
-        // console.log(`      In 'getCustomElementArray()'  ...  identifier = ${identifier};  elementType = ${elementType}`);
+    // static getCustomElementArray(identifier: string, elementType: string): Promise<any[]> {
+    static getCustomElementArray(identifier: string, elementType: string): any {
+        console.log(`      In 'getCustomElementArray()'  ...  identifier = ${identifier};  elementType = ${elementType}`);
         let finalArray = [];
 
         return new Promise(async (resolve)=> {
@@ -26,12 +26,14 @@ export class ElementMethods {
                     case "VisitRow":
                         await finalArray.push(new VisitRow(element));
                         break;
-                    case "ProductRow":
-                        await finalArray.push(new ProductRow(element));
-                        break;
+
+                    // case "ProductRow":
+                    //     await finalArray.push(new ProductRow(element));
+                    //     break;
                     case "OrderRow":
                         await finalArray.push(new OrderRow(element));
                         break;
+
                     case "DiagnosisRow":
                         await finalArray.push(new DiagnosisRow(element));
                         break;
@@ -51,18 +53,17 @@ export class ElementMethods {
 
 
     // This will output the CSS class of the element passed in, along with the class type that's being initialized
-    static initializationMessage(element: ElementFinder, classBeingInitialized: string = "NEEDS INFO"): promise.Promise<void> {
-        if (element === null) {
-            return new promise.Promise<void>((resolve) => {
+    static initializationMessage(element: ElementFinder, classBeingInitialized: string = "NEEDS INFO"): Promise<void> {
+        return new Promise<void>((resolve) => {
+            if (element === null) {
                 return resolve(console.log(`     ... Initializing basic details of '${classBeingInitialized}'`));
-            });
-        } else {
-            return element.getAttribute('class').then((elementClass)=> {
-                return console.log(`     ... Initializing basic details of '${classBeingInitialized}' for element "${elementClass}"`);
-            });
-        }
+            } else {
+                return element.getAttribute('class').then((elementClass) => {
+                    return resolve(console.log(`     ... Initializing basic details of '${classBeingInitialized}' for element "${elementClass}"`));
+                });
+            }
+        });
     }
-
 }
 
 

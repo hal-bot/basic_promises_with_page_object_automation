@@ -1,7 +1,7 @@
 // Describes the "Diagnosis" tabbed section of the 'Visit Details' pop-up modal
 
 import { ColumnHeader } from "../../elements/columnHeader";
-import { ElementFinder, $ } from "protractor";
+import { ElementFinder } from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
@@ -63,7 +63,6 @@ export class TabDiagnosis extends ModalTab{
     async setDiagnosisArray(): Promise<any> {
         // console.log("   In 'setDiagnosisArray()' for 'TabDiagnosis'");
         return ElementMethods.getCustomElementArray('tr.visitModal-diagnosisTab-tableRow', 'DiagnosisRow').then(async (diagnosisArray)=> {
-            // console.log(`     ${diagnosisArray.length} diagnoses shown in the table`);
             let resolvingPromise;
             this.diagnoses = await diagnosisArray;
 

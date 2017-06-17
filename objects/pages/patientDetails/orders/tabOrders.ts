@@ -1,9 +1,9 @@
 // Describes the "Orders" tab section seen on the Patient Details page
 
 import { $, ElementFinder } from 'protractor';
-import { PageTab } from "../class_PageTab";
 import { ColumnHeader } from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {PageTab} from "../class_PageTab";
 
 export class OrdersTab extends PageTab {
 
@@ -19,7 +19,7 @@ export class OrdersTab extends PageTab {
     constructor() {
         // console.log("  In constructor for 'OrdersTab'");
         super($('li.patient-orders-tab'));
-    };
+    }
 
     async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'OrdersTab'");

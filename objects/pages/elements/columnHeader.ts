@@ -3,7 +3,6 @@
 import { ElementFinder } from 'protractor';
 import { ArrowIcon } from "./arrowIcon";
 import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
 
 
 export class ColumnHeader {

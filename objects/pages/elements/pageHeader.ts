@@ -1,5 +1,4 @@
 import { ElementFinder, $ } from 'protractor';
-import {promise} from "selenium-webdriver";
 import {ElementMethods} from "../../../utils/elementUtilities";
 
 export class PageHeader {
