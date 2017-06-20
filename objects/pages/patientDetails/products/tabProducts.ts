@@ -5,6 +5,7 @@ import {ColumnHeader} from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {Checkbox} from "../../elements/checkbox";
 import {PageTab} from "../class_PageTab";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
 
 export class ProductsTab extends PageTab {
 
@@ -38,7 +39,7 @@ export class ProductsTab extends PageTab {
         if(!this.initializePromise) {
             await super.baseInitialize();
 
-            // await ElementMethods.initializationMessage(null, 'ProductsTab');
+            // await GeneralUtilities.initializationMessage(null, 'ProductsTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -86,7 +87,7 @@ export class ProductsTab extends PageTab {
     }
 
     async setProductsArray(): Promise<void> {
-        return ElementMethods.getCustomElementArray('tr.dataRow-products', 'ProductRow').then(async (productArray)=> {
+        return ElementMethods.getCustomElementArray('tr.dataRow-products', ProductRow).then(async (productArray)=> {
             let resolvingPromise;
             this.products = productArray;
 
@@ -130,7 +131,7 @@ class ProductsFilter {
     }
 
     async initialize(): Promise<void> {
-        // await ElementMethods.initializationMessage(null, 'ProductsFilter');
+        // await GeneralUtilities.initializationMessage(null, 'ProductsFilter');
 
         return new Promise<void>(async (resolve) => {
             this.title = await this.element.$('span');
@@ -171,7 +172,7 @@ export class ProductRow {
     };
 
     async initialize(): Promise<void> {
-        // await ElementMethods.initializationMessage(null, 'ProductRow');
+        // await GeneralUtilities.initializationMessage(null, 'ProductRow');
 
         return new Promise<void>(async (resolve) => {
             this.status = await this.element.$('td.dataColumn-statusLiteral');

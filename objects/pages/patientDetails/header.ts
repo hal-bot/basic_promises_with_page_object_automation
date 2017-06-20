@@ -1,7 +1,7 @@
 
 
 import {ElementFinder, $} from "protractor";
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class PatientPageHeader {
 
@@ -19,7 +19,7 @@ export class PatientPageHeader {
 
         if(!this.initializePromise) {
 
-            // await ElementMethods.initializationMessage(null, 'PatientPageHeader');
+            // await GeneralUtilities.initializationMessage(null, 'PatientPageHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.page-header-content');

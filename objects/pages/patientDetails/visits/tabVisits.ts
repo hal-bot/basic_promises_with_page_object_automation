@@ -7,6 +7,8 @@ import {VisitDetailsModal} from "./visitDetailsModal";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
+
 
 export class VisitTab extends PageTab {
 
@@ -36,7 +38,7 @@ export class VisitTab extends PageTab {
         if(!this.initializePromise) {
             await super.baseInitialize();
 
-            // await ElementMethods.initializationMessage(null, 'VisitTab');
+            // await GeneralUtilities.initializationMessage(null, 'VisitTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.showDischargedVisits_checkbox = await ElementFactory.make(Checkbox, this.tabContentContainer.$('div.tab-actions'));
@@ -75,7 +77,7 @@ export class VisitTab extends PageTab {
     // This will get the rows, put them into the 'visits' array, and initialize each row to make sure it's usable
     async setVisitsArray(): Promise<any> {
         // console.log("   In 'setVisitsArray()' for 'VisitTab'");
-        return ElementMethods.getCustomElementArray('tr.visit-tableRow', 'VisitRow').then(async (visitsArray)=> {
+        return ElementMethods.getCustomElementArray('tr.visit-tableRow', VisitRow).then(async (visitsArray)=> {
             let resolvingPromise;
             this.visits = await visitsArray;
 
@@ -146,7 +148,7 @@ export class VisitRow {
         // console.log("   In 'initialize' for 'VisitRow'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'VisitRow');
+            // await GeneralUtilities.initializationMessage(this.element, 'VisitRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.admissionDate = await this.element.$('td.visit-tableCell-admissionDate');

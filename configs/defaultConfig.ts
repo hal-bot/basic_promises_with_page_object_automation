@@ -29,12 +29,8 @@ export let config: Config = {
     /****
      *   Add tests in the 'specs' section
      ****/
-    // specs: [
-    //     '../specs/**/*.js'
-    // ],
     specs: [
-        '../specs/**/visitTabP1.js'
-        // '../specs/**/patientDetailsHeaderP1.js'
+        '../specs/**/*.js'
     ],
 
     onPrepare: () => {

@@ -1,6 +1,7 @@
 import { ElementFinder, $ } from 'protractor';
-import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
+import {ElementFactory} from "../../utils/elementUtilities";
 import {PageHeader} from "./elements/pageHeader";
+import {GeneralUtilities} from "../../utils/generalUtilities";
 
 export class Dashboard {
 
@@ -22,7 +23,7 @@ export class Dashboard {
         // console.log("   In 'initialize' for 'Dashboard'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'Dashboard');
+            // await GeneralUtilities.initializationMessage(null, 'Dashboard');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.dashboard-content');
@@ -73,7 +74,7 @@ class DashboardButton {
         // console.log("   In 'initialize' for 'DashboardButton'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'DashboardButton');
+            // await GeneralUtilities.initializationMessage(null, 'DashboardButton');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

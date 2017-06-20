@@ -1,5 +1,4 @@
-import {$, ElementFinder} from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {$, $$, ElementFinder} from 'protractor';
 
 export abstract class PageTab {
 
@@ -42,10 +41,7 @@ export abstract class PageTab {
     //     });
     // }
     async setPages() {
-        return ElementMethods.getCustomElementArray('tab.active li.pagination-page', 'ElementFinder').then(async (pagesArray)=> {
-            // console.log(`     Found ${pagesArray.length} pagination elements`);
-            return this.pages = await pagesArray;
-        });
+        return this.pages = await $$('tab.active li.pagination-page');
     }
 
     async getTabTitle(): Promise<string> {

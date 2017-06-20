@@ -1,5 +1,5 @@
 import {$, browser, ElementFinder} from "protractor";
-import {ElementMethods} from "../../utils/elementUtilities";
+import {GeneralUtilities} from "../../utils/generalUtilities";
 
 export class LoginPage {
     private initializePromise: Promise<void>;
@@ -21,7 +21,7 @@ export class LoginPage {
         // console.log("   In 'initialize' for 'LoginPage'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'LoginPage');
+            // await GeneralUtilities.initializationMessage(null, 'LoginPage');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await $('div.login img');

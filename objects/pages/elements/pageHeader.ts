@@ -1,5 +1,5 @@
 import { ElementFinder, $ } from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class PageHeader {
 
@@ -19,7 +19,7 @@ export class PageHeader {
         // console.log("   In 'initialize' for 'PageHeader'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'PageHeader');
+            // await GeneralUtilities.initializationMessage(null, 'PageHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

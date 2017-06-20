@@ -6,7 +6,7 @@
 
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
-import {$, browser} from "protractor";
+import {$} from "protractor";
 
 
 // TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
