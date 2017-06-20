@@ -31,7 +31,7 @@ export class ElementMethods {
 
 export class ElementFactory {
 
-    // ElementFactory.make(TitleValueElement, this.container.$('div.patient-information-firstName'));
+    // This is used to help instantiate a class and can be seen being used in 'initialize()' methods
     static make<T>(clazz: { new(ElementFinder): T; }, input: ElementFinder): Promise<T> {
         // console.log("\tIn 'ElementFactory'");
         return new Promise(resolve => {

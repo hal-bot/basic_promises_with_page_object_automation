@@ -10,17 +10,6 @@ describe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () 
 
     let visitTab: VisitTab;
 
-    // beforeAll(() => {
-    //     console.log("HERE A");
-    //     return NavigationMethods.navigateToAPatientPageLikeAUser().then(()=> {
-    //         return NavigationMethods.waitForLoadCompletion('table.visit-table').then(async ()=> {
-    //             return visitTab = await new VisitTab();
-    //         });
-    //     }).then(()=> {
-    //         // return visitTab.initialize();
-    //     });
-    // });
-
     beforeAll(async () => {
         await NavigationMethods.navigateToAPatientPageLikeAUser();
         await NavigationMethods.waitForLoadCompletion('table.visit-table');
@@ -71,9 +60,6 @@ describe('The "Visit" tab on the Patient\'s Details page (from a P1 level)', () 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/65, Expected Result #1 **/
     it('should be default sorted by Admission Date', () => {
         console.log("The 'Visits' tab on the Patients Details page should be default sorted by Admission Date");
-        // visitTab.admissionDateHeader.headerElement.getAttribute('class').then(function (headerClass) {
-        //     expect(headerClass.indexOf('sorted')).toBeGreaterThanOrEqual(0);
-        // });
         expect<any>(visitTab.admissionDateHeader.isBeingUsedForSorting()).toBe(true);
     });
 
