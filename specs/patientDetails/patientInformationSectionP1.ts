@@ -7,10 +7,8 @@
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
 import {$, browser} from "protractor";
-import {isNullOrUndefined} from "util";
 
 
-// TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
 describe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;

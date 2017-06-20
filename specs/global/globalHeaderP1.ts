@@ -6,8 +6,14 @@
 
 import { browser } from 'protractor';
 import { GlobalHeader } from "../../objects/pages/global/header";
+import {TestRailWidget} from "../../utils/class_testRailWidget";
 
-describe('The global header from a P1 level', () => {
+//  This will integrate the automated test cases into the Test Rail test cases
+//  https://haemoslalom.testrail.net
+
+let Testrail = require('testrail-api');
+
+fdescribe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
     let fs = require('fs');
@@ -69,6 +75,69 @@ describe('The global header from a P1 level', () => {
 
         return header.container.getSize().then((elementSize)=> {
             return expect(elementSize.width).toBeLessThan(largeWidth);
+        });
+    });
+
+    xit('stuff', ()=> {
+        let testRail = new TestRailWidget;
+
+        return testRail.testPlans().then((plans)=> {
+            // return console.log(plans);
+        });
+
+        // return done();
+    });
+
+
+    xit('stuff', (done)=> {
+        console.log("FAKE TEST");
+
+        console.log("HERE 1");
+
+        let testrail = new Testrail({
+            host: 'https://haemoslalom.testrail.net',
+            user: 'slalom.automated.tester@gmail.com',
+            password: 'Password1234'
+        });
+
+        console.log("HERE 2");
+
+        return testrail.getPlans(/*PROJECT_ID=*/1, /*FILTERS=*/{'name': 'Sprint 10 Tests'}, (err, plans)=> {
+            console.log("HERE 3");
+            console.log(plans);
+            return done();
+        }, (err)=> {
+            console.log('error', err);
+            return done();
+        });
+
+        // return done();
+    });
+
+    fit('sdajf', ()=> {
+        let url: string = 'https://haemoslalom.testrail.com/index.php?/api/v2/get_plans/1&milestone_id=9';
+
+        console.log("HERE 1");
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic c2xhbG9tLmF1dG9tYXRlZC50ZXN0ZXJAZ21haWwuY29tOlBhc3N3b3JkMTIzNA=="
+            },
+            credentials: "same-origin"
+        }).then((response)=> {
+            console.log("HERE 2");
+            // response.status,     //=> number 100–599
+            // response.statusText, //=> String
+            // response.headers    //=> Headers
+            // response.url        //=> String
+
+            console.log(response.text());
+
+            return response.text();
+        }, (error)=> {
+            console.log("HERE 3");
+            return error.message //=> String
         });
     });
 
