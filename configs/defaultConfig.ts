@@ -36,6 +36,7 @@ export let config: Config = {
      *   Add tests in the 'specs' section
      ****/
     specs: [
+        // '../specs/**/*.js'
         '../specs/**/*.js'
     ],
 
