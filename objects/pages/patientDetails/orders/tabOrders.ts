@@ -1,9 +1,10 @@
 // Describes the "Orders" tab section seen on the Patient Details page
 
 import { $, ElementFinder } from 'protractor';
-import { PageTab } from "../class_PageTab";
 import { ColumnHeader } from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {PageTab} from "../class_PageTab";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
 
 export class OrdersTab extends PageTab {
 
@@ -19,7 +20,7 @@ export class OrdersTab extends PageTab {
     constructor() {
         // console.log("  In constructor for 'OrdersTab'");
         super($('li.patient-orders-tab'));
-    };
+    }
 
     async initialize(): Promise<void> {
         // console.log("   In 'initialize' for 'OrdersTab'");
@@ -27,7 +28,7 @@ export class OrdersTab extends PageTab {
         if(!this.initializePromise) {
             await super.baseInitialize();
 
-            // await ElementMethods.initializationMessage(null, 'OrdersTab');
+            // await GeneralUtilities.initializationMessage(null, 'OrdersTab');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -56,7 +57,7 @@ export class OrdersTab extends PageTab {
 
     async setOrdersArray(): Promise<void> {
         // console.log("  In 'setOrdersArray()' for 'OrdersTab'");
-        return ElementMethods.getCustomElementArray('tr.order-tableRow', 'OrderRow').then(async (orderArray)=> {
+        return ElementMethods.getCustomElementArray('tr.order-tableRow', OrderRow).then(async (orderArray)=> {
             let resolvingPromise;
             this.orders = orderArray;
 
@@ -91,7 +92,7 @@ export class OrderRow {
         // console.log("   In 'initialize' for 'OrderRow'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'OrderRow');
+            // await GeneralUtilities.initializationMessage(this.element, 'OrderRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.status = await this.element.$('td.order-tableRow-statusCode');

@@ -6,7 +6,6 @@
 import {VisitTab} from "../../../objects/pages/patientDetails/visits/tabVisits";
 import {VisitDetailsModal} from "../../../objects/pages/patientDetails/visits/visitDetailsModal";
 
-
 describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Details page) P1 level tests ', () => {
 
     let visitModal: VisitDetailsModal;  // the modal that opens by clicking a Visit No in the "Visits" tab

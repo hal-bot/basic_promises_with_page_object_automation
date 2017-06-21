@@ -6,7 +6,7 @@
 
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
-import {$, browser} from "protractor";
+import {$} from "protractor";
 
 
 describe('The patient\'s information details', () => {
@@ -15,10 +15,6 @@ describe('The patient\'s information details', () => {
 
     function validateExtendedPropertyPresenceToBe(expectation: boolean): Promise<void> {
         // console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
-
-        // browser.isElementPresent(infoSection.gender.getTitleElement()).then((isPresent)=> {
-        //     console.log(`   browser.isElementPresent(infoSection.gender.getTitleElement()) = ${isPresent}`);
-        // });
 
         return new Promise<void>((resolve)=> {
             if (expectation === false) {

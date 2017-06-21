@@ -4,7 +4,6 @@
  */
 
 
-import { browser } from 'protractor';
 import { GlobalHeader } from "../../objects/pages/global/header";
 import {TestRailWidget} from "../../utils/class_testRailWidget";
 
@@ -20,7 +19,6 @@ fdescribe('The global header from a P1 level', () => {
 
     beforeAll( (done) => {
         // console.log("In 'beforeEach' for GlobalHeader");
-        // browser.get('/');
         header = new GlobalHeader();
         return done();
     });

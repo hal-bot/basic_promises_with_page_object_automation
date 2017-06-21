@@ -2,9 +2,9 @@
 
 
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $, browser} from "protractor";
-import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
+import {ElementFinder, $} from "protractor";
+import {ElementFactory} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 
 export class PatientInformation {
@@ -59,7 +59,7 @@ export class PatientInformation {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'PatientInformation');
+            // await GeneralUtilities.initializationMessage(null, 'PatientInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -245,7 +245,7 @@ class DetailAccordionSection {
         // console.log("   In 'initialize' for 'DetailAccordionSection'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'DetailAccordionSection');
+            // await GeneralUtilities.initializationMessage(null, 'DetailAccordionSection');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.titlebar div.detail-menu');

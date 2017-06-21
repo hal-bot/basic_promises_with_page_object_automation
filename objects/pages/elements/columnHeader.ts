@@ -2,8 +2,8 @@
 
 import { ElementFinder } from 'protractor';
 import { ArrowIcon } from "./arrowIcon";
-import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
+import {ElementFactory} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 
 export class ColumnHeader {
@@ -21,7 +21,7 @@ export class ColumnHeader {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'ColumnHeader');
+            // await GeneralUtilities.initializationMessage(this.element, 'ColumnHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.headerElement = await this.element;
