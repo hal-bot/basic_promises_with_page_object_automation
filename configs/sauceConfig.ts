@@ -46,9 +46,9 @@ export let config: Config = {
      *        It is not meant to be a test for an actual iPad.
      ****/
     multiCapabilities: [{
-        name: "win10-chrome57-tests",
+        name: "win10-chrome59-tests",
         browserName: 'chrome',
-        version: '57',
+        version: '59',
         platform: 'Windows 10',
         shardTestFiles: true,
         maxInstances: 1
@@ -93,9 +93,9 @@ export let config: Config = {
 
     resultJsonOutputFile: 'report.json',
 
-    onComplete: function () {
-        let printSessionId = function (jobName) {
-            browser.getSession().then(function (session) {
+    onComplete: ()=> {
+        let printSessionId = (jobName)=> {
+            browser.getSession().then((session)=> {
                 console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + jobName);
             });
         };

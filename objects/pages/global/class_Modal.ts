@@ -5,7 +5,7 @@
 
 import {ElementFinder, $, browser} from "protractor";
 import {NavigationMethods} from "../../../utils/navigationUtilities";
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export abstract class Modal {
 
@@ -25,7 +25,7 @@ export abstract class Modal {
         // console.log("   In 'initialize' for abstract class 'Modal'");
 
         return new Promise<void>(async (resolve) => {
-            // await ElementMethods.initializationMessage(null, 'abstract class - Modal');
+            // await GeneralUtilities.initializationMessage(null, 'abstract class - Modal');
 
             this.container = await $(this.containerCSSstring);     // use this to ensure the elements found below are only in the container
             this.title = await $(this.titleCSS);

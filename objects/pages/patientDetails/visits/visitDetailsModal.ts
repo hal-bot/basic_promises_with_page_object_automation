@@ -4,8 +4,10 @@
 import {ElementFinder} from "protractor";
 import {TabVisitInformation} from "./tabVisitInformation";
 import {TabDiagnosis} from "./tabDiagnosis";
-import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {ElementFactory} from "../../../../utils/elementUtilities";
 import {Modal} from "../../global/class_Modal";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
+
 
 export class VisitDetailsModal extends Modal {
 
@@ -26,7 +28,7 @@ export class VisitDetailsModal extends Modal {
         // console.log("   In 'initialize' for 'VisitDetailsModal'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'VisitDetailsModal');
+            // await GeneralUtilities.initializationMessage(null, 'VisitDetailsModal');
 
             await this.waitUntilModalIsLoaded();
 

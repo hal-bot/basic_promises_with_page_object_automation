@@ -1,9 +1,10 @@
 // Describes the "Visit Information" tabbed section of the 'Visit Details' pop-up modal
 
 import {TitleValueElement} from "../../elements/titleValueElement";
-import {ElementFinder, $, browser} from "protractor";
-import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
+import {ElementFinder} from "protractor";
+import {ElementFactory} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
 
 export class TabVisitInformation extends ModalTab {
 
@@ -32,7 +33,7 @@ export class TabVisitInformation extends ModalTab {
         if (!this.initializePromise) {
 
             await super.baseInitialize();
-            // await ElementMethods.initializationMessage(this.actualTab, 'TabVisitInformation');
+            // await GeneralUtilities.initializationMessage(this.actualTab, 'TabVisitInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 

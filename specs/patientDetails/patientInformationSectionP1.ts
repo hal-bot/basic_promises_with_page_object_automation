@@ -6,8 +6,7 @@
 
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
-import {$, browser} from "protractor";
-import {isNullOrUndefined} from "util";
+import {$} from "protractor";
 
 
 // TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
@@ -17,10 +16,6 @@ describe('The patient\'s information details', () => {
 
     function validateExtendedPropertyPresenceToBe(expectation: boolean): Promise<void> {
         // console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
-
-        // browser.isElementPresent(infoSection.gender.getTitleElement()).then((isPresent)=> {
-        //     console.log(`   browser.isElementPresent(infoSection.gender.getTitleElement()) = ${isPresent}`);
-        // });
 
         return new Promise<void>((resolve)=> {
             if (expectation === false) {

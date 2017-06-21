@@ -1,7 +1,7 @@
 /** This file will be used to store misc. methods used for navigation */
 
-import {browser, $} from "protractor";
 import Global = NodeJS.Global;
+import {browser, $} from "protractor";
 import {PatientSearch} from "../objects/pages/patientSearch";
 import {ElementFactory} from "./elementUtilities";
 import {GlobalHeader} from "../objects/pages/global/header";

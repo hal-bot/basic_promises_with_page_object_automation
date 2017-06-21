@@ -1,5 +1,6 @@
 import {ElementFinder, $, browser} from 'protractor';
-import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
+import {ElementFactory} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class GlobalHeader {
 
@@ -25,7 +26,7 @@ export class GlobalHeader {
         // console.log("   In 'initialize' for 'GlobalHeader'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'GlobalHeader');
+            // await GeneralUtilities.initializationMessage(null, 'GlobalHeader');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.container = await $('div.app-header-nav-container');
@@ -85,7 +86,7 @@ class HeaderOption {
         // console.log("   In 'initialize' for 'HeaderOption'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'HeaderOption');
+            // await GeneralUtilities.initializationMessage(this.element, 'HeaderOption');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.link = await this.element.$('a');

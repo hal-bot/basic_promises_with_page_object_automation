@@ -1,5 +1,5 @@
 import {ElementFinder} from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class TitleValueElement {
 
@@ -16,7 +16,7 @@ export class TitleValueElement {
         // console.log("    In 'initialize' for 'TitleValueElement'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'TitleValueElement');
+            // await GeneralUtilities.initializationMessage(this.element, 'TitleValueElement');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await this.element.$('label');

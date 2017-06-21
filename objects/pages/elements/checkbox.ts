@@ -1,5 +1,5 @@
 import {ElementFinder} from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class Checkbox {
 
@@ -16,7 +16,7 @@ export class Checkbox {
         // console.log("   In 'initialize' for 'Checkbox'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.container, 'Checkbox');
+            // await GeneralUtilities.initializationMessage(this.container, 'Checkbox');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.label = await this.container.$('label');

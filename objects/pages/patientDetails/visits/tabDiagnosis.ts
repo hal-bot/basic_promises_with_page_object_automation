@@ -1,10 +1,11 @@
 // Describes the "Diagnosis" tabbed section of the 'Visit Details' pop-up modal
 
 import { ColumnHeader } from "../../elements/columnHeader";
-import { ElementFinder, $ } from "protractor";
+import { ElementFinder } from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
+import {GeneralUtilities} from "../../../../utils/generalUtilities";
 
 export class TabDiagnosis extends ModalTab{
 
@@ -32,7 +33,7 @@ export class TabDiagnosis extends ModalTab{
         if(!this.initializePromise) {
 
             await super.baseInitialize();
-            // await ElementMethods.initializationMessage(this.actualTab, 'TabDiagnosis');
+            // await GeneralUtilities.initializationMessage(this.actualTab, 'TabDiagnosis');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -62,8 +63,7 @@ export class TabDiagnosis extends ModalTab{
     // This will get the diagnosis rows and put them into the 'diagnosis' array
     async setDiagnosisArray(): Promise<any> {
         // console.log("   In 'setDiagnosisArray()' for 'TabDiagnosis'");
-        return ElementMethods.getCustomElementArray('tr.visitModal-diagnosisTab-tableRow', 'DiagnosisRow').then(async (diagnosisArray)=> {
-            // console.log(`     ${diagnosisArray.length} diagnoses shown in the table`);
+        return ElementMethods.getCustomElementArray('tr.visitModal-diagnosisTab-tableRow', DiagnosisRow).then(async (diagnosisArray)=> {
             let resolvingPromise;
             this.diagnoses = await diagnosisArray;
 
@@ -103,7 +103,7 @@ export class DiagnosisRow {
 
         if(!this.initializePromise) {
 
-            // await ElementMethods.initializationMessage(this.element, 'DiagnosisRow');
+            // await GeneralUtilities.initializationMessage(this.element, 'DiagnosisRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.diagnosis = await this.element.$('td.visitModal-diagnosisTab-tableRow-Diagnosis');
