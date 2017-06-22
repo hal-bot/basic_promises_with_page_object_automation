@@ -5,6 +5,8 @@ import { ColumnHeader } from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {PageTab} from "../class_PageTab";
 import {GeneralUtilities} from "../../../../utils/generalUtilities";
+import {OrderDetailsModal} from "./orderDetailsModal_general";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class OrdersTab extends PageTab {
 
@@ -16,6 +18,8 @@ export class OrdersTab extends PageTab {
     priorityHeader: ColumnHeader;
 
     orders: OrderRow[];
+
+    orderDetailsModal: OrderDetailsModal;
 
     constructor() {
         // console.log("  In constructor for 'OrdersTab'");
@@ -70,6 +74,40 @@ export class OrdersTab extends PageTab {
         });
     }
 
+    // Navigates to a patient info page and opens a Order Details modal.  It returns the modal object for further use.
+    static async UniversalOpenOrdersModal(patientID: string = '1000'): Promise<OrderDetailsModal> {
+        // console.log("   In 'UniversalOpenOrdersModal()' for 'OrdersTab'");
+        let ordersTab: OrdersTab;             // the tab on the patient's details page
+
+        return NavigationMethods.navigateToAPatientPageQuickly(patientID).then(()=> {
+            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(()=> {
+                return ordersTab = new OrdersTab();
+            }).then(async()=> {
+                return ordersTab.initialize().then(async ()=> {
+                    await ordersTab.openOrdersModal();     //opens the Visit modal
+                    return ordersTab.orderDetailsModal;
+                });
+            });
+        });
+    }
+
+    private async sortBy(header: ColumnHeader): Promise<void> {
+        return header.click().then(() => {
+            return this.setOrdersArray();
+        });
+    }
+
+    // will open a Visit modal
+    async openOrdersModal(): Promise<void> {
+        // console.log("   In 'openViewModal()' for 'VisitTab'");
+
+        // clicking the Visit No twice to ensure the first visit row has a Visit Number that can be clicked (opening the modal)
+        await this.sortBy(this.orderIdHeader);
+        await this.sortBy(this.orderIdHeader);
+        return this.orders[0].clickOrderId().then(async ()=> {
+            return this.orderDetailsModal.initialize();
+        });
+    }
 }
 
 
@@ -131,6 +169,19 @@ export class OrderRow {
 
     async getPriority(): Promise<string> {
         return this.priority.getText();
+    }
+
+    async clickOrderId(): Promise<any> {
+        // console.log("   In 'clickOrderId()' for 'OrderRow'");
+
+        return this.orderId.getText().then((orderIdNumber)=> {
+            // console.log(`      ... the Order ID number is ${orderIdNumber}`);
+            if (orderIdNumber === "") {
+                throw "This row does not contain an Order ID Number, meaning it cannot be clicked and the modal cannot be opened from here";
+            } else {
+                return this.orderId.click();
+            }
+        });
     }
 
 }

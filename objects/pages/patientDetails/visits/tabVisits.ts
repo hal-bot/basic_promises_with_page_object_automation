@@ -3,7 +3,7 @@
 import {$, ElementFinder} from 'protractor';
 import {PageTab} from "../class_PageTab";
 import {ColumnHeader} from "../../elements/columnHeader";
-import {VisitDetailsModal} from "./visitDetailsModal";
+import {VisitDetailsModal} from "./visitDetailsModal_general";
 import {Checkbox} from "../../elements/checkbox";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";

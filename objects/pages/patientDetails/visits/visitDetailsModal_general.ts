@@ -2,8 +2,8 @@
 // (which is seen on a Patient Information page's "Visit" tab section in the data grid
 
 import {ElementFinder} from "protractor";
-import {TabVisitInformation} from "./tabVisitInformation";
-import {TabDiagnosis} from "./tabDiagnosis";
+import {TabVisitInformation} from "./visitDetailsModal_tabVisitInformation";
+import {TabDiagnosis} from "./visitDetailsModal_tabDiagnosis";
 import {ElementFactory} from "../../../../utils/elementUtilities";
 import {Modal} from "../../global/class_Modal";
 import {GeneralUtilities} from "../../../../utils/generalUtilities";
