@@ -37,7 +37,7 @@ export class OrderDetailsModal extends Modal {
 
                 return resolve();
             }).then(async (resolve)=> {
-                // console.log("\tNow initializing all elements just defined for 'VisitDetailsModal'");
+                // console.log("\tNow initializing all elements just defined for 'OrderDetailsModal'");
                 await this.profileTabSection.initialize();
                 await this.itemsTabSection.baseInitialize();
                 return resolve;

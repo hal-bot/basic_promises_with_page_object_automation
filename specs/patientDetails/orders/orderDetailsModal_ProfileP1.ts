@@ -9,7 +9,7 @@ import {OrdersTab} from "../../../objects/pages/patientDetails/orders/tabOrders"
 
 fdescribe('The Order Details modal\'s "Profile Information" tab (from the Patient\'s Details page) P1 level tests', () => {
 
-    let orderModal: OrderDetailsModal;  // the modal that opens by clicking a Visit No in the "Visits" tab
+    let orderModal: OrderDetailsModal;  // the modal that opens by clicking a Order ID No in the "Orders" tab
 
     beforeAll(() => {
         return OrdersTab.UniversalOpenOrdersModal().then(async (modal)=> {
@@ -19,12 +19,12 @@ fdescribe('The Order Details modal\'s "Profile Information" tab (from the Patien
     });
 
     afterAll( ()=> {
-        return orderModal.closeModal();
+        // return orderModal.closeModal();
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/= **/
     it('should be present', () => {
-        console.log("The 'Visit Details' modal should be present");
+        console.log("The 'Order Details' modal should be present");
         expect<any>(orderModal.isPresent()).toBe(true);
     });
 
