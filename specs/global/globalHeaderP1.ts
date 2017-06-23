@@ -3,10 +3,7 @@
  *  Reference: https://haemoslalom.atlassian.net/browse/TX-114
  */
 
-
 import { GlobalHeader } from "../../objects/pages/global/header";
-import {TestRailWidget} from "../../utils/class_testRailWidget";
-
 
 fdescribe('The global header from a P1 level', () => {
 
@@ -73,9 +70,6 @@ fdescribe('The global header from a P1 level', () => {
     });
 
     fit('stuff', async ()=> {
-        // let testRail = new TestRailWidget;
-        //
-        // await testRail.initialize();
         expect(true).toBeTruthy();
     });
 

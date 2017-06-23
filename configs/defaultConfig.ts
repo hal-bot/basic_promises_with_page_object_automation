@@ -2,16 +2,10 @@
 
 import {Config, browser} from 'protractor';
 import {LoginPage} from "../objects/pages/login";
-import {resolve} from "url";
 import {TestRailWidget} from "../utils/class_testRailWidget";
 
-//  This will integrate the automated test cases into the Test Rail test cases
-//  https://haemoslalom.testrail.net
-
-// let Testrail = require('testrail-api');
 
 let timeoutMS = 59000;
-declare let testRails;
 
 export let config: Config = {
 
@@ -37,7 +31,6 @@ export let config: Config = {
      *   Add tests in the 'specs' section
      ****/
     specs: [
-        // '../specs/**/*.js'
         '../specs/**/*.js'
     ],
 
@@ -72,11 +65,17 @@ export let config: Config = {
             // console.log("HAD A FAILURE!!  'exitCode' = " + exitCode);
         }
 
-        // TODO : try to put the Test Rail update code here
-        let testRail = new TestRailWidget;
+        // The code in this Promise is meant to update TestRails
+        return new Promise<void>(async resolve => {
+            console.log("\n\nAbout to update TestRails with data from this run");
 
-        testRail.initialize();
+            let testRail = new TestRailWidget;
+            await testRail.initialize();
 
+            console.log("TestRails has been updated");
+            console.log("\n\n\n\n");
+            return resolve();
+        });
     },
 
     resultJsonOutputFile: 'report.json',
