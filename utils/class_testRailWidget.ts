@@ -89,9 +89,6 @@
 //  This will integrate the automated test cases into the Test Rail test cases
 //  https://haemoslalom.testrail.net
 
-import {GeneralUtilities} from "./generalUtilities";
-import {ElementMethods} from "./elementUtilities";
-import * as TestRailAPI from 'testrail-promise';
 
 export class TestRailWidget{
 
@@ -100,7 +97,6 @@ export class TestRailWidget{
     private password: string;
 
     private projectID: number;
-    private currentRunID: number;
 
     TestRail;
     trInterface;
@@ -122,8 +118,7 @@ export class TestRailWidget{
         return new Promise<void>(async resolve => {
             this.trInterface = await new this.TestRail(this.host, this.username, this.password);
 
-            this.currentRunID = await this.getCurrentRunId();
-
+            let testcases = await this.getTestCasesThatShouldBeAutomated();
 
             return resolve();
         });
@@ -137,7 +132,7 @@ export class TestRailWidget{
     async getCurrentMilestoneId(): Promise<number> {
         // console.log("   In 'getCurrentMilestoneId()' for 'TestRailWidget'");
         return this.trInterface.getMilestones({"project_id": this.projectID}).then(async (milestones)=> {
-            for (let i=0; i <= milestones.length; i++) {
+            for (let i=0; i <= milestones.length-1; i++) {
                 let milestone = await milestones[i];
                 // console.log("\n\n\nMILESTONE!");
                 // console.log(milestone);
@@ -159,7 +154,7 @@ export class TestRailWidget{
     async getCurrentTestPlanId(milestoneID: number): Promise<number> {
         // console.log(`   In 'getCurrentTestPlanId(milestoneID)' for 'TestRailWidget'   ...  milestoneID = ${milestoneID}`);
         return this.trInterface.getPlans({"project_id": this.projectID}).then(async plans=> {
-            for (let i=0; i <= plans.length; i++) {
+            for (let i=0; i <= plans.length-1; i++) {
                 let plan = await plans[i];
                 // console.log("\n\nPLAN!");
                 // console.log(`plan.milestone_id = ${plan.milestone_id};  this.currentMilestone = ${this.currentMilestoneID}`);
@@ -183,7 +178,7 @@ export class TestRailWidget{
                 return this.trInterface.getPlan({"plan_id": testPlanID}).then(async plan => {
                     let entries = await plan.entries;
 
-                    for (let i=0; i <= entries.length; i++) {
+                    for (let i=0; i <= entries.length-1; i++) {
                         let entry = await entries[i];
                         // console.log("\n\nRUN!");
                         // console.log(`entry.name = ${entry.name}`);
@@ -195,6 +190,50 @@ export class TestRailWidget{
                     throw "Didn't find a run with the name 'FE - Regression Tests'";
                 });
             });
+        });
+    }
+
+    /** Returns the test cases based on the Current Run ID (which should be based off a run named like 'FE - regression')
+     *  If no test cases are found, an error will be thrown
+     */
+    async getCurrentRegressionTestCases(): Promise<any> {
+        console.log("   In 'getCurrentRegressionTestCases()' for 'TestRailWidget'");
+
+        return this.getCurrentRunId().then(async runID => {
+            await runID;
+            return this.trInterface.getTests({"run_id": runID}).then(async testCases => {
+                await testCases;
+
+                if (testCases.length === 0) {
+                    throw "Didn't find any test cases in the current FE regression run";
+                } else {
+                    console.log(`\t${testCases.length} total test cases found in the current FE regression run`);
+                }
+
+                return testCases;
+            });
+        });
+    }
+
+    /** Returns the test cases that are marked as 'automated' in Test Rail
+     *  If no test cases are found, an error will be thrown
+     */
+    async getTestCasesThatShouldBeAutomated(): Promise<any> {
+        console.log("   In 'getTestCasesThatShouldBeAutomated()' for 'TestRailWidget'");
+
+        let parsedCases = [];
+
+        return this.getCurrentRegressionTestCases().then(async testCases => {
+            for (let i=0; i <= testCases.length-1; i++) {
+                let testCase = await testCases[i];
+                if (testCase.custom_automated === true && testCase.status_id === 3) { // Untested
+                    // console.log(`\tFound a test case that should be automated ... \n${testCase}`);
+                    parsedCases.push(testCase);
+                }
+            }
+            console.log(`\t${parsedCases.length} total test cases found that should be automated`);
+
+            return parsedCases;
         });
     }
 
