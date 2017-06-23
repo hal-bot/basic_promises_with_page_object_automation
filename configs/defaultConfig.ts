@@ -7,7 +7,7 @@ import {resolve} from "url";
 //  This will integrate the automated test cases into the Test Rail test cases
 //  https://haemoslalom.testrail.net
 
-let Testrail = require('testrail-api');
+// let Testrail = require('testrail-api');
 
 let timeoutMS = 59000;
 declare let testRails;
