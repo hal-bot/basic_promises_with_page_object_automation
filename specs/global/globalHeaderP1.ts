@@ -7,10 +7,6 @@
 import { GlobalHeader } from "../../objects/pages/global/header";
 import {TestRailWidget} from "../../utils/class_testRailWidget";
 
-//  This will integrate the automated test cases into the Test Rail test cases
-//  https://haemoslalom.testrail.net
-
-// let Testrail = require('testrail-api');
 
 fdescribe('The global header from a P1 level', () => {
 
@@ -77,79 +73,10 @@ fdescribe('The global header from a P1 level', () => {
     });
 
     fit('stuff', async ()=> {
-        let testRail = new TestRailWidget;
-        let tests;
-
-        await testRail.initialize();
-
-        // return testRail.getCurrentMilestoneId();
-
-        // return testRail.trInterface.getMilestones({"project_id": "1"}).then((milestones)=> {
-        //     return console.log(milestones);
-        // })
-
-        // return testRail.testPlans().then((plans)=> {
-        //     console.log(plans[0]);
+        // let testRail = new TestRailWidget;
         //
-        //     let jsonObj = plans[0];     //the first plan will be the current plan
-        //     console.log(`\n\nJSON:\n${jsonObj}`);
-        //
-        //
-        //
-        // });
+        // await testRail.initialize();
+        expect(true).toBeTruthy();
     });
-
-
-    // it('stuff', (done)=> {
-    //     console.log("FAKE TEST");
-    //
-    //     console.log("HERE 1");
-    //
-    //     let testrail = new Testrail({
-    //         host: 'https://haemoslalom.testrail.net',
-    //         user: 'slalom.automated.tester@gmail.com',
-    //         password: 'Password1234'
-    //     });
-    //
-    //     console.log("HERE 2");
-    //
-    //     return testrail.getPlans(/*PROJECT_ID=*/1, /*FILTERS=*/{'milestone_id':'9'}, (err, plans)=> {
-    //         console.log("HERE 3");
-    //         console.log(plans);
-    //         return done();
-    //     }, (err)=> {
-    //         console.log('error', err);
-    //         return done();
-    //     });
-    //
-    //     // return done();
-    // });
-    //
-    // it('sdajf', ()=> {
-    //     let url: string = 'https://haemoslalom.testrail.com/index.php?/api/v2/get_plans/1&milestone_id=9';
-    //
-    //     console.log("HERE 1");
-    //     fetch(url, {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": "Basic c2xhbG9tLmF1dG9tYXRlZC50ZXN0ZXJAZ21haWwuY29tOlBhc3N3b3JkMTIzNA=="
-    //         },
-    //         credentials: "same-origin"
-    //     }).then((response)=> {
-    //         console.log("HERE 2");
-    //         // response.status,     //=> number 100–599
-    //         // response.statusText, //=> String
-    //         // response.headers    //=> Headers
-    //         // response.url        //=> String
-    //
-    //         console.log(response.text());
-    //
-    //         return response.text();
-    //     }, (error)=> {
-    //         console.log("HERE 3");
-    //         return error.message //=> String
-    //     });
-    // });
 
 });

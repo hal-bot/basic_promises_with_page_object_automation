@@ -3,6 +3,7 @@
 import {Config, browser} from 'protractor';
 import {LoginPage} from "../objects/pages/login";
 import {resolve} from "url";
+import {TestRailWidget} from "../utils/class_testRailWidget";
 
 //  This will integrate the automated test cases into the Test Rail test cases
 //  https://haemoslalom.testrail.net
@@ -70,26 +71,12 @@ export let config: Config = {
         } else {
             // console.log("HAD A FAILURE!!  'exitCode' = " + exitCode);
         }
-        // console.log("HERE 1");
-        //
-        // let testrail = new Testrail({
-        //     host: 'https://haemoslalom.testrail.net',
-        //     user: 'slalom.automated.tester@gmail.com',
-        //     password: 'Password1234'
-        // });
-        //
-        // console.log("HERE 2");
-        //
-        // return new Promise<void>(async (resolve) => {
-        //     console.log("HERE 2.1");
-        //     await testrail.getPlans(/*PROJECT_ID=*/1, /*FILTERS=*/{}, (err, plans)=> {
-        //         console.log("HERE 3");
-        //         console.log(plans);
-        //     }, (err)=> {
-        //         console.log('error', err);
-        //     });
-        //     return resolve();
-        // });
+
+        // TODO : try to put the Test Rail update code here
+        let testRail = new TestRailWidget;
+
+        testRail.initialize();
+
     },
 
     resultJsonOutputFile: 'report.json',
