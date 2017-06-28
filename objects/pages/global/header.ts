@@ -4,7 +4,7 @@ import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class GlobalHeader {
 
-    private initializePromise: Promise<void>;
+    // private initializePromise: Promise<void>;
 
     // the whole header object
     container: ElementFinder;
@@ -23,48 +23,43 @@ export class GlobalHeader {
     }
 
     async initialize(): Promise<void> {
-        // console.log("   In 'initialize' for 'GlobalHeader'");
+        // await GeneralUtilities.initializationMessage(null, 'GlobalHeader');
+        return new Promise<void>(async (resolve) => {
 
-        if(!this.initializePromise) {
-            // await GeneralUtilities.initializationMessage(null, 'GlobalHeader');
-            return this.initializePromise = new Promise<void>(async (resolve) => {
+            this.container = await $('div.app-header-nav-container');
 
-                this.container = await $('div.app-header-nav-container');
+            this.dashboard = await ElementFactory.make(HeaderOption, this.container.$('li.dashboard-header-nav'));
+            this.patients = await ElementFactory.make(HeaderOption, this.container.$('li.patients-header-nav'));
+            this.orders = await ElementFactory.make(HeaderOption, this.container.$('li.orders-header-nav'));
 
-                this.dashboard = await ElementFactory.make(HeaderOption, this.container.$('li.dashboard-header-nav'));
-                this.patients = await ElementFactory.make(HeaderOption, this.container.$('li.patients-header-nav'));
-                this.orders = await ElementFactory.make(HeaderOption, this.container.$('li.orders-header-nav'));
+            this.settings = await this.container.$('img.header-settings-button');
+            this.logout = await this.container.$('img.header-logout-button');
 
-                this.settings = await this.container.$('img.header-settings-button');
-                this.logout = await this.container.$('img.header-logout-button');
-
-                return resolve();
-            }).then(async (resolve)=> {
-                // console.log("\tNow initializing all elements just defined for 'GlobalHeader'");
-                await this.dashboard.initialize();
-                await this.patients.initialize();
-                await this.orders.initialize();
-                return resolve;
-            });
-        }
-
-        return this.initializePromise;
+            return resolve();
+        }).then(async (resolve)=> {
+            // console.log("\tNow initializing all elements just defined for 'GlobalHeader'");
+            await this.dashboard.initialize();
+            await this.patients.initialize();
+            await this.orders.initialize();
+            return resolve;
+        });
     }
 
     async isPresent(): Promise<boolean> {
         // console.log("   In 'isPresent' for 'GlobalHeader'");
-        await this.initialize();
         return this.container.isPresent();
     }
 
     async clickPatients() {
         // console.log("   In 'clickPatients' for 'GlobalHeader'");
-        await this.initialize();
         return this.patients.click().then(()=> {
             // Wasn't waiting for the page to load to exit, so making sure the search form is there before continuing on
             return browser.wait(() => {
                 return browser.isElementPresent($('div.patient-search-form'));
-            }, 3000);
+            }, 3000).then(async (result)=> {
+                await this.initialize();
+                return result;
+            });
         });
     }
 

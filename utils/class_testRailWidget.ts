@@ -1,5 +1,5 @@
 //  This will integrate the automated test cases into the Test Rail test cases
-//  https://haemoslalom.testrail.net
+//  Haemonetics TestRails site -> https://haemoslalom.testrail.net
 
 import fs = require('fs');
 
@@ -46,13 +46,23 @@ export class TestRailWidget{
                     for (let testCase of testCases) {
                         if (testCase.case_id == testCaseNumber) {
                             console.log(`\tFound matching test cases - ${testCaseNumber} ... updating TC ${testCase.id}`);
+
+                            let status: number;
+                            let assignee: number;
+
+                            status = this.getStatusId(result.assertions[0].passed);
+                            status === 5
+                                ? assignee = 1       // Hal Deranek
+                                : assignee = null;
+
+
                             let resultData = {
                                 // "test_id": 11323,
                                 // "status_id": 1,
                                 "test_id": testCase.id,
-                                "status_id": this.getStatusId(result.assertions[0].passed),
+                                "status_id": status,
                                 "comment": "Tested on QC via test automation (not a human)",
-                                "assignedto_id": 1  // Hal Deranek
+                                "assignedto_id": assignee
                             };
                             await this.trInterface.addResult(resultData);
                         }
@@ -74,8 +84,6 @@ export class TestRailWidget{
         return this.trInterface.getMilestones({"project_id": this.projectID}).then(async (milestones)=> {
             for (let i=0; i <= milestones.length-1; i++) {
                 let milestone = await milestones[i];
-                // console.log("\n\n\nMILESTONE!");
-                // console.log(milestone);
                 if (milestone.is_completed === false && milestone.is_started === true) {
                     // console.log(`\tFound a current Milestone: ${milestone.id}`);
                     return milestone.id;
@@ -95,8 +103,6 @@ export class TestRailWidget{
         return this.trInterface.getPlans({"project_id": this.projectID}).then(async plans=> {
             for (let i=0; i <= plans.length-1; i++) {
                 let plan = await plans[i];
-                // console.log("\n\nPLAN!");
-                // console.log(`plan.milestone_id = ${plan.milestone_id};  this.currentMilestone = ${this.currentMilestoneID}`);
                 if (plan.milestone_id === milestoneID && plan.is_completed === false) {
                     // console.log(`\tFound a current Plan: ${plan.id}`);
                     return plan.id;
@@ -119,8 +125,6 @@ export class TestRailWidget{
 
                     for (let i=0; i <= entries.length-1; i++) {
                         let entry = await entries[i];
-                        // console.log("\n\nRUN!");
-                        // console.log(`entry.name = ${entry.name}`);
                         if (entry.name === 'FE - Regression Tests') {
                             // console.log(`\tFound a current Run: ${entry.runs[0].id}`);
                             return entry.runs[0].id;
@@ -165,7 +169,7 @@ export class TestRailWidget{
             for (let i=0; i <= testCases.length-1; i++) {
                 let testCase = await testCases[i];
                 // if (testCase.custom_automated === true && testCase.status_id === 3) { // Untested
-                if (testCase.custom_automated) { // Untested
+                if (testCase.custom_automated) {
                     // console.log(`\tFound a test case that should be automated ... \n${testCase}`);
                     parsedCases.push(testCase);
                 }
@@ -184,7 +188,13 @@ export class TestRailWidget{
         return JSON.parse(fs.readFileSync('report.json','utf8'));
     }
 
+    /** Takes in a result from the JSON file.
+     *   - If the result is TRUE, then it passed and 1 is returned
+     *   - If the result is FALSE, then it failed and 5 is returned
+     *   - If somehow it's neither, a 3 is returned (untested)
+     */
     private getStatusId(result: boolean): number {
+        // console.log("   In 'getStatusId(result)' for 'TestRailWidget' ... result = " + result);
         if (result === true) {
             return 1;
         } else if (result === false) {

@@ -65,17 +65,22 @@ export let config: Config = {
             // console.log("HAD A FAILURE!!  'exitCode' = " + exitCode);
         }
 
-        // The code in this Promise is meant to update TestRails
-        return new Promise<void>(async resolve => {
-            console.log("\n\n\nAbout to update TestRails with data from this run");
+        /** TODO: get the code below running w/ input from the command line.
+         *        We don't want it running unless specifically asked for
+         *        In the meantime, it will have to be uncommented when you want it to update TestRail
+         **/
 
-            let testRail = new TestRailWidget;
-            // await testRail.update();
-
-            console.log("\nTestRails has been updated");
-            console.log("\n\n\n\n");
-            return resolve();
-        });
+        // // The code in this Promise is meant to update TestRails
+        // return new Promise<void>(async resolve => {
+        //     console.log("\n\n\nAbout to update TestRails with data from this run");
+        //
+        //     let testRail = new TestRailWidget;
+        //     await testRail.update();
+        //
+        //     console.log("\nTestRails has been updated");
+        //     console.log("\n\n\n\n");
+        //     return resolve();
+        // });
     },
 
     resultJsonOutputFile: 'report.json',

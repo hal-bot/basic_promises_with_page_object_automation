@@ -13,6 +13,7 @@ export class NavigationMethods {
         // console.log("In 'NavigationMethods.navigateToAPatientPageLikeAUser';  patientID = " + patientID);
 
         let globalHeader = await ElementFactory.make(GlobalHeader, null);
+        await globalHeader.initialize();
         return globalHeader.isPresent().then(async (itIsPresent) => {
             // get to the search page
             if (itIsPresent) {
