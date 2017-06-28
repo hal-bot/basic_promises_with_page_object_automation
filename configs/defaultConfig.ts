@@ -58,6 +58,8 @@ export let config: Config = {
         });
     },
 
+    resultJsonOutputFile: 'report.json',
+
     onCleanUp: (exitCode: number) => {
         if (exitCode === 0) {
             // console.log("ALL TESTS PASSED")
@@ -82,8 +84,6 @@ export let config: Config = {
         //     return resolve();
         // });
     },
-
-    resultJsonOutputFile: 'report.json',
 
     noGlobals: true
 

@@ -31,7 +31,6 @@ describe('The Patient Details header from a P1 level', () => {
     it('should be present and below the global header - Case 53', () => {
         console.log("The header of the Patients Details page should be present and below the global header");
         expect<any>(patientHeader.isPresent()).toBe(true);
-        // TODO - figure out why the code below is throwing an error, then reintroduce the 'case' in the description above
         return globalHeader.container.getLocation().then((globalHeaderLocation)=>  {
             return patientHeader.container.getLocation().then((patientHeaderLocation)=> {
                 return expect(globalHeaderLocation.y).toBeLessThan(patientHeaderLocation.y);

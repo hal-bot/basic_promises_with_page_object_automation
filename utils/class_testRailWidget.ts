@@ -41,27 +41,32 @@ export class TestRailWidget{
 
             // We want to look for results that took some time to run (0 means it was skipped) that has 'Case' in it
             for (let result of jsonResults) {
-                if (result.duration >= 0 && result.description.includes(" - Case ")) {
+                if (result.duration > 0 && result.description.includes(" - Case ")) {
                     let testCaseNumber = await result.description.match(/\d+$/);
                     for (let testCase of testCases) {
                         if (testCase.case_id == testCaseNumber) {
                             console.log(`\tFound matching test cases - ${testCaseNumber} ... updating TC ${testCase.id}`);
 
-                            let status: number;
-                            let assignee: number;
+                            let comments: string = "";
+                            let assignee: number = null;
+                            let status: number = this.getStatusId(result.assertions[0].passed);
+                            console.log(`status = ${status}`);
 
-                            status = this.getStatusId(result.assertions[0].passed);
-                            status === 5
-                                ? assignee = 1       // Hal Deranek
-                                : assignee = null;
-
+                            if (status === 5) {
+                                console.log("FAILURE!!!");
+                                assignee = 1;       // Hal Deranek
+                                comments = this.getErrorMessages(result);
+                                console.log(`comments = ...\n${comments}`);
+                            } else {
+                                comments = "Tested on QC via test automation (not a human)";
+                            }
 
                             let resultData = {
                                 // "test_id": 11323,
                                 // "status_id": 1,
                                 "test_id": testCase.id,
                                 "status_id": status,
-                                "comment": "Tested on QC via test automation (not a human)",
+                                "comment": comments,
                                 "assignedto_id": assignee
                             };
                             await this.trInterface.addResult(resultData);
@@ -72,6 +77,20 @@ export class TestRailWidget{
 
             return resolve();
         });
+    }
+
+    /** Tests can have multiple error messages.  This will return them all as one string
+     */
+    private getErrorMessages(element): string {
+        // console.log("   In 'getErrorMessages()' for 'TestRailWidget'");
+
+        let masterMessage: string;
+
+        for(let message of element.assertions) {
+            masterMessage += message.errorMsg + "\n\n";
+        }
+
+        return masterMessage;
     }
 
     /** Returns the first Milestone ID number that:
