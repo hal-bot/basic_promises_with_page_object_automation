@@ -5,6 +5,7 @@
 
 
 import { GlobalFooter } from "../../objects/pages/global/footer";
+import {browser} from "protractor";
 
 describe('The global footer from a P1 level', () => {
 
@@ -18,16 +19,11 @@ describe('The global footer from a P1 level', () => {
         return done();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    it('should be present', () => {
-        console.log("The Global Footer should be present");
-        return expect<any>(footer.isPresent()).toBe(true);
-    });
-
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
-    it('should have all expected elements', () => {
+    it('should have all expected elements - Case 54', () => {
         console.log("The Global Footer should have all expected elements");
         return footer.initialize().then(()=> {
+            expect<any>(footer.isPresent()).toBe(true);
             expect<any>(footer.name.isPresent()).toBe(true);
             expect<any>(footer.location.isPresent()).toBe(true);
             expect<any>(footer.copyright.isPresent()).toBe(true);
@@ -61,7 +57,7 @@ describe('The global footer from a P1 level', () => {
     // });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/67 **/
-    it('should match the current year', ()=> {
+    it('should match the current year - Case 67', ()=> {
         console.log("The Global Footer should match the current year");
         let currentYear = new Date().getFullYear();
         return footer.copyright.getText().then((elementText)=> {

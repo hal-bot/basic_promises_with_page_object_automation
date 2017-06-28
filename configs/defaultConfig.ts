@@ -67,18 +67,19 @@ export let config: Config = {
 
         // The code in this Promise is meant to update TestRails
         return new Promise<void>(async resolve => {
-            console.log("\n\nAbout to update TestRails with data from this run");
+            console.log("\n\n\nAbout to update TestRails with data from this run");
 
             let testRail = new TestRailWidget;
-            await testRail.initialize();
+            await testRail.update();
 
-            console.log("TestRails has been updated");
+            console.log("\nTestRails has been updated");
             console.log("\n\n\n\n");
             return resolve();
         });
     },
 
     resultJsonOutputFile: 'report.json',
+
     noGlobals: true
 
 };

@@ -5,7 +5,7 @@
 
 import { GlobalHeader } from "../../objects/pages/global/header";
 
-fdescribe('The global header from a P1 level', () => {
+describe('The global header from a P1 level', () => {
 
     let header: GlobalHeader;
     let fs = require('fs');
@@ -16,16 +16,12 @@ fdescribe('The global header from a P1 level', () => {
         return done();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 **/
-    it('should be present', () => {
-        console.log("The Global Header should be present");
-        return expect<any>(header.isPresent()).toBe(true);
-    });
-
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
-    it('should have all expected elements', () => {
-        console.log("The Global Header should have all expected elements");
+    it('should be present and have all expected elements - Case 52', () => {
+        console.log("The Global Header should be present and have all expected elements");
+
         return header.initialize().then(()=> {
+            expect<any>(header.isPresent()).toBe(true);
             expect<any>(header.dashboard.isPresent()).toBe(true);
             return expect<any>(header.patients.isPresent()).toBe(true);
             // orders - not implemented
@@ -59,7 +55,7 @@ fdescribe('The global header from a P1 level', () => {
     // });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/69 **/
-    it('should be less than 1200 pixels wide', () => {
+    it('should be less than 1200 pixels wide - Case 69', () => {
         console.log("The Global Header should be less than 1200 pixels wide");
 
         let largeWidth = 1200;
@@ -69,8 +65,8 @@ fdescribe('The global header from a P1 level', () => {
         });
     });
 
-    fit('stuff', async ()=> {
+    xit('sdf', ()=> {
         expect(true).toBeTruthy();
-    });
+    })
 
 });

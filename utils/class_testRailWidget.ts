@@ -1,6 +1,7 @@
 //  This will integrate the automated test cases into the Test Rail test cases
 //  https://haemoslalom.testrail.net
 
+import fs = require('fs');
 
 export class TestRailWidget{
 
@@ -10,27 +11,54 @@ export class TestRailWidget{
 
     private projectID: number;
 
-    TestRail;
-    trInterface;
+    private TestRail;
+    private trInterface;
 
     constructor() {
         // console.log("  In constructor for 'TestRailWidget'");
 
         this.host = 'https://haemoslalom.testrail.net';
-        this.username = 'slalom.automated.tester@gmail.com';
-        this.password = 'Password1234';
+        this.username = 'slalom.automated.tester+1@gmail.com';
+        this.password = 'hjaZ54xdypVJzXgS';
         this.projectID = 1;
 
         this.TestRail = require("testrail-promise");
     }
 
-    async initialize(): Promise<void> {
+    /** This method does all the heavy lifting...
+     *      - gets the automated test cases from TestRail
+     *      - parses the automated test results JSON file
+     *      - compares the two arrays and updates the TestRail test cases as is appropriate
+     */
+    async update(): Promise<void> {
         console.log("   In 'initialize' for 'TestRailWidget'");
 
         return new Promise<void>(async resolve => {
             this.trInterface = await new this.TestRail(this.host, this.username, this.password);
 
-            let testcases = await this.getTestCasesThatShouldBeAutomated();
+            let testCases = await this.getTestCasesThatShouldBeAutomated();
+            let jsonResults = await this.getParsedJsonFile();
+
+            // We want to look for results that took some time to run (0 means it was skipped) that has 'Case' in it
+            for (let result of jsonResults) {
+                if (result.duration >= 0 && result.description.includes(" - Case ")) {
+                    let testCaseNumber = await result.description.match(/\d+$/);
+                    for (let testCase of testCases) {
+                        if (testCase.case_id == testCaseNumber) {
+                            console.log(`\tFound matching test cases - ${testCaseNumber} ... updating TC ${testCase.id}`);
+                            let resultData = {
+                                // "test_id": 11323,
+                                // "status_id": 1,
+                                "test_id": testCase.id,
+                                "status_id": this.getStatusId(result.assertions[0].passed),
+                                "comment": "Tested on QC via test automation (not a human)",
+                                "assignedto_id": 1  // Hal Deranek
+                            };
+                            await this.trInterface.addResult(resultData);
+                        }
+                    }
+                }
+            }
 
             return resolve();
         });
@@ -41,7 +69,7 @@ export class TestRailWidget{
      *      - is not completed (value 'is_completed' === false)
      *  If these conditions are not met, an error will be thrown
      */
-    async getCurrentMilestoneId(): Promise<number> {
+    private async getCurrentMilestoneId(): Promise<number> {
         // console.log("   In 'getCurrentMilestoneId()' for 'TestRailWidget'");
         return this.trInterface.getMilestones({"project_id": this.projectID}).then(async (milestones)=> {
             for (let i=0; i <= milestones.length-1; i++) {
@@ -49,7 +77,7 @@ export class TestRailWidget{
                 // console.log("\n\n\nMILESTONE!");
                 // console.log(milestone);
                 if (milestone.is_completed === false && milestone.is_started === true) {
-                    console.log(`\tFound a current Milestone: ${milestone.id}`);
+                    // console.log(`\tFound a current Milestone: ${milestone.id}`);
                     return milestone.id;
                 }
             }
@@ -57,13 +85,12 @@ export class TestRailWidget{
         });
     }
 
-
     /** Returns the first Test Plan ID number that:
      *      - matches the current Milestone ID (which is passed in)
      *      - is not completed (value 'is_completed' === false)
      *  If these conditions are not met, an error will be thrown
      */
-    async getCurrentTestPlanId(milestoneID: number): Promise<number> {
+    private async getCurrentTestPlanId(milestoneID: number): Promise<number> {
         // console.log(`   In 'getCurrentTestPlanId(milestoneID)' for 'TestRailWidget'   ...  milestoneID = ${milestoneID}`);
         return this.trInterface.getPlans({"project_id": this.projectID}).then(async plans=> {
             for (let i=0; i <= plans.length-1; i++) {
@@ -71,7 +98,7 @@ export class TestRailWidget{
                 // console.log("\n\nPLAN!");
                 // console.log(`plan.milestone_id = ${plan.milestone_id};  this.currentMilestone = ${this.currentMilestoneID}`);
                 if (plan.milestone_id === milestoneID && plan.is_completed === false) {
-                    console.log(`\tFound a current Plan: ${plan.id}`);
+                    // console.log(`\tFound a current Plan: ${plan.id}`);
                     return plan.id;
                 }
             }
@@ -82,7 +109,7 @@ export class TestRailWidget{
     /** Returns the first Run ID number that has the name 'FE - Regression Tests'
      *  If this condition is not met, an error will be thrown
      */
-    async getCurrentRunId(): Promise<number> {
+    private async getCurrentRunId(): Promise<number> {
         // console.log("   In 'getCurrentRunId()' for 'TestRailWidget'");
 
         return this.getCurrentMilestoneId().then(milestoneID => {
@@ -95,7 +122,7 @@ export class TestRailWidget{
                         // console.log("\n\nRUN!");
                         // console.log(`entry.name = ${entry.name}`);
                         if (entry.name === 'FE - Regression Tests') {
-                            console.log(`\tFound a current Run: ${entry.runs[0].id}`);
+                            // console.log(`\tFound a current Run: ${entry.runs[0].id}`);
                             return entry.runs[0].id;
                         }
                     }
@@ -108,8 +135,8 @@ export class TestRailWidget{
     /** Returns the test cases based on the Current Run ID (which should be based off a run named like 'FE - regression')
      *  If no test cases are found, an error will be thrown
      */
-    async getCurrentRegressionTestCases(): Promise<any> {
-        console.log("   In 'getCurrentRegressionTestCases()' for 'TestRailWidget'");
+    private async getCurrentRegressionTestCases(): Promise<any> {
+        // console.log("   In 'getCurrentRegressionTestCases()' for 'TestRailWidget'");
 
         return this.getCurrentRunId().then(async runID => {
             await runID;
@@ -130,15 +157,15 @@ export class TestRailWidget{
     /** Returns the test cases that are marked as 'automated' in Test Rail
      *  If no test cases are found, an error will be thrown
      */
-    async getTestCasesThatShouldBeAutomated(): Promise<any> {
-        console.log("   In 'getTestCasesThatShouldBeAutomated()' for 'TestRailWidget'");
-
+    private async getTestCasesThatShouldBeAutomated(): Promise<any> {
+        // console.log("   In 'getTestCasesThatShouldBeAutomated()' for 'TestRailWidget'");
         let parsedCases = [];
 
         return this.getCurrentRegressionTestCases().then(async testCases => {
             for (let i=0; i <= testCases.length-1; i++) {
                 let testCase = await testCases[i];
-                if (testCase.custom_automated === true && testCase.status_id === 3) { // Untested
+                // if (testCase.custom_automated === true && testCase.status_id === 3) { // Untested
+                if (testCase.custom_automated) { // Untested
                     // console.log(`\tFound a test case that should be automated ... \n${testCase}`);
                     parsedCases.push(testCase);
                 }
@@ -149,4 +176,21 @@ export class TestRailWidget{
         });
     }
 
+    /** Finds the 'report.json' results file that is generated by the test run
+     *  Returns a parsed JSON file for use
+     */
+    private async getParsedJsonFile(): Promise<any> {
+        // console.log("   In 'getParsedJsonFile()' for 'TestRailWidget'");
+        return JSON.parse(fs.readFileSync('report.json','utf8'));
+    }
+
+    private getStatusId(result: boolean): number {
+        if (result === true) {
+            return 1;
+        } else if (result === false) {
+            return 5;
+        } else {
+            return 3;
+        }
+    }
 }

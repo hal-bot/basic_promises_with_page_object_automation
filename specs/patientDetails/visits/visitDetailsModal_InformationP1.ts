@@ -22,15 +22,10 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
         return visitModal.closeModal();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #1 **/
-    it('should be present', () => {
-        console.log("The 'Visit Details' modal should be present");
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #1-4 **/
+    it('should be present, have correct title, date, close button, and tabs - Case 57', () => {
+        console.log("The 'Visit Details' modal should be present, have correct title, date, close button, and tabs");
         expect<any>(visitModal.isPresent()).toBe(true);
-    });
-
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #2-4 **/
-    it('should have correct title, date, close button, and tabs', () => {
-        console.log("The 'Visit Details' modal should have correct title, date, close button, and tabs");
         expect<any>(visitModal.title.getText()).toBe('Visit Details');
         expect<any>(visitModal.visitDate.isPresent()).toBe(true);
         expect<any>(visitModal.visitInformationSection.isPresent()).toBe(true);
@@ -38,7 +33,7 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/58 **/
-    it('should be showing the correct visit information fields (ELEMENTS NEED TO BE IMPLEMENTED)', () => {
+    it('should be showing the correct visit information fields - Case 58', () => {
         console.log("The 'Visit Details' modal should be showing the correct visit information fields");
 
         expect<any>(visitModal.visitInformationSection.admissionDate.getTitle()).toBe('Admission Date');

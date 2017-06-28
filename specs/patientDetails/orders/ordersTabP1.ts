@@ -21,7 +21,7 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/222 **/
-    it('should be present, selected, and have the tab title "Orders"', () => {
+    it('should be present, selected, and have the tab title "Orders" - Case 222', () => {
         console.log("The 'Orders' tab on the Patients Details page should be present, selected, and have the title \"Orders\"");
         expect<any>(ordersTab.actualTab.isPresent()).toBe(true);
         expect<any>(ordersTab.isSelected()).toBe(true);
@@ -29,13 +29,13 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/223 **/
-    it('should have the section title "Orders List"', () => {
+    it('should have the section title "Orders List" - Case 223', () => {
         console.log("The 'Orders' tab on the Patients Details page should have the section title \"Orders List\"");
         expect<any>(ordersTab.getSectionTitle()).toBe("Orders List");
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/224 **/
-    it('should display the correct column headers, show order records', () => {
+    it('should display the correct column headers, show order records - Case 224', () => {
         console.log("The 'Orders' tab on the Patients Details page should display the correct column headers, show order records");
         expect<any>(ordersTab.statusHeader.isPresent()).toBe(true);
         expect<any>(ordersTab.statusHeader.getTitle()).toBe('Status');
@@ -54,20 +54,20 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/225, ER #1 **/
-    it('should be default sorted by Status', () => {
+    it('should be default sorted by Status - Case 225', () => {
         console.log("The 'Orders' tab on the Patients Details page should be default sorted by Status");
         expect<any>(ordersTab.statusHeader.isBeingUsedForSorting()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226, ER #1 **/
     // Note: assumes the patient has >6 orders
-    it('should have 6 records on the page', () => {
+    it('should have 6 records on the page - Case 226', () => {
         console.log("The 'Orders' tab on the Patients Details page should have 6 records on the page");
         expect(ordersTab.orders.length).toBe(6);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226, ER #2 **/
-    it('should have pagination present', () => {
+    it('should have pagination present - Case 226', () => {
         console.log("The 'Orders' tab on the Patients Details page should have pagination present");
         expect(ordersTab.leftArrow.isPresent()).toBeTruthy();
         expect(ordersTab.rightArrow.isPresent()).toBeTruthy();

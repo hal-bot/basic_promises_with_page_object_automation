@@ -22,7 +22,7 @@ describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Detail
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/59 **/
-    it('should be showing the correct diagnosis grid headers and show diagnosis records', () => {
+    it('should be showing the correct diagnosis grid headers and show diagnosis records - Case 59', () => {
         console.log("The 'Visit Details' modal should be showing the correct diagnosis grid headers and show diagnosis records");
 
         expect<any>(visitModal.diagnosisSection.diagnoses.length).toBeGreaterThan(0);
@@ -34,13 +34,13 @@ describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Detail
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/60 **/
-    it('should be sorted by the Diagnosis field', () => {
+    it('should be sorted by the Diagnosis field - Case 60', () => {
         console.log("The 'Visit Details' modal should be sorted by the Diagnosis field");
         return expect<any>(visitModal.diagnosisSection.diagnosisHeader.isBeingUsedForSorting()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/68, ER #1 **/
-    it('should have a maximum of 6 records o the page', () => {
+    it('should have a maximum of 6 records o the page - Case 68', () => {
         console.log("The 'Visit Details' modal should have a maximum of 6 records on the page");
         return expect<any>(visitModal.diagnosisSection.diagnoses.length).toBe(6);
     });

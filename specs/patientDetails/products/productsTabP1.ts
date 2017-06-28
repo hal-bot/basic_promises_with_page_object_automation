@@ -22,7 +22,7 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/228 **/
-    it('should be present and selected', () => {
+    it('should be present and selected - Case 228', () => {
         console.log("The 'Products' tab on the Patients Details page should be present and selected");
 
         expect<any>(productsTab.actualTab.isPresent()).toBe(true);
@@ -30,7 +30,7 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/230 **/
-    it('should have the correct product filters', () => {
+    it('should have the correct product filters - Case 230', () => {
         console.log("The 'Products' tab on the Patients Details page should have the correct product filters");
 
         expect<any>(productsTab.allComponentsFilter.isPresent()).toBe(true);
@@ -55,7 +55,7 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/232 **/
-    it('should have the correct product column headers and have products', () => {
+    it('should have the correct product column headers and have products - Case 232', () => {
         console.log("The 'Products' tab on the Patients Details page should have the correct product column headers and have products");
 
         expect<any>(productsTab.statusHeader.isPresent()).toBe(true);
@@ -86,14 +86,14 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/236 **/
-    it('should be sorted by Status by default', () => {
+    it('should be sorted by Status by default - Case 236', () => {
         console.log("The 'Products' tab on the Patients Details page should be sorted by Status by default");
 
         expect<any>(productsTab.statusHeader.isBeingUsedForSorting()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/238, ER #1,3 **/
-    it('should show five products in the grid', () => {
+    it('should show five products in the grid - Case 238', () => {
         console.log("The 'Products' tab on the Patients Details page should show five products in the grid");
 
         expect<any>(productsTab.products.length).toBe(5);
@@ -103,7 +103,7 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/238, ER #2,3 **/
-    it('should show five products in the grid after a browser resize', () => {
+    it('should show five products in the grid after a browser resize - Case 238', () => {
         console.log("The 'Products' tab on the Patients Details page should show five products in the grid after a browser resize");
 
         browser.driver.manage().window().setSize(300, 480).then(()=> {
@@ -117,7 +117,7 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/301, ER #1 **/
-    it('should have a working \'A/D/R\' checkbox', () => {
+    it('should have a working \'A/D/R\' checkbox - Case 301', () => {
         console.log("The 'Products' tab on the Patients Details page should have a working 'A/D/R' checkbox");
 
         return productsTab.selectADRcheckbox().then(()=> {
