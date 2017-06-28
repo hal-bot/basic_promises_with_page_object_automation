@@ -35,21 +35,21 @@ export let config: Config = {
     ],
 
     onPrepare: () => {
-        // console.log("  PREPARING TESTS");
+        console.log("  PREPARING TESTS");
 
-        // browser.manage().window().maximize();
-        // browser.manage().timeouts().implicitlyWait(5000);
-        // browser.ignoreSynchronization = true;
-        //
-        // // Logs into the site
-        // return browser.get('/').then((thisPromise)=> {
-        //     let loginPage = new LoginPage();
-        //     return loginPage.initialize().then(()=> {
-        //         return loginPage.login();
-        //     }).then(()=> {
-        //         return thisPromise;
-        //     });
-        // });
+        browser.manage().window().maximize();
+        browser.manage().timeouts().implicitlyWait(5000);
+        browser.ignoreSynchronization = true;
+
+        // Logs into the site
+        return browser.get('/').then((thisPromise)=> {
+            let loginPage = new LoginPage();
+            return loginPage.initialize().then(()=> {
+                return loginPage.login();
+            }).then(()=> {
+                return thisPromise;
+            });
+        });
     },
 
     onComplete: () => {
@@ -70,7 +70,7 @@ export let config: Config = {
             console.log("\n\n\nAbout to update TestRails with data from this run");
 
             let testRail = new TestRailWidget;
-            await testRail.update();
+            // await testRail.update();
 
             console.log("\nTestRails has been updated");
             console.log("\n\n\n\n");

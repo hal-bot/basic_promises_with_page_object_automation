@@ -53,22 +53,17 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
         expect<any>(ordersTab.orders.length).toBeGreaterThan(0);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/225, ER #1 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/225 **/
     it('should be default sorted by Status - Case 225', () => {
         console.log("The 'Orders' tab on the Patients Details page should be default sorted by Status");
         expect<any>(ordersTab.statusHeader.isBeingUsedForSorting()).toBe(true);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226, ER #1 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226 **/
     // Note: assumes the patient has >6 orders
-    it('should have 6 records on the page - Case 226', () => {
-        console.log("The 'Orders' tab on the Patients Details page should have 6 records on the page");
-        expect(ordersTab.orders.length).toBe(6);
-    });
-
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/226, ER #2 **/
-    it('should have pagination present - Case 226', () => {
+    it('should have 6 records on the page, pagination present - Case 226', () => {
         console.log("The 'Orders' tab on the Patients Details page should have pagination present");
+        expect(ordersTab.orders.length).toBe(6);
         expect(ordersTab.leftArrow.isPresent()).toBeTruthy();
         expect(ordersTab.rightArrow.isPresent()).toBeTruthy();
         expect(ordersTab.pages.length).toBeGreaterThanOrEqual(1);
@@ -78,7 +73,7 @@ describe('The "Orders" tab on the Patient\'s Details page (from a P1 level)', ()
 
     /**
      *  TODO...
-     *  - Case 225, ERs #2 & #3 -> Verifying sorting on all headers, sorting arrows
+     *  - Case 2576 -> Verifying sorting on all headers, sorting arrows
      *  - Case 227 -> cannot implement until the count has been implemented in the tab
      */
 

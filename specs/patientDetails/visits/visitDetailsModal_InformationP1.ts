@@ -22,7 +22,7 @@ describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'
         return visitModal.closeModal();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57, ER #1-4 **/
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/57 **/
     it('should be present, have correct title, date, close button, and tabs - Case 57', () => {
         console.log("The 'Visit Details' modal should be present, have correct title, date, close button, and tabs");
         expect<any>(visitModal.isPresent()).toBe(true);

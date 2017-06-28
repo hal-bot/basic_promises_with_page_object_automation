@@ -35,9 +35,8 @@ export class GlobalHeader {
                 this.patients = await ElementFactory.make(HeaderOption, this.container.$('li.patients-header-nav'));
                 this.orders = await ElementFactory.make(HeaderOption, this.container.$('li.orders-header-nav'));
 
-                // TODO: Update this code once these icons become enabled
-                // this.settings = this.container.element(by.linkText("Patients"));
-                // this.logout = this.container.element(by.linkText("Patients"));
+                this.settings = await this.container.$('img.header-settings-button');
+                this.logout = await this.container.$('img.header-logout-button');
 
                 return resolve();
             }).then(async (resolve)=> {

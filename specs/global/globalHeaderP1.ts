@@ -4,6 +4,7 @@
  */
 
 import { GlobalHeader } from "../../objects/pages/global/header";
+import {browser} from "protractor";
 
 describe('The global header from a P1 level', () => {
 
@@ -16,43 +17,33 @@ describe('The global header from a P1 level', () => {
         return done();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #2 **/
-    it('should be present and have all expected elements - Case 52', () => {
-        console.log("The Global Header should be present and have all expected elements");
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 **/
+    it('should be on every page and have all expected elements - Case 52', async (done) => {
+        console.log("The Global Header should be on every page and have all expected elements");
 
-        return header.initialize().then(()=> {
-            expect<any>(header.isPresent()).toBe(true);
-            expect<any>(header.dashboard.isPresent()).toBe(true);
-            return expect<any>(header.patients.isPresent()).toBe(true);
-            // orders - not implemented
-            // settings icon - not implemented
-            // log out icon - not implemented
-        });
+        let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
+        let pageCount = 0;          // keeps track of how many pages we've tested
+        let pages = await fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
+
+        for (let page of pages) {
+            // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
+            if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
+                break;
+            } else {
+                await browser.get(page);
+                await header.initialize();
+                //TODO - get rid of this hacky 'sleep' and make sure the page has loaded first.  Have to move on for now
+                await browser.sleep(1500);
+                expect<any>(header.isPresent()).toBe(true);
+                expect<any>(header.dashboard.isPresent()).toBe(true);
+                expect<any>(header.patients.isPresent()).toBe(true);
+                // expect<any>(header.logout.isPresent()).toBe(true);
+            }
+            ++pageCount;
+        }
+
+        return done();
     });
-
-    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/52 - Result #1 **/
-    // // TODO: Get this working for each page.
-    // xit('should be on every page and not change', (done) => {
-    //     console.log("The Global Header should be on every page and not change");
-    //
-    //     let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
-    //     let pageCount = 0;          // keeps track of how many pages we've tested
-    //     let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
-    //
-    //     for (let page of pages) {
-    //         // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
-    //         if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
-    //             break;
-    //         } else {
-    //             browser.get(page).then(()=> {
-    //                 return expect<any>(header.isPresent()).toBe(true);
-    //             });
-    //         }
-    //         ++pageCount;
-    //     }
-    //
-    //     return done();
-    // });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/69 **/
     it('should be less than 1200 pixels wide - Case 69', () => {
@@ -64,9 +55,5 @@ describe('The global header from a P1 level', () => {
             return expect(elementSize.width).toBeLessThan(largeWidth);
         });
     });
-
-    xit('sdf', ()=> {
-        expect(true).toBeTruthy();
-    })
 
 });

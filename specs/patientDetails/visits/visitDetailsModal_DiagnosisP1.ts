@@ -33,23 +33,26 @@ describe('The Visit Details modal\'s "Diagnoses" tab (from the Patient\'s Detail
         return expect<any>(visitModal.diagnosisSection.commentHeader.getTitle()).toBe('Comment');
     });
 
+    // TODO - add case to description when sorting order (desc/asc) is possible
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/60 **/
-    it('should be sorted by the Diagnosis field - Case 60', () => {
+    it('should be sorted by the Diagnosis field', () => {
         console.log("The 'Visit Details' modal should be sorted by the Diagnosis field");
         return expect<any>(visitModal.diagnosisSection.diagnosisHeader.isBeingUsedForSorting()).toBe(true);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/68, ER #1 **/
-    it('should have a maximum of 6 records o the page - Case 68', () => {
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/68 **/
+    it('should have a maximum of 6 records on the page - Case 68', () => {
         console.log("The 'Visit Details' modal should have a maximum of 6 records on the page");
-        return expect<any>(visitModal.diagnosisSection.diagnoses.length).toBe(6);
+        expect<any>(visitModal.diagnosisSection.diagnoses.length).toBe(6);
+        expect<any>(visitModal.diagnosisSection.leftArrow.isPresent()).toBe(true);
+        expect<any>(visitModal.diagnosisSection.pages.length).toBeGreaterThanOrEqual(1);
+        return expect<any>(visitModal.diagnosisSection.rightArrow.isPresent()).toBe(true);
     });
 
 
     /**
      *  TODO...
      *  - Case 61 -> column headers sort properly
-     *  - Case 68, #2 -> User should be able to see below the grid page number with back navigation arrow and forward navigation arrow.
      */
 
 });

@@ -119,6 +119,10 @@ export class ProductsTab extends PageTab {
         });
     }
 
+    async adrCheckboxPresent(): Promise<boolean> {
+        return this.adrOnlyCheckbox.isPresent();
+    }
+
 }
 
 class ProductsFilter {
@@ -154,6 +158,7 @@ class ProductsFilter {
             return Number(txt);
         });
     }
+
 }
 
 export class ProductRow {

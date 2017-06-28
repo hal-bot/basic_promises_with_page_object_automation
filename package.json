@@ -1,7 +1,7 @@
 {
   "name": "haemonetics_safetrace_tx_automation",
-  "version": "0.1.1",
-  "description": "Automated tests for the Haemonetics SafeTrace TX site",
+  "version": "0.2.0",
+  "description": "Automated tests for the Haemonetics SafeTrace TX website",
   "scripts": {
     "removeTmpDirectory": "rimraf tmp",
     "pretest": "tsc && npm run removeTmpDirectory && tsc",

@@ -52,6 +52,8 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
         expect<any>(productsTab.transfusedFilter.isPresent()).toBe(true);
         expect<any>(productsTab.transfusedFilter.getTitle()).toBe("Transfused");
         expect<any>(productsTab.transfusedFilter.getCount()).toBeGreaterThanOrEqual(0);
+
+        expect<any>(productsTab.adrCheckboxPresent()).toBe(true);
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/232 **/
@@ -85,28 +87,24 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
         expect<any>(productsTab.products.length).toBeGreaterThan(0);
     });
 
+    // TODO - add case to description when sorting order (desc/asc) is possible
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/236 **/
-    it('should be sorted by Status by default - Case 236', () => {
+    it('should be sorted by Status by default', () => {
         console.log("The 'Products' tab on the Patients Details page should be sorted by Status by default");
 
         expect<any>(productsTab.statusHeader.isBeingUsedForSorting()).toBe(true);
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/238, ER #1,3 **/
-    it('should show five products in the grid - Case 238', () => {
-        console.log("The 'Products' tab on the Patients Details page should show five products in the grid");
+    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/238  **/
+    it('should show five products in the grid after a browser resize - Case 238', () => {
+        console.log("The 'Products' tab on the Patients Details page should show five products in the grid after a browser resize");
 
         expect<any>(productsTab.products.length).toBe(5);
         expect<any>(productsTab.leftArrow.isPresent()).toBe(true);
         expect<any>(productsTab.pages.length).toBeGreaterThanOrEqual(1);
         expect<any>(productsTab.rightArrow.isPresent()).toBe(true);
-    });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/238, ER #2,3 **/
-    it('should show five products in the grid after a browser resize - Case 238', () => {
-        console.log("The 'Products' tab on the Patients Details page should show five products in the grid after a browser resize");
-
-        browser.driver.manage().window().setSize(300, 480).then(()=> {
+        return browser.driver.manage().window().setSize(300, 480).then(()=> {
             expect<any>(productsTab.products.length).toBe(5);
             expect<any>(productsTab.leftArrow.isPresent()).toBe(true);
             expect<any>(productsTab.pages.length).toBeGreaterThanOrEqual(1);
@@ -116,8 +114,9 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
         });
     });
 
+    // TODO - add case to description when you can verify results against the DB
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/301, ER #1 **/
-    it('should have a working \'A/D/R\' checkbox - Case 301', () => {
+    it('should have a working \'A/D/R\' checkbox', () => {
         console.log("The 'Products' tab on the Patients Details page should have a working 'A/D/R' checkbox");
 
         return productsTab.selectADRcheckbox().then(()=> {
@@ -141,17 +140,12 @@ describe('The "Products" tab on the Patient\'s Details page (from a P1 level)', 
         });
     });
 
-    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/ **/
-    // it('should ', () => {
-    //     console.log("The 'Products' tab on the Patients Details page should ");
-    //
-    // });
-
 
     /**
      *  TODO...
      *  - Case 236 -> Verify sort direction
      *  - Case 237 -> Verify sorting on all columns
      *  - Case 301, ER #2 -> Verify A/D/R Only checkbox results align w/ the DB
+     *  - Case 2577 -> Verify default filter
      */
 });
