@@ -118,6 +118,7 @@ export class VisitTab extends PageTab {
                 return visitTab = new VisitTab();
             }).then(async()=> {
                 return visitTab.initialize().then(async ()=> {
+                    await visitTab.actualTab.click();     //opens the Visit modal
                     await visitTab.openViewModal();     //opens the Visit modal
                     return visitTab.visitsModal;
                 });

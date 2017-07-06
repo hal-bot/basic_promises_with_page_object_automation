@@ -1,7 +1,7 @@
 {
   "name": "haemonetics_safetrace_tx_automation",
-  "version": "0.0.1",
-  "description": "Automated tests for the Haemonetics SafeTrace TX site",
+  "version": "0.2.0",
+  "description": "Automated tests for the Haemonetics SafeTrace TX website",
   "scripts": {
     "removeTmpDirectory": "rimraf tmp",
     "pretest": "tsc && npm run removeTmpDirectory && tsc",
@@ -14,6 +14,7 @@
   "dependencies": {
     "protractor": "^5.1.x",
     "protractor-flake": "^2.5.0",
+    "testrail-promise": "^0.1.12",
     "typescript": "^2.x"
   },
   "devDependencies": {

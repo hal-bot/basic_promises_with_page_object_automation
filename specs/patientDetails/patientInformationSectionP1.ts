@@ -9,7 +9,6 @@ import {NavigationMethods} from "../../utils/navigationUtilities";
 import {$} from "protractor";
 
 
-// TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
 describe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;
@@ -56,7 +55,7 @@ describe('The patient\'s information details', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
-    it('should be present, be collapsed on load, display default fields', (done) => {
+    it('should be present, be collapsed on load, display default fields - Case 41', (done) => {
         console.log("The Patient Information section should be present, be collapsed on load, & display default fields");
         return infoSection.initialize().then(()=> {
             expect<any>(infoSection.isPresent()).toBe(true);
@@ -76,7 +75,7 @@ describe('The patient\'s information details', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/55 **/
-    it('should be able to expand to show more details', () => {
+    it('should be able to expand to show more details - Case 55', () => {
         console.log("The Patient Information should be able to expand to show more details");
         return infoSection.expand().then( ()=> {
             expect<any>(infoSection.arrowButton.getText()).toBe('Less Details');

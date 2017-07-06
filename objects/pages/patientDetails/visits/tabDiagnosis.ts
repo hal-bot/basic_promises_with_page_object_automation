@@ -1,7 +1,7 @@
 // Describes the "Diagnosis" tabbed section of the 'Visit Details' pop-up modal
 
 import { ColumnHeader } from "../../elements/columnHeader";
-import { ElementFinder } from "protractor";
+import { ElementFinder, $ } from "protractor";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {ModalTab} from "../../global/class_ModalTab";
 import {NavigationMethods} from "../../../../utils/navigationUtilities";
@@ -42,6 +42,11 @@ export class TabDiagnosis extends ModalTab{
                 this.startDateHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-StartDate'));
                 this.endDateHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-EndDate'));
                 this.commentHeader = await ElementFactory.make(ColumnHeader, this.contentContainer.$('th.visitModal-diagnosisTab-tableHeader-Comment'));
+
+                this.leftArrow = await $('li.pagination-prev');
+                this.rightArrow = await $('li.pagination-next');
+
+                await this.setPages();
 
                 return this.setDiagnosisArray().then(async() => {
                     // console.log("\tNow initializing all elements just defined for 'TabDiagnosis'");

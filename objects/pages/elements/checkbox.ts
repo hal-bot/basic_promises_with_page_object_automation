@@ -48,10 +48,14 @@ export class Checkbox {
         });
     }
 
-    async deselect() {
+    async deselect(): Promise<boolean|void> {
         return this.box.isSelected()
             ? this.box.click()
             : true;
+    }
+
+    async isSelected(): Promise<boolean> {
+        return this.box.isSelected();
     }
 
     async getLocation(): Promise<any> {

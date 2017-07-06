@@ -2,9 +2,10 @@
 
 import {Config, browser} from 'protractor';
 import {LoginPage} from "../objects/pages/login";
+import {TestRailWidget} from "../utils/class_testRailWidget";
+
 
 let timeoutMS = 59000;
-declare let testRails;
 
 export let config: Config = {
 
@@ -52,10 +53,12 @@ export let config: Config = {
     },
 
     onComplete: () => {
-        return browser.getProcessedConfig().then(function(config) {
+        return browser.getProcessedConfig().then((config)=> {
             // console.log('  Finished tests for this capability: ' + config.capabilities);
         });
     },
+
+    resultJsonOutputFile: 'report.json',
 
     onCleanUp: (exitCode: number) => {
         if (exitCode === 0) {
@@ -65,7 +68,25 @@ export let config: Config = {
         }
     },
 
-    resultJsonOutputFile: 'report.json',
+    afterLaunch:()=> {
+        /** TODO: get the code below running w/ input from the command line.
+         *        We don't want it running unless specifically asked for
+         *        In the meantime, it will have to be uncommented when you want it to update TestRail
+         **/
+
+        // // The code in this Promise is meant to update TestRails
+        // return new Promise<void>(async resolve => {
+        //     console.log("\n\n\nAbout to update TestRails with data from this run");
+        //
+        //     let testRail = new TestRailWidget;
+        //     await testRail.update();
+        //
+        //     console.log("\nTestRails has been updated");
+        //     console.log("\n\n\n\n");
+        //     return resolve();
+        // });
+    },
+
     noGlobals: true
 
 };

@@ -3,13 +3,17 @@
  */
 
 
-import {ElementFinder, $, browser} from "protractor";
+import {ElementFinder, $, $$, browser} from "protractor";
 
 export abstract class ModalTab {
 
     protected initializePromise: Promise<void>;
     actualTab: ElementFinder;
     contentContainer: ElementFinder;
+
+    pages: ElementFinder[];             // the pages at the bottom of the modal
+    leftArrow: ElementFinder;
+    rightArrow: ElementFinder;
 
     // element will be the container which has all the data for the tab
     constructor(private tabElement: ElementFinder) {
@@ -37,5 +41,10 @@ export abstract class ModalTab {
     async isPresent(): Promise<boolean> {
         // console.log("  In 'isPresent()' for abstract class 'ModalTab'");
         return this.actualTab.isPresent();
+    }
+
+    // This will clear out the current 'pages' array and then get the array rows
+    async setPages() {
+        return this.pages = await $$('tab.active li.pagination-page');
     }
 }

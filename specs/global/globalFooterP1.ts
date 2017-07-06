@@ -5,6 +5,7 @@
 
 
 import { GlobalFooter } from "../../objects/pages/global/footer";
+import {browser} from "protractor";
 
 describe('The global footer from a P1 level', () => {
 
@@ -18,50 +19,38 @@ describe('The global footer from a P1 level', () => {
         return done();
     });
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
-    it('should be present', () => {
-        console.log("The Global Footer should be present");
-        return expect<any>(footer.isPresent()).toBe(true);
-    });
+    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 **/
+    it('should be on every page and not change and have all expected elements - Case 54', async (done) => {
+        console.log("The Global Footer should be on every page and not change and have all expected elements");
 
-    /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #3 **/
-    it('should have all expected elements', () => {
-        console.log("The Global Footer should have all expected elements");
-        return footer.initialize().then(()=> {
-            expect<any>(footer.name.isPresent()).toBe(true);
-            expect<any>(footer.location.isPresent()).toBe(true);
-            expect<any>(footer.copyright.isPresent()).toBe(true);
-            expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
-            return expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
-        });
-    });
+        let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
+        let pageCount = 0;          // keeps track of how many pages we've tested
+        let pages = await fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
 
-    // /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/54 - Result #1 **/
-    // // TODO: Get this working for each page.
-    // xit('should be on every page and not change', (done) => {
-    //     console.log("The Global Footer should be on every page and not change");
-    //
-    //     let pageLimiter = 0;        // limits the number of pages checked.  If 0, all pages will be checked
-    //     let pageCount = 0;          // keeps track of how many pages we've tested
-    //     let pages = fs.readFileSync('objects/pages/listOfPages.txt','utf8').split("\n");    // the pages we'll test against
-    //
-    //     for (let page of pages) {
-    //         // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
-    //         if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
-    //             break;
-    //         } else {
-    //             browser.get(page).then(()=> {
-    //                 expect<any>(footer.isPresent()).toBe(true);
-    //             });
-    //         }
-    //         ++pageCount;
-    //     }
-    //
-    //     return done();
-    // });
+        for (let page of pages) {
+            // console.log("\n  Testing page: " + page + ",  test #" + pageCount);
+            if ((pageLimiter !== 0) && (pageCount >= pageLimiter)) {
+                break;
+            } else {
+                await browser.get(page);
+                await footer.initialize();
+                //TODO - get rid of this hacky 'sleep' and make sure the page has loaded first.  Have to move on for now
+                await browser.sleep(1000);
+                expect<any>(footer.isPresent()).toBe(true);
+                expect<any>(footer.name.isPresent()).toBe(true);
+                expect<any>(footer.location.isPresent()).toBe(true);
+                expect<any>(footer.copyright.isPresent()).toBe(true);
+                expect<any>(footer.safetraceLogo.isPresent()).toBe(true);
+                expect<any>(footer.haemoneticsLogo.isPresent()).toBe(true);
+            }
+            ++pageCount;
+        }
+
+        return done();
+    });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/67 **/
-    it('should match the current year', ()=> {
+    it('should match the current year - Case 67', ()=> {
         console.log("The Global Footer should match the current year");
         let currentYear = new Date().getFullYear();
         return footer.copyright.getText().then((elementText)=> {
