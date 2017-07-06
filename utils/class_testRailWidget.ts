@@ -31,7 +31,7 @@ export class TestRailWidget{
      *      - compares the two arrays and updates the TestRail test cases as is appropriate
      */
     async update(): Promise<void> {
-        console.log("   In 'initialize' for 'TestRailWidget'");
+        // console.log("   In 'update()' for 'TestRailWidget'");
 
         return new Promise<void>(async resolve => {
             this.trInterface = await new this.TestRail(this.host, this.username, this.password);
@@ -50,20 +50,18 @@ export class TestRailWidget{
                             let comments: string = "";
                             let assignee: number = null;
                             let status: number = this.getStatusId(result.assertions[0].passed);
-                            console.log(`status = ${status}`);
+                            // console.log(`status = ${status}`);
 
                             if (status === 5) {
                                 console.log("FAILURE!!!");
                                 assignee = 1;       // Hal Deranek
                                 comments = this.getErrorMessages(result);
-                                console.log(`comments = ...\n${comments}`);
+                                // console.log(`comments = ...\n${comments}`);
                             } else {
                                 comments = "Tested on QC via test automation (not a human)";
                             }
 
                             let resultData = {
-                                // "test_id": 11323,
-                                // "status_id": 1,
                                 "test_id": testCase.id,
                                 "status_id": status,
                                 "comment": comments,

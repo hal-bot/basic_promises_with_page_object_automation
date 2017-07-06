@@ -35,7 +35,7 @@ export let config: Config = {
     ],
 
     onPrepare: () => {
-        console.log("  PREPARING TESTS");
+        // console.log("  PREPARING TESTS");
 
         browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(5000);
@@ -66,7 +66,9 @@ export let config: Config = {
         } else {
             // console.log("HAD A FAILURE!!  'exitCode' = " + exitCode);
         }
+    },
 
+    afterLaunch:()=> {
         /** TODO: get the code below running w/ input from the command line.
          *        We don't want it running unless specifically asked for
          *        In the meantime, it will have to be uncommented when you want it to update TestRail
