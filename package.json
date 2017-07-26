@@ -12,10 +12,10 @@
   "author": "Hal Deranek (Slalom)",
   "license": "MIT",
   "dependencies": {
-    "protractor": "^5.1.x",
+    "protractor": "^5.1.2",
     "protractor-flake": "^2.5.0",
     "testrail-promise": "^0.1.12",
-    "typescript": "^2.x"
+    "typescript": "^2.3.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.x",
