@@ -38,6 +38,7 @@ export class TestRailWidget{
 
             let testCases = await this.getTestCasesThatShouldBeAutomated();
             let jsonResults = await this.getParsedJsonFile();
+            let elapsedTime = "1s";
 
             // We want to look for results that took some time to run (0 means it was skipped) that has 'Case' in it
             for (let result of jsonResults) {
@@ -65,7 +66,8 @@ export class TestRailWidget{
                                 "test_id": testCase.id,
                                 "status_id": status,
                                 "comment": comments,
-                                "assignedto_id": assignee
+                                "assignedto_id": assignee,
+                                "elapsed": elapsedTime
                             };
                             await this.trInterface.addResult(resultData);
                         }

@@ -1,6 +1,6 @@
 {
   "name": "haemonetics_safetrace_tx_automation",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Automated tests for the Haemonetics SafeTrace TX website",
   "scripts": {
     "removeTmpDirectory": "rimraf tmp",
@@ -12,13 +12,17 @@
   "author": "Hal Deranek (Slalom)",
   "license": "MIT",
   "dependencies": {
-    "protractor": "^5.1.x",
+    "protractor": "^5.1.2",
     "protractor-flake": "^2.5.0",
     "testrail-promise": "^0.1.12",
-    "typescript": "^2.x"
+    "typescript": "^2.3.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.x",
     "@types/node": "^6.0.62"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://bitbucket.org/haemoslalom/safetracetxautomation.git"
   }
 }
