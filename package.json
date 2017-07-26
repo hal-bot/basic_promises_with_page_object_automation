@@ -20,5 +20,9 @@
   "devDependencies": {
     "@types/jasmine": "^2.5.x",
     "@types/node": "^6.0.62"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://bitbucket.org/haemoslalom/safetracetxautomation.git"
   }
 }
