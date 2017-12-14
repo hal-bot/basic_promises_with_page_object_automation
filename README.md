@@ -52,3 +52,4 @@ This will:
 
 For more information, see: https://haemoslalom.atlassian.net/wiki/pages/viewpage.action?pageId=5182205#
 
+Note: the SauceLabs account is currently disabled.  Once you establish a new account, you will need to update the code in SafeTraceTxAutomation / configs / sauceConfig.ts.  
