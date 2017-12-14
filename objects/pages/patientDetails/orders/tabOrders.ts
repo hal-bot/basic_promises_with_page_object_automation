@@ -5,6 +5,8 @@ import { ColumnHeader } from "../../elements/columnHeader";
 import {ElementFactory, ElementMethods} from "../../../../utils/elementUtilities";
 import {PageTab} from "../class_PageTab";
 import {GeneralUtilities} from "../../../../utils/generalUtilities";
+import {OrderDetailsModal} from "./orderDetailsModal_general";
+import {NavigationMethods} from "../../../../utils/navigationUtilities";
 
 export class OrdersTab extends PageTab {
 
@@ -15,11 +17,16 @@ export class OrdersTab extends PageTab {
     locationSublocationHeader: ColumnHeader;
     priorityHeader: ColumnHeader;
 
+    private static thisTab: ElementFinder;
+
     orders: OrderRow[];
+
+    orderDetailsModal: OrderDetailsModal;
 
     constructor() {
         // console.log("  In constructor for 'OrdersTab'");
         super($('li.patient-orders-tab'));
+
     }
 
     async initialize(): Promise<void> {
@@ -27,6 +34,8 @@ export class OrdersTab extends PageTab {
 
         if(!this.initializePromise) {
             await super.baseInitialize();
+
+            OrdersTab.thisTab = await this.actualTab;
 
             // await GeneralUtilities.initializationMessage(null, 'OrdersTab');
 
@@ -47,6 +56,14 @@ export class OrdersTab extends PageTab {
                     await this.locationSublocationHeader.initialize();
                     await this.priorityHeader.initialize();
 
+                    await this.orderIdHeader.getTitle().then((title) => {
+                        console.log(`\tHeader's title is ${title}`);
+                    });
+
+                    await $('th.order-tableHeader-orderID').getText().then((title) => {
+                        console.log(`\tElement's title is ${title}`);
+                    });
+
                     return resolve();
                 });
             });
@@ -56,13 +73,13 @@ export class OrdersTab extends PageTab {
     }
 
     async setOrdersArray(): Promise<void> {
-        // console.log("  In 'setOrdersArray()' for 'OrdersTab'");
+        console.log("  In 'setOrdersArray()' for 'OrdersTab'");
         return ElementMethods.getCustomElementArray('tr.order-tableRow', OrderRow).then(async (orderArray)=> {
             let resolvingPromise;
             this.orders = orderArray;
 
             for (let i = 0; i < this.orders.length; i++) {
-                // console.log("Initializing data row " + i);
+                console.log("\tInitializing data row " + i);
                 resolvingPromise = await this.orders[i].initialize();
             }
 
@@ -70,6 +87,48 @@ export class OrdersTab extends PageTab {
         });
     }
 
+    // Navigates to a patient info page and opens a Order Details modal.  It returns the modal object for further use.
+    static async UniversalOpenOrdersModal(patientID: string = '1000'): Promise<OrderDetailsModal> {
+        // console.log("   In 'UniversalOpenOrdersModal()' for 'OrdersTab'");
+        let ordersTab: OrdersTab;             // the tab on the patient's details page
+
+        return NavigationMethods.navigateToAPatientPageQuickly(patientID).then(()=> {
+            return NavigationMethods.waitForLoadCompletion('table.visit-table').then(async ()=> {
+                await OrdersTab.thisTab.click();
+                return ordersTab = new OrdersTab();
+            }).then(async()=> {
+                return ordersTab.initialize().then(async ()=> {
+                    await ordersTab.openOrdersModal();     //opens the Order Details modal
+                    return ordersTab.orderDetailsModal;
+                });
+            });
+        });
+    }
+
+    // will open a Order Details modal
+    async openOrdersModal(): Promise<void> {
+        console.log("   In 'openOrdersModal()' for 'OrdersTab'");
+
+        // clicking the Order ID twice to ensure the first order row has a Order ID Number that can be clicked (opening the modal)
+        await this.sortBy(this.orderIdHeader);
+        await this.sortBy(this.orderIdHeader);
+        return this.orders[0].clickOrderId().then(async ()=> {
+            return this.orderDetailsModal.initialize();
+        });
+    }
+
+    private async sortBy(header: ColumnHeader): Promise<void> {
+        console.log("   In 'sortBy()' for 'OrdersTab'");
+
+        await header.getTitle().then((title) => {
+            console.log(`\tHeader's title is ${title}`);
+        });
+
+        return header.click().then(() => {
+            console.log("\tHEADER CLICKED!");
+            return this.setOrdersArray();
+        });
+    }
 }
 
 
@@ -131,6 +190,19 @@ export class OrderRow {
 
     async getPriority(): Promise<string> {
         return this.priority.getText();
+    }
+
+    async clickOrderId(): Promise<any> {
+        console.log("   In 'clickOrderId()' for 'OrderRow'");
+
+        return this.orderId.getText().then((orderIdNumber)=> {
+            console.log(`      ... the Order ID number is ${orderIdNumber}`);
+            if (orderIdNumber === "") {
+                throw "This row does not contain an Order ID Number, meaning it cannot be clicked and the modal cannot be opened from here";
+            } else {
+                return this.orderId.click();
+            }
+        });
     }
 
 }

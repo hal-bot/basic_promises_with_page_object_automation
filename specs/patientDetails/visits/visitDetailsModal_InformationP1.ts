@@ -4,7 +4,7 @@
  */
 
 import { VisitTab } from "../../../objects/pages/patientDetails/visits/tabVisits";
-import { VisitDetailsModal } from "../../../objects/pages/patientDetails/visits/visitDetailsModal";
+import { VisitDetailsModal } from "../../../objects/pages/patientDetails/visits/visitDetailsModal_general";
 
 describe('The Visit Details modal\'s "Visit Information" tab (from the Patient\'s Details page) P1 level tests', () => {
 

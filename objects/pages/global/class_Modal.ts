@@ -16,7 +16,7 @@ export abstract class Modal {
     title: ElementFinder;
     protected closeButton: ElementFinder;
 
-    constructor(private titleCSS: string) {
+        constructor(private titleCSS: string) {
         // console.log("  In constructor for abstract class 'Modal' - titleCSS = " + this.titleCSS);
         this.containerCSSstring = 'div.modal-content';
     }
