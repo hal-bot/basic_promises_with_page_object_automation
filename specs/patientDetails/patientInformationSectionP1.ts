@@ -6,24 +6,17 @@
 
 import {PatientInformation} from "../../objects/pages/patientDetails/patientInformation";
 import {NavigationMethods} from "../../utils/navigationUtilities";
-import {$, browser} from "protractor";
-import {isNullOrUndefined} from "util";
+import {$} from "protractor";
 
 
-// TODO: remove the 'x' here once patient data loads more quickly and stops causing timeout issues
 describe('The patient\'s information details', () => {
 
     let infoSection: PatientInformation;
 
     function validateExtendedPropertyPresenceToBe(expectation: boolean): Promise<void> {
-        console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
-
-        // browser.isElementPresent(infoSection.gender.getTitleElement()).then((isPresent)=> {
-        //     console.log(`   browser.isElementPresent(infoSection.gender.getTitleElement()) = ${isPresent}`);
-        // });
+        // console.log("  In 'validateExtendedPropertyPresenceToBe';  value = " + expectation);
 
         return new Promise<void>((resolve)=> {
-            console.log("   In the promise");
             if (expectation === false) {
                 // TODO - get this working!! For some reason, the element below continues to time-out and throw an error.  Need to move on for the mean time
                 // console.log("Checking a specific element");
@@ -61,12 +54,8 @@ describe('The patient\'s information details', () => {
         });
     });
 
-    afterAll( () => {
-        // console.log("~~~** DONE WITH P1 Patient Information section TESTS!**~~~~");
-    });
-
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/41 **/
-    it('should be present, be collapsed on load, display default fields', (done) => {
+    it('should be present, be collapsed on load, display default fields - Case 41', (done) => {
         console.log("The Patient Information section should be present, be collapsed on load, & display default fields");
         return infoSection.initialize().then(()=> {
             expect<any>(infoSection.isPresent()).toBe(true);
@@ -86,7 +75,7 @@ describe('The patient\'s information details', () => {
     });
 
     /** Ref: https://haemoslalom.testrail.net//index.php?/cases/view/55 **/
-    it('should be able to expand to show more details', () => {
+    it('should be able to expand to show more details - Case 55', () => {
         console.log("The Patient Information should be able to expand to show more details");
         return infoSection.expand().then( ()=> {
             expect<any>(infoSection.arrowButton.getText()).toBe('Less Details');

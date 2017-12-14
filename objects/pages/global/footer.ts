@@ -1,5 +1,5 @@
 import { ElementFinder, $ } from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class GlobalFooter {
 
@@ -22,7 +22,7 @@ export class GlobalFooter {
         // console.log("   In 'initialize' for 'GlobalFooter'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'GlobalFooter');
+            // await GeneralUtilities.initializationMessage(null, 'GlobalFooter');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.app-footer-container');
@@ -49,7 +49,7 @@ export class GlobalFooter {
     // // Will return the address w/out the copyright info and extra characters
     // //TODO: Address this when it's needed
     // address(): Promise<string> {
-    //     return $('div.app-footer-copyright').getText().then(function(txt) {
+    //     return $('div.app-footer-copyright').getText().then((txt)=> {
     //         let regex = /Haemonetics.+/g;
     //         return regex.txt(2);
     //     });

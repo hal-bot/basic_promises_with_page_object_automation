@@ -1,5 +1,5 @@
 import {ElementFinder} from 'protractor';
-import {ElementMethods} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 export class Checkbox {
 
@@ -16,7 +16,7 @@ export class Checkbox {
         // console.log("   In 'initialize' for 'Checkbox'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.container, 'Checkbox');
+            // await GeneralUtilities.initializationMessage(this.container, 'Checkbox');
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
                 this.label = await this.container.$('label');
@@ -33,16 +33,29 @@ export class Checkbox {
         return this.box.isPresent();
     }
 
-    async select() {
-        return this.box.isSelected()
-            ? true
-            : this.box.click();
+    async getText(): Promise<string> {
+        return this.label.getText();
     }
 
-    async deselect() {
+    async select(): Promise<boolean|void> {
+        return this.box.isSelected().then((selected)=> {
+            // console.log(`\tIs the checkbox checked?  ...  ${selected}`);
+            if (selected) {
+                // return new Promise<boolean>( (resolve) => { return resolve(true); });
+            } else {
+                return this.box.click();
+            }
+        });
+    }
+
+    async deselect(): Promise<boolean|void> {
         return this.box.isSelected()
             ? this.box.click()
             : true;
+    }
+
+    async isSelected(): Promise<boolean> {
+        return this.box.isSelected();
     }
 
     async getLocation(): Promise<any> {

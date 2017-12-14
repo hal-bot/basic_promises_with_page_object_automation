@@ -1,9 +1,9 @@
 {
   "name": "haemonetics_safetrace_tx_automation",
-  "version": "0.0.1",
-  "description": "Automated tests for the Haemonetics SafeTrace TX site",
+  "version": "1.0.0",
+  "description": "Automated tests for the Haemonetics SafeTrace TX website",
   "scripts": {
-    "removeTmpDirectory": "rm -r tmp",
+    "removeTmpDirectory": "rimraf tmp",
     "pretest": "tsc && npm run removeTmpDirectory && tsc",
     "default-tests": "npm run pretest && protractor-flake --max-attempts=1 -- tmp/configs/defaultConfig.js",
     "saucelabs-tests": "npm run pretest && protractor-flake --max-attempts=1 --  tmp/configs/sauceConfig.js",
@@ -12,12 +12,17 @@
   "author": "Hal Deranek (Slalom)",
   "license": "MIT",
   "dependencies": {
-    "protractor": "^5.1.x",
+    "protractor": "^5.1.2",
     "protractor-flake": "^2.5.0",
-    "typescript": "^2.x"
+    "testrail-promise": "^0.1.12",
+    "typescript": "^2.3.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.x",
     "@types/node": "^6.0.62"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://bitbucket.org/haemoslalom/safetracetxautomation.git"
   }
 }

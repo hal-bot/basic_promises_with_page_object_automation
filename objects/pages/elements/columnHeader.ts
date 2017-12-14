@@ -2,8 +2,8 @@
 
 import { ElementFinder } from 'protractor';
 import { ArrowIcon } from "./arrowIcon";
-import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
+import {ElementFactory} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 
 export class ColumnHeader {
@@ -21,24 +21,24 @@ export class ColumnHeader {
         // console.log("   In 'initialize' for 'ColumnHeader'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'ColumnHeader');
+            await GeneralUtilities.initializationMessage(this.element, 'ColumnHeader');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.headerElement = await this.element;
                 // this.arrow = await ElementFactory.make(ArrowIcon, this.element);
 
                 return resolve();
-            }).then(async (resolve)=> {
-                // console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
-                // await this.arrow.initialize();
-                return resolve;
+            // }).then(async (resolve)=> {
+            //     // console.log("\tNow initializing all elements just defined for 'ColumnHeader'");
+            //     // await this.arrow.initialize();
+            //     return resolve;
             });
         }
 
         return this.initializePromise;
     }
 
-    async getHeaderTitle(): Promise<string> {
+    async getTitle(): Promise<string> {
         return this.headerElement.getText();
     }
 
@@ -47,6 +47,16 @@ export class ColumnHeader {
     }
 
     async click(): Promise<any> {
+        // console.log("  In 'click()' for 'ColumnHeader'");
         return this.headerElement.click();
+    }
+
+    // Will return TRUE if the column header is currently being used for sorting, FALSE if not
+    async isBeingUsedForSorting(): Promise<boolean> {
+        // console.log("  In 'isBeingUsedForSorting()' for 'ColumnHeader'");
+        return this.headerElement.getAttribute('class').then((headerClass)=> {
+            // console.log(`\tThe header's class is '${headerClass}'`);
+            return headerClass.includes('sorted');
+        });
     }
 }

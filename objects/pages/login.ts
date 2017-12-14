@@ -1,5 +1,5 @@
 import {$, browser, ElementFinder} from "protractor";
-import {ElementMethods} from "../../utils/elementUtilities";
+import {GeneralUtilities} from "../../utils/generalUtilities";
 
 export class LoginPage {
     private initializePromise: Promise<void>;
@@ -21,16 +21,16 @@ export class LoginPage {
         // console.log("   In 'initialize' for 'LoginPage'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'LoginPage');
+            // await GeneralUtilities.initializationMessage(null, 'LoginPage');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await $('div.login img');
                 this.loginTitle = await $('div.login-header');
                 this.loginIcon = await $('div.login-icon img');
                 this.usernameTitle = await $('label.login-username');
-                this.usernameInputBox = await this.usernameTitle.$('input');
+                this.usernameInputBox = await $("#username");
                 this.passwordTitle = await $('label.login-password');
-                this.passwordInputBox = await this.passwordTitle.$('input');
+                this.passwordInputBox = await $("#password");
                 this.loginButton = await $('div.login-footer button');
 
                 return resolve();
@@ -62,6 +62,8 @@ export class LoginPage {
             return $('div.error-message').isPresent().then((errorMessagePresent)=> {
                 if (errorMessagePresent) {
                     throw "Credentials for login didn't work - CANNOT PROCEED!";
+                } else {
+                    // return console.log("Done logging in...");
                 }
             });
         });

@@ -1,7 +1,7 @@
 /** This file will be used to store misc. methods used for navigation */
 
-import {browser, $} from "protractor";
 import Global = NodeJS.Global;
+import {browser, $} from "protractor";
 import {PatientSearch} from "../objects/pages/patientSearch";
 import {ElementFactory} from "./elementUtilities";
 import {GlobalHeader} from "../objects/pages/global/header";
@@ -13,6 +13,7 @@ export class NavigationMethods {
         // console.log("In 'NavigationMethods.navigateToAPatientPageLikeAUser';  patientID = " + patientID);
 
         let globalHeader = await ElementFactory.make(GlobalHeader, null);
+        await globalHeader.initialize();
         return globalHeader.isPresent().then(async (itIsPresent) => {
             // get to the search page
             if (itIsPresent) {

@@ -4,7 +4,7 @@ import {TitleValueElement} from "./elements/titleValueElement";
 import {ArrowIcon} from "./elements/arrowIcon";
 import {ElementFactory, ElementMethods} from "../../utils/elementUtilities";
 import {ColumnHeader} from "./elements/columnHeader";
-import {VisitTab} from "./patientDetails/tabCollection/tabVisit";
+import {GeneralUtilities} from "../../utils/generalUtilities";
 
 export class PatientSearch {
 
@@ -25,7 +25,7 @@ export class PatientSearch {
         // console.log("   In 'initialize' for 'PatientSearch'");
 
         if(!this.initializePromise) {
-            // ElementMethods.initializationMessage(null, 'PatientSearch');
+            // await GeneralUtilities.initializationMessage(null, 'PatientSearch');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.content-container');
@@ -114,7 +114,7 @@ class PatientSearchInfoSection {
         // console.log("   In 'initialize' for 'PatientSearchInfoSection'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.container, 'PatientSearchInfoSection');
+            // await GeneralUtilities.initializationMessage(this.container, 'PatientSearchInfoSection');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -194,7 +194,7 @@ class PatientSearchResults {
         // console.log("   In 'initialize' for 'PatientSearchResults'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.container, 'PatientSearchResults');
+            // await GeneralUtilities.initializationMessage(this.container, 'PatientSearchResults');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.title = await this.container.$('div.titlebar span.title');
@@ -237,7 +237,7 @@ class PatientSearchResults {
     // This will get the rows and put them into the 'searchResults' array
     async setSearchResultsArray(): Promise<any> {
         // console.log("\t  In 'setSearchResultsArray()'");
-        return ElementMethods.getCustomElementArray('tr.patientSearch-results-row ', 'PatientSearchRow').then((searchResultsArray)=> {
+        return ElementMethods.getCustomElementArray('tr.patientSearch-results-row ', PatientSearchResultRow).then((searchResultsArray)=> {
             return this.searchResults = searchResultsArray;
         });
     }
@@ -274,7 +274,7 @@ export class PatientSearchResultRow {
         // console.log("   In 'initialize' for 'PatientSearchResultRow'");
 
         if(!this.initializePromise) {
-            // await ElementMethods.initializationMessage(this.element, 'PatientSearchResultRow');
+            // await GeneralUtilities.initializationMessage(this.element, 'PatientSearchResultRow');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.mrn = await this.element.$('td.patientSearch-results-row-mrn');

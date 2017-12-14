@@ -2,9 +2,9 @@
 
 
 import {TitleValueElement} from "../elements/titleValueElement";
-import {ElementFinder, $, browser} from "protractor";
-import {ElementFactory, ElementMethods} from "../../../utils/elementUtilities";
-import {async} from "q";
+import {ElementFinder, $} from "protractor";
+import {ElementFactory} from "../../../utils/elementUtilities";
+import {GeneralUtilities} from "../../../utils/generalUtilities";
 
 
 export class PatientInformation {
@@ -59,7 +59,7 @@ export class PatientInformation {
         // console.log("   In 'initialize' for 'PatientInformation'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'PatientInformation');
+            // await GeneralUtilities.initializationMessage(null, 'PatientInformation');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
 
@@ -89,7 +89,7 @@ export class PatientInformation {
 
                 return resolve();
             }).then(async (resolve)=> {
-                console.log("\tNow initializing all elements just defined for 'PatientInformation'");
+                // console.log("\tNow initializing all elements just defined for 'PatientInformation'");
                 await this.arrowButton.initialize();
                 await this.mrn.initialize();
                 await this.patientID.initialize();
@@ -125,7 +125,7 @@ export class PatientInformation {
 
                 return resolve();
             }).then(async (resolve)=> {
-                console.log("\tNow initializing all extra elements just defined for 'PatientInformation'");
+                // console.log("\tNow initializing all extra elements just defined for 'PatientInformation'");
                 await this.gender.initialize();
                 await this.status.initialize();
                 await this.weight.initialize();
@@ -145,21 +145,19 @@ export class PatientInformation {
     }
 
     async isPresent(): Promise<boolean> {
-        console.log("   In 'isPresent' for 'PatientInformation'");
+        // console.log("   In 'isPresent' for 'PatientInformation'");
         await this.initialize();
         return this.title.isPresent();
     }
 
     async expand(): Promise<void> {
-        console.log("   In 'expand' for 'PatientInformation'");
+        // console.log("   In 'expand' for 'PatientInformation'");
 
         await this.initialize();
         return this.arrowButton.isExpanded().then((isOpen) => {
             if (!isOpen) {
                 return this.arrowButton.click().then((promise)=> {
-                    console.log("almost done");
                     return this.initializeExtraDetails().then(()=> {
-                        console.log("DONE!");
                         return promise;
                     });
                 });
@@ -170,7 +168,7 @@ export class PatientInformation {
     }
 
     async contract(): Promise<void> {
-        console.log("   In 'contract' for 'PatientInformation'");
+        // console.log("   In 'contract' for 'PatientInformation'");
         await this.initialize();
         return this.arrowButton.isExpanded().then( (isOpen) => {
             if (isOpen) {
@@ -182,7 +180,7 @@ export class PatientInformation {
     }
 
     async isExpanded(): Promise<boolean> {
-        console.log("   In 'isExpanded' for 'PatientInformation'");
+        // console.log("   In 'isExpanded' for 'PatientInformation'");
         await this.initialize();
         return this.arrowButton.isExpanded();
     }
@@ -215,9 +213,9 @@ export class PatientInformation {
     async getFullName(): Promise<string> {
         await this.initialize();
 
-        return this.getFirstName().then(function(firstName) {
-            return this.getMiddleName().then(function(middleName) {
-                return this.getLastName().then(function(lastName) {
+        return this.getFirstName().then((firstName)=> {
+            return this.getMiddleName().then((middleName)=> {
+                return this.getLastName().then((lastName)=> {
                     return firstName +' '+ middleName +' '+ lastName;
                 });
             });
@@ -247,7 +245,7 @@ class DetailAccordionSection {
         // console.log("   In 'initialize' for 'DetailAccordionSection'");
 
         if(!this.initializePromise) {
-            ElementMethods.initializationMessage(null, 'DetailAccordionSection');
+            // await GeneralUtilities.initializationMessage(null, 'DetailAccordionSection');
 
             return this.initializePromise = new Promise<void>(async (resolve) => {
                 this.container = await $('div.titlebar div.detail-menu');
@@ -262,16 +260,15 @@ class DetailAccordionSection {
     }
 
     async click(): Promise<void> {
-        console.log("  Gonna click the arrow button");
+        // console.log("     In 'click()' for 'DetailAccordionSection'");
         await this.initialize();
         return this.directionalButton.click().then((promise)=> {
-            console.log("    BUTTON CLICKED!");
             return promise;
         });
     }
 
     async isExpanded(): Promise<boolean> {
-        console.log("     In 'isExpanded' for 'DetailAccordionSection'");
+        // console.log("     In 'isExpanded' for 'DetailAccordionSection'");
         await this.initialize();
         return new Promise<boolean>((resolve) => {
             return this.directionalButton.getAttribute('class').then(function (directionalButtonClass) {

@@ -6,8 +6,11 @@ export let config: Config = {
     /****
      *   Instructions for setting your environment variables: http://bit.ly/2mGAqnb
      ****/
-    sauceUser: process.env.SAUCE_USERNAME,
-    sauceKey: process.env.SAUCE_ACCESS_KEY,
+    //sauceUser:  process.env.SAUCE_USERNAME,
+    //sauceKey: process.env.SAUCE_ACCESS_KEY,
+
+    sauceUser: "saucelabs-bamboo",
+    sauceKey: "120f3d61-7823-4163-b5a0-53b488239666",
 
     // baseUrl: "https://dev.sttx40.com/",     // for testing on the dev environment
     baseUrl: "https://qc.sttx40.com/",        // for testing on the QC environment
@@ -43,12 +46,12 @@ export let config: Config = {
      *        It is not meant to be a test for an actual iPad.
      ****/
     multiCapabilities: [{
-        name: "win10-chrome57-tests",
+        name: "win10-chrome59-tests",
         browserName: 'chrome',
-        version: '57',
+        version: '59',
         platform: 'Windows 10',
         shardTestFiles: true,
-        maxInstances: 25
+        maxInstances: 1
     // }, {
     //     name: "win7-chrome56-tests",
     //     browserName: 'chrome',
@@ -90,9 +93,9 @@ export let config: Config = {
 
     resultJsonOutputFile: 'report.json',
 
-    onComplete: function () {
-        let printSessionId = function (jobName) {
-            browser.getSession().then(function (session) {
+    onComplete: ()=> {
+        let printSessionId = (jobName)=> {
+            browser.getSession().then((session)=> {
                 console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + jobName);
             });
         };

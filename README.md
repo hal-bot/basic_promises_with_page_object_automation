@@ -19,6 +19,14 @@ webdriver-manager start
 ```
 If this fails, try running 'webdriver-manager update', then try the 'start' command again
 
+
+If you don't have webdriver-manager installed globally
+
+```
+./node_modules/.bin/webdriver-manager update
+./node_modules/.bin/webdriver-manager start
+```
+
 In a second tab, type this:
 
 ```
