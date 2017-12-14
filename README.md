@@ -40,6 +40,7 @@ npm run default-tests
 ```
 
 This will:
+
 - Transpile TypeScript
 - Run the test directly with the browser specified in the "capabilities" section of 'configs > defaultConfig.ts' on your local machine
 - Rerun test files where a test has failed
@@ -52,6 +53,7 @@ In your terminal, type this:
 npm run saucelabs-tests
 ```
 This will:
+
 - Transpile TypeScript
 - Run the test in whatever has been specified in the "multiCapabilities" section of 'configs > sauceConfig.ts'
 - Rerun test files where a test has failed
@@ -66,10 +68,12 @@ Writing Tests
 ####Determining test content 
 The automated tests should mirror the test cases in TestRail.  The difficulty is that sometimes a test case in TestRail will be compound
 (more than one test in a test case).  In this case, you have two choices:
+
 * Create a compound test in your automation
 * Split the test case in TestRail into two or more tests (RECOMMENDED)
 
 This might help you determine whether you should break up the TestRail test case or create a compound automated test case:
+
 * BREAK IT UP: If the different part of the compound test case don't rely upon each other to progress.  I.E., if the first test fails but
 the second, third, etc. tests could still be run without hindrance.
 * COMPOUND: If the first test fails and therefore invalidates all subsequent tests
@@ -89,6 +93,7 @@ more important that it tell you something about the test.
 Here's an example:
 Looking at _specs > global > globalHeaderP1.ts_, we have this test: `"it('should be less than 1200 pixels wide - Case 69', () => {"`
 That comes from this test case in TestRail - https://haemoslalom.testrail.net/index.php?/cases/view/69.  From this, we can see the following:
+
 * The test case in TestRail is fairly simple, so no need to split it up
 * The number of the test case is 69 (seen in the URL and also next to the title, "Lock page to Medium" - C69)
 * The title of the automated test case is different from the title in TestRail.  The automation title emphasises the literal test as
@@ -103,6 +108,7 @@ accomplish this, I created a class - utils/class_testRailWidget.ts - that would 
 and update the appropriate ones.
 
 Here's how it works...
+
 1. All of the automated tests are run first.  The outcome of these tests is recorded in a JSON file - _report.json_
    * The report contains the following for each test:
       * A description of the test (from the test's "it(__)" line) 
