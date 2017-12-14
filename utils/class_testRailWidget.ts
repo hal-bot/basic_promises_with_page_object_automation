@@ -1,5 +1,5 @@
 //  This will integrate the automated test cases into the Test Rail test cases
-//  Haemonetics TestRails site -> https://haemoslalom.testrail.net
+//  Haemonetics TestRail site -> https://haemoslalom.testrail.net
 
 import fs = require('fs');
 
