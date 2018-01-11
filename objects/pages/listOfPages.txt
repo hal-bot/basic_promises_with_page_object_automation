@@ -1,6 +1,0 @@
-
-/#/patient/search
-/#/patient/67315
-/#/specimen/receive
-/#/specimen/10008/receive
-/#/patient/25858/visit/select

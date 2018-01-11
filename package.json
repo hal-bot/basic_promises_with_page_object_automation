@@ -1,20 +1,16 @@
 {
-  "name": "haemonetics_safetrace_tx_automation",
+  "name": "basic_promises_with_page_object_automation",
   "version": "1.0.0",
-  "description": "Automated tests for the Haemonetics SafeTrace TX website",
+  "description": "This will give a basic example of how to work with promises inside a test automation project that uses the page object design pattern",
   "scripts": {
     "removeTmpDirectory": "rimraf tmp",
     "pretest": "tsc && npm run removeTmpDirectory && tsc",
-    "default-tests": "npm run pretest && protractor-flake --max-attempts=1 -- tmp/configs/defaultConfig.js",
-    "saucelabs-tests": "npm run pretest && protractor-flake --max-attempts=1 --  tmp/configs/sauceConfig.js",
-    "test": "npm run default-tests"
+    "test": "npm run pretest && protractor tmp/config.js"
   },
-  "author": "Hal Deranek (Slalom)",
+  "author": "Hal Deranek",
   "license": "MIT",
   "dependencies": {
     "protractor": "^5.1.2",
-    "protractor-flake": "^2.5.0",
-    "testrail-promise": "^0.1.12",
     "typescript": "^2.3.0"
   },
   "devDependencies": {
@@ -23,6 +19,6 @@
   },
   "repository" : {
     "type" : "git",
-    "url" : "https://bitbucket.org/haemoslalom/safetracetxautomation.git"
+    "url" : ""
   }
 }
