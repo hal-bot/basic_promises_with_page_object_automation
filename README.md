@@ -42,6 +42,6 @@ npm run test
 ```
 
 This will:
+
 - Transpile TypeScript
-- Run the test on your local machine# basic_promises_with_page_object_automation
-# basic_promises_with_page_object_automation
+- Run the test on your local machine
