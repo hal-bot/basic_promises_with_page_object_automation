@@ -1,24 +1,22 @@
 {
   "name": "basic_promises_with_page_object_automation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This will give a basic example of how to work with promises inside a test automation project that uses the page object design pattern",
   "scripts": {
-    "removeTmpDirectory": "rimraf tmp",
-    "pretest": "tsc && npm run removeTmpDirectory && tsc",
-    "test": "npm run pretest && protractor tmp/config.js"
+    "test": "protractor tmp/config.js"
   },
   "author": "Hal Deranek",
   "license": "MIT",
   "dependencies": {
-    "protractor": "^5.1.2",
-    "typescript": "^2.3.0"
+    "protractor": "^5.2.2",
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.x",
-    "@types/node": "^6.0.62"
+    "@types/jasmine": "^2.8.4",
+    "@types/node": "^6.0.96"
   },
   "repository" : {
     "type" : "git",
-    "url" : ""
+    "url" : "https://github.com/hal-bot/basic_promises_with_page_object_automation"
   }
 }
