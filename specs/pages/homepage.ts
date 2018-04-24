@@ -6,7 +6,9 @@ describe('Tests on the Lego.com homepage', () => {
     let item: ListGridItem;
 
     beforeAll( async(done) => {
+        await browser.navigate().refresh();    // a new 'survey' pop-up is present.  This removes it.
         item = await new ListGridItem($('li.list-grid__item'));
+
         return done();
     });
 

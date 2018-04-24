@@ -1,12 +1,12 @@
 Description
 =====
 
-This is code created to support the white paper, "Using Promises in Page Object Test Automation".  The purpose is to 
-demonstrate how to use Promises with a test automation project that utilizes the Page Object Design Pattern.  The code
-found in this folder - 'example1' - will show examples of basic usage.  Other folders (which are yet to be written) will
-expand on these examples to demonstrate more advanced examples.
+This is code created to support the white paper, "Using Promises in Page Object Model Test Automation" 
+(https://bit.ly/2JosnTE).  The purpose is to demonstrate how to use Promises with a test automation project that 
+utilizes the Page Object Model.  The code found in this folder - 'example1' - will show examples of basic usage.  
+Other folders (which are yet to be written) will expand on these examples to demonstrate more advanced examples.
 
-To read the paper, go here: 
+To read the paper, go here: https://www.linkedin.com/pulse/using-promises-page-object-model-test-automation-hal-deranek
 
 Setup
 =====
