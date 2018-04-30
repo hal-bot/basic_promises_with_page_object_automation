@@ -12,10 +12,13 @@ Setup
 =====
 
 ```
+npm install -g typescript
+```
+```
 npm install
 ```
 
-This installs the npm packages
+This installs TypeScript globally and then the npm packages
 
 Testing on Your Machine
 =======================
@@ -38,10 +41,13 @@ If you don't have webdriver-manager installed globally
 In a second tab, type this:
 
 ```
+tsc
+```
+
+This will transpile TypeScript
+
+```
 npm run test
 ```
 
-This will:
-
-- Transpile TypeScript
-- Run the test on your local machine
+This will run the test on your local machine
