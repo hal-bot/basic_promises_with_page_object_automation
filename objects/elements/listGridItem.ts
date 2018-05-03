@@ -13,13 +13,12 @@ export class ListGridItem {
     async initialize(): Promise<void> {
         if(!this.initializePromise) {
             return this.initializePromise = new Promise<void>(async (resolve) => {
-                this.image = await this.itemContainer.$('div.content-item__primary-inner');
-                this.title = await this.itemContainer.$('h3.content-item__title');
+                this.image = this.itemContainer.$('div.content-item__primary-inner');
+                this.title = this.itemContainer.$('h3.content-item__title');
 
                 return resolve();
             });
         }
-        return this.initializePromise;
     }
 
     async isPresent(): Promise<boolean> {
